@@ -275,17 +275,6 @@ If you believe you’ve found a security issue, please open a GitHub issue with 
 - steps to reproduce
 - expected vs actual behavior
 
-### Dependency audits
-
-This repo uses npm lockfiles for both `client/` and `server/`.
-
-GitHub Actions runs a dependency audit on PRs and weekly via:
-- `.github/workflows/dependency-audit.yml`
-
-Run locally:
-- `cd server && npm audit --audit-level=high`
-- `cd client && npm audit --audit-level=high`
-
 ### Database safety guardrails
 
 SQL Arena executes user SQL, so the server includes protective checks:
