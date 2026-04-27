@@ -1,0 +1,20 @@
+# env files
+server/.env
+client/.env
+.env
+
+# dependencies
+**/node_modules
+
+# build outputs
+client/dist
+server/dist
+
+# generated seed data (can be very large; generated locally via setup/scripts)
+server/database/**/seedData/
+
+# logs
+*.log
+
+# OS files
+.DS_Store

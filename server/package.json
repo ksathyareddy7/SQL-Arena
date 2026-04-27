@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/runServer.js --mode local",
+    "start:docker": "node scripts/runServer.js --mode docker",
+    "dev": "nodemon scripts/runServer.js --mode local",
+    "dev:docker": "nodemon scripts/runServer.js --mode docker",
+    "setup": "node scripts/setup.js",
+    "setup:docker": "node scripts/setup.js --mode docker",
+    "setup:local": "node scripts/setup.js --mode local",
+    "test:solutions": "node tests/testSolutions.js"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.9.0",
+    "cors": "^2.8.6",
+    "csv-writer": "^1.6.0",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "pg": "^8.20.0",
+    "pg-copy-streams": "^6.0.6"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.14"
+  }
+}

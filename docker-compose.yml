@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16
+    container_name: sql-arena-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DOCKER_DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DOCKER_DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DOCKER_DB_NAME:-sql_arena}
+    ports:
+      # Use a dedicated host port for Docker to avoid overlapping with local Postgres (often on 5432).
+      - "${DOCKER_DB_PORT:-5433}:5432"
+    volumes:
+      - sql_arena_pgdata:/var/lib/postgresql/data
+volumes:
+  sql_arena_pgdata:

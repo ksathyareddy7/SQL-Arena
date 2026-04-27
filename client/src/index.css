@@ -1,0 +1,550 @@
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+  .theme {
+
+    --font-heading: var(--font-sans);
+
+    --font-sans: 'Geist Variable', sans-serif
+  }
+  :root {
+
+    --background: oklch(1 0 0);
+
+    --foreground: oklch(0.145 0 0);
+
+    --card: oklch(1 0 0);
+
+    --card-foreground: oklch(0.145 0 0);
+
+    --popover: oklch(1 0 0);
+
+    --popover-foreground: oklch(0.145 0 0);
+
+    --primary: oklch(0.205 0 0);
+
+    --primary-foreground: oklch(0.985 0 0);
+
+    --secondary: oklch(0.97 0 0);
+
+    --secondary-foreground: oklch(0.205 0 0);
+
+    --muted: oklch(0.97 0 0);
+
+    --muted-foreground: oklch(0.556 0 0);
+
+    --accent: oklch(0.97 0 0);
+
+    --accent-foreground: oklch(0.205 0 0);
+
+    --destructive: oklch(0.577 0.245 27.325);
+
+    --border: oklch(0.922 0 0);
+
+    --input: oklch(0.922 0 0);
+
+    --ring: oklch(0.708 0 0);
+
+    --chart-1: oklch(0.87 0 0);
+
+    --chart-2: oklch(0.556 0 0);
+
+    --chart-3: oklch(0.439 0 0);
+
+    --chart-4: oklch(0.371 0 0);
+
+    --chart-5: oklch(0.269 0 0);
+
+    --radius: 0.625rem;
+
+    --sidebar: oklch(0.985 0 0);
+
+    --sidebar-foreground: oklch(0.145 0 0);
+
+    --sidebar-primary: oklch(0.205 0 0);
+
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+
+    --sidebar-accent: oklch(0.97 0 0);
+
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+
+    --sidebar-border: oklch(0.922 0 0);
+
+    --sidebar-ring: oklch(0.708 0 0);
+
+    /* ==========================================================================
+       SQL Arena theme tokens (custom UI)
+       ========================================================================== */
+    --arena-primary: #0058be;
+    --arena-surface: #f8f9ff;
+    --arena-on-surface: #0b1c30;
+    --arena-outline: #727785;
+    --arena-outline-variant: #c2c6d6;
+    --arena-surface-container-low: #eff4ff;
+    --arena-surface-container: #e5eeff;
+    --arena-surface-container-high: #dce9ff;
+    --arena-surface-container-highest: #d3e4fe;
+    --arena-surface-container-lowest: #ffffff;
+    --arena-primary-fixed: #d8e2ff;
+    --arena-secondary: #33466d;
+    --arena-tertiary: #006947;
+    --arena-tertiary-fixed: #6ffbbe;
+    --arena-error: #ba1a1a;
+    --arena-error-hover: color-mix(in srgb, var(--arena-error) 85%, #ffffff);
+    --arena-error-container: #ffdad6;
+    --arena-on-error-container: #410002;
+
+    /* Button ramps (timer small actions) */
+    --arena-primary-solid: #004191;
+    --arena-tertiary-solid: #005035;
+    --arena-tertiary-container: #026a48;
+    --arena-secondary-container: #bbcffd;
+    --arena-secondary-fixed: #d8e2ff;
+    --arena-on-secondary-fixed-variant: #33466d;
+
+    /* Status icon palette (Challenges list) */
+    --arena-status-solved-bg: #9ff4c8;
+    --arena-status-solved-dot: var(--arena-tertiary);
+    --arena-status-solved-icon: #eafff4;
+
+    --arena-status-attempted-bg: var(--arena-primary-fixed);
+    --arena-status-attempted-dot: var(--arena-primary);
+    --arena-status-attempted-icon: #eff4ff;
+
+    --arena-status-locked-bg: var(--arena-surface-container);
+    --arena-status-locked-icon: var(--arena-outline);
+
+    /* Badges */
+    --arena-badge-medium-bg: #fff0c9;
+    --arena-badge-medium-fg: #8a5a00;
+
+    /* Text helpers */
+    --arena-label: var(--arena-outline);
+    --arena-placeholder: color-mix(in srgb, var(--arena-outline) 85%, #ffffff);
+
+    /* Nav */
+    --arena-nav-active: var(--arena-primary);
+    --arena-nav-underline: var(--arena-nav-active);
+    --arena-subtab-active: var(--arena-primary);
+    --arena-subtab-underline: var(--arena-subtab-active);
+  }
+  .dark {
+
+    --background: oklch(0.145 0 0);
+
+    --foreground: oklch(0.985 0 0);
+
+    --card: oklch(0.205 0 0);
+
+    --card-foreground: oklch(0.985 0 0);
+
+    --popover: oklch(0.205 0 0);
+
+    --popover-foreground: oklch(0.985 0 0);
+
+    --primary: oklch(0.922 0 0);
+
+    --primary-foreground: oklch(0.205 0 0);
+
+    --secondary: oklch(0.269 0 0);
+
+    --secondary-foreground: oklch(0.985 0 0);
+
+    --muted: oklch(0.269 0 0);
+
+    --muted-foreground: oklch(0.708 0 0);
+
+    --accent: oklch(0.269 0 0);
+
+    --accent-foreground: oklch(0.985 0 0);
+
+    --destructive: oklch(0.704 0.191 22.216);
+
+    --border: oklch(1 0 0 / 10%);
+
+    --input: oklch(1 0 0 / 15%);
+
+    --ring: oklch(0.556 0 0);
+
+    --chart-1: oklch(0.87 0 0);
+
+    --chart-2: oklch(0.556 0 0);
+
+    --chart-3: oklch(0.439 0 0);
+
+    --chart-4: oklch(0.371 0 0);
+
+    --chart-5: oklch(0.269 0 0);
+
+    --sidebar: oklch(0.205 0 0);
+
+    --sidebar-foreground: oklch(0.985 0 0);
+
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+
+    --sidebar-accent: oklch(0.269 0 0);
+
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+
+    --sidebar-border: oklch(1 0 0 / 10%);
+
+    --sidebar-ring: oklch(0.556 0 0);
+
+    /* ==========================================================================
+       SQL Arena theme tokens (custom UI)
+       ========================================================================== */
+    --arena-surface: #0b0b0d;
+    --arena-on-surface: #f4f4f5;
+    --arena-outline: #a1a1aa;
+    --arena-outline-variant: #2a2a33;
+    --arena-surface-container-low: #111113;
+    --arena-surface-container: #151519;
+    --arena-surface-container-high: #1b1b20;
+    --arena-surface-container-highest: #23232a;
+    --arena-surface-container-lowest: #0f0f12;
+    --arena-primary-fixed: rgba(173, 198, 255, 0.22);
+    --arena-secondary: #dbeafe;
+    --arena-error-container: rgba(186, 26, 26, 0.18);
+    --arena-on-error-container: #ffdad6;
+    --arena-error-hover: color-mix(in srgb, var(--arena-error) 78%, #ffffff);
+    --arena-tertiary-fixed: rgba(111, 251, 190, 0.18);
+
+    --arena-secondary-container: rgba(173, 198, 255, 0.22);
+    --arena-secondary-fixed: rgba(173, 198, 255, 0.3);
+    --arena-on-secondary-fixed-variant: #dbeafe;
+
+    --arena-status-solved-bg: rgba(111, 251, 190, 0.18);
+    --arena-status-solved-dot: #2ee59f;
+    --arena-status-solved-icon: #061a13;
+
+    --arena-status-attempted-bg: rgba(173, 198, 255, 0.22);
+    --arena-status-attempted-dot: #75b5ff;
+    --arena-status-attempted-icon: #071423;
+
+    --arena-status-locked-bg: rgba(148, 163, 184, 0.14);
+    --arena-status-locked-icon: #cbd5e1;
+
+    /* Badges */
+    --arena-badge-app-bg: rgba(117, 181, 255, 0.16);
+    --arena-badge-app-fg: #9cc9ff;
+    --arena-badge-easy-fg: #2ee59f;
+    --arena-badge-medium-bg: rgba(255, 204, 92, 0.18);
+    --arena-badge-medium-fg: #ffd06a;
+    --arena-badge-medium-border: rgba(255, 204, 92, 0.34);
+    --arena-badge-hard-fg: #ffb4ab;
+
+    --arena-label: #e4e4e7;
+    --arena-placeholder: rgba(228, 228, 231, 0.6);
+
+    --arena-nav-active: #75b5ff;
+    --arena-nav-underline: var(--arena-nav-active);
+    --arena-subtab-active: var(--arena-nav-active);
+    --arena-subtab-underline: var(--arena-nav-active);
+  }
+  * {
+    @apply border-border;
+    outline-color: var(--ring);
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* ==========================================================================
+   DASHBOARD HEATMAP & CUSTOM STYLES
+   ========================================================================== */
+
+/* ==========================================================================
+   Markdown code highlighting (rehype-highlight / highlight.js)
+   ========================================================================== */
+
+.hljs {
+  background: transparent;
+  color: rgb(226 232 240); /* slate-200 */
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: rgb(148 163 184); /* slate-400 */
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag {
+  color: rgb(147 197 253); /* blue-300 */
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: rgb(134 239 172); /* green-300 */
+}
+
+.hljs-number,
+.hljs-built_in,
+.hljs-attr,
+.hljs-attribute {
+  color: rgb(253 186 116); /* orange-300 */
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-function .hljs-title {
+  color: rgb(253 224 71); /* yellow-300 */
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: rgb(251 113 133); /* rose-400 */
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 600;
+}
+
+.heatmap-container {
+  font-family: inherit;
+}
+
+/* ==========================================================================
+   SQL Arena utility classes (custom UI)
+   ========================================================================== */
+
+.arena-gloss-effect {
+  box-shadow: inset 0 0.5px 0 0 rgba(255, 255, 255, 0.22);
+}
+
+.dark .arena-gloss-effect {
+  box-shadow: inset 0 0.5px 0 0 rgba(255, 255, 255, 0.16);
+}
+
+.arena-bg-surface {
+  background: var(--arena-surface);
+}
+
+.arena-bg-lowest {
+  background: var(--arena-surface-container-lowest);
+}
+
+.arena-bg-low {
+  background: var(--arena-surface-container-low);
+}
+
+.arena-bg-high {
+  background: var(--arena-surface-container-high);
+}
+
+.arena-bg-highest {
+  background: var(--arena-surface-container-highest);
+}
+
+.arena-text-on-surface {
+  color: var(--arena-on-surface);
+}
+
+.arena-text-outline {
+  color: var(--arena-outline);
+}
+
+.arena-text-primary {
+  color: var(--arena-primary);
+}
+
+.arena-border-divider {
+  border-color: color-mix(in srgb, var(--arena-outline-variant) 35%, transparent);
+}
+
+.dark .arena-border-divider {
+  border-color: color-mix(in srgb, var(--arena-outline-variant) 80%, transparent);
+}
+
+.arena-badge {
+  padding: 0.125rem 0.625rem;
+  border-radius: 0.375rem;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.arena-badge-app {
+  background: var(--arena-surface-container-highest);
+  color: var(--arena-primary);
+}
+
+.dark .arena-badge-app {
+  background: var(--arena-badge-app-bg);
+  color: var(--arena-badge-app-fg);
+}
+
+.arena-badge-easy {
+  background: var(--arena-tertiary-fixed);
+  color: var(--arena-tertiary);
+}
+
+.dark .arena-badge-easy {
+  background: rgba(46, 229, 159, 0.18);
+  border: 1px solid rgba(46, 229, 159, 0.34);
+  color: var(--arena-badge-easy-fg);
+}
+
+.arena-badge-medium {
+  background: var(--arena-badge-medium-bg);
+  color: var(--arena-badge-medium-fg);
+}
+
+.dark .arena-badge-medium {
+  background: var(--arena-badge-medium-bg);
+  border: 1px solid var(--arena-badge-medium-border);
+  color: var(--arena-badge-medium-fg);
+}
+
+.arena-badge-hard {
+  background: var(--arena-error-container);
+  color: var(--arena-error);
+}
+
+.dark .arena-badge-hard {
+  background: rgba(255, 180, 171, 0.14);
+  border: 1px solid rgba(255, 180, 171, 0.34);
+  color: var(--arena-badge-hard-fg);
+}
+
+/* ==========================================================================
+   Scoped highlight.js palette for lesson markdown
+   ========================================================================== */
+
+.markdown .hljs {
+  background: transparent;
+  color: var(--arena-on-surface);
+}
+
+.markdown .hljs-keyword,
+.markdown .hljs-selector-tag,
+.markdown .hljs-built_in,
+.markdown .hljs-type {
+  color: #0b61d6;
+  font-weight: 700;
+}
+
+.markdown .hljs-title,
+.markdown .hljs-section {
+  color: #0b61d6;
+  font-weight: 700;
+}
+
+.markdown .hljs-string,
+.markdown .hljs-regexp,
+.markdown .hljs-attr {
+  color: #0b7a41;
+}
+
+.markdown .hljs-number,
+.markdown .hljs-literal,
+.markdown .hljs-symbol {
+  color: #b45309;
+}
+
+.markdown .hljs-comment,
+.markdown .hljs-quote {
+  color: color-mix(in srgb, var(--arena-outline) 70%, transparent);
+  font-style: italic;
+}
+
+.markdown .hljs-meta,
+.markdown .hljs-doctag {
+  color: color-mix(in srgb, var(--arena-primary) 70%, var(--arena-outline));
+}
+
+.dark .markdown .hljs-keyword,
+.dark .markdown .hljs-selector-tag,
+.dark .markdown .hljs-built_in,
+.dark .markdown .hljs-type,
+.dark .markdown .hljs-title,
+.dark .markdown .hljs-section {
+  color: var(--arena-nav-active);
+}
+
+.dark .markdown .hljs-string,
+.dark .markdown .hljs-regexp,
+.dark .markdown .hljs-attr {
+  color: #2ee59f;
+}
+
+.dark .markdown .hljs-number,
+.dark .markdown .hljs-literal,
+.dark .markdown .hljs-symbol {
+  color: #fbbf24;
+}
+
+.dark .markdown .hljs-comment,
+.dark .markdown .hljs-quote {
+  color: rgba(228, 228, 231, 0.55);
+}
+
+/* Day cells base */
+.react-calendar-heatmap rect {
+  rx: 2px;
+  ry: 2px;
+  stroke: transparent;
+  transition: opacity 0.2s ease;
+}
+
+.react-calendar-heatmap rect:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+/* Light Mode Colors */
+.react-calendar-heatmap .color-empty { fill: #f1f5f9; } /* slate-100 */
+.react-calendar-heatmap .color-scale-1 { fill: #dcfce7; } /* emerald-100 */
+.react-calendar-heatmap .color-scale-2 { fill: #86efac; } /* emerald-300 */
+.react-calendar-heatmap .color-scale-3 { fill: #22c55e; } /* emerald-500 */
+.react-calendar-heatmap .color-scale-4 { fill: #166534; } /* emerald-800 */
+
+/* Dark Mode Colors */
+.dark .react-calendar-heatmap .color-empty { fill: #1e293b; } /* slate-800 */
+.dark .react-calendar-heatmap .color-scale-1 { fill: #064e3b; } /* emerald-900 */
+.dark .react-calendar-heatmap .color-scale-2 { fill: #065f46; } /* emerald-800 */
+.dark .react-calendar-heatmap .color-scale-3 { fill: #10b981; } /* emerald-500 */
+.dark .react-calendar-heatmap .color-scale-4 { fill: #34d399; } /* emerald-400 */
+
+/* Legend helpers (match react-activity-heatmap colors) */
+.heatmap-cell-level-0 { background-color: #ebedf0; }
+.heatmap-cell-level-1 { background-color: #9be9a8; }
+.heatmap-cell-level-2 { background-color: #40c463; }
+.heatmap-cell-level-3 { background-color: #30a14e; }
+.heatmap-cell-level-4 { background-color: #216e39; }
+
+.dark .heatmap-cell-level-0 { background-color: #2d333b; }
+.dark .heatmap-cell-level-1 { background-color: #0e4429; }
+.dark .heatmap-cell-level-2 { background-color: #006d32; }
+.dark .heatmap-cell-level-3 { background-color: #26a641; }
+.dark .heatmap-cell-level-4 { background-color: #39d353; }
+
+.react-calendar-heatmap text {
+  font-size: 8px;
+  fill: #94a3b8; /* slate-400 */
+  font-weight: 500;
+}
