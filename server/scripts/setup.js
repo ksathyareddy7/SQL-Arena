@@ -27,6 +27,8 @@ function parseArgs(argv) {
     mode: "local", // auto|docker|local
     dbOnly: false,
     seedOnly: false,
+    forceGenerate: false,
+    skipSeedData: false,
     apps: null, // null = all
   };
 
@@ -53,6 +55,14 @@ function parseArgs(argv) {
       out.seedOnly = true;
       continue;
     }
+    if (a === "--force-generate") {
+      out.forceGenerate = true;
+      continue;
+    }
+    if (a === "--skip-seeddata") {
+      out.skipSeedData = true;
+      continue;
+    }
     if (a === "--apps") {
       const raw = String(argv[i + 1] || "").trim();
       out.apps = raw
@@ -65,7 +75,7 @@ function parseArgs(argv) {
       continue;
     }
     throw new Error(
-      `Unknown arg: ${a}\n\nUsage:\n  node scripts/setup.js [--mode docker|local|auto] [--apps social,ecommerce] [--db-only|--seed-only]`,
+      `Unknown arg: ${a}\n\nUsage:\n  node scripts/setup.js [--mode docker|local|auto] [--apps social,ecommerce] [--db-only|--seed-only] [--force-generate] [--skip-seeddata]`,
     );
   }
 
@@ -301,7 +311,7 @@ async function seedBase(conn) {
   run("node", [path.join(baseDir, "scripts", "baseLoadData.js")], { cwd: baseDir });
 }
 
-async function seedApp(conn, appName) {
+async function seedApp(conn, appName, { forceGenerate, skipSeedData } = {}) {
   const appDir = path.resolve(process.cwd(), "database", appName);
   const schemaSql = path.join(appDir, "sql", `${appName}_schema.sql`);
   invariant(
@@ -311,12 +321,16 @@ async function seedApp(conn, appName) {
   await execSqlFile(conn, schemaSql);
 
   const generator = path.join(appDir, "js", `${appName}GenerateData.js`);
-  if (fs.existsSync(generator) && !hasSeedData(appDir)) {
-    console.log(`Generating ${appName} seed data (seedData missing/empty)...`);
+  if (fs.existsSync(generator) && (forceGenerate || !hasSeedData(appDir))) {
+    console.log(
+      forceGenerate
+        ? `Generating ${appName} seed data (--force-generate)...`
+        : `Generating ${appName} seed data (seedData missing/empty)...`,
+    );
     run("node", [generator], { cwd: appDir });
   }
 
-  if (fs.existsSync(path.join(appDir, "seedData"))) {
+  if (!skipSeedData && fs.existsSync(path.join(appDir, "seedData"))) {
     run("node", [path.resolve(process.cwd(), "scripts", "loadAppSeedData.js"), appName], {
       cwd: process.cwd(),
     });
@@ -375,7 +389,10 @@ async function main() {
 
   console.log(`Seeding apps: ${apps.join(", ")}`);
   for (const app of apps) {
-    await seedApp(conn, app);
+    await seedApp(conn, app, {
+      forceGenerate: args.forceGenerate,
+      skipSeedData: args.skipSeedData,
+    });
   }
 
   console.log("Setup complete.");
