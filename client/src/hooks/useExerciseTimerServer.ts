@@ -167,10 +167,16 @@ export const useExerciseTimerServer = ({
     // no POST (action-based sync)
   };
 
-  const pause = async (reason = PAUSE_REASON.MANUAL) => {
+  const pause = async (reason: any = PAUSE_REASON.MANUAL) => {
     setNow(Date.now());
     try {
-      await post("pause", { reason });
+      const normalized =
+        reason === PAUSE_REASON.INACTIVITY
+          ? "inactivity"
+          : reason === "leave"
+            ? "leave"
+            : "manual";
+      await post("pause", { reason: normalized });
     } catch {
       // ignore; UX-only
     }
@@ -186,10 +192,16 @@ export const useExerciseTimerServer = ({
     }
   };
 
-  const stop = async (reason = STOP_REASON.MANUAL) => {
+  const stop = async (reason: any = STOP_REASON.MANUAL) => {
     setNow(Date.now());
     try {
-      await post("stop", { reason });
+      const normalized =
+        reason === STOP_REASON.SOLVED
+          ? "solved"
+          : reason === STOP_REASON.LEAVE
+            ? "leave"
+            : "manual";
+      await post("stop", { reason: normalized });
     } catch {
       // ignore; UX-only
     }
