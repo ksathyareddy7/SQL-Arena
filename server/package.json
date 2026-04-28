@@ -12,7 +12,9 @@
     "setup": "node scripts/setup.js",
     "setup:docker": "node scripts/setup.js --mode docker",
     "setup:local": "node scripts/setup.js --mode local",
-    "test:solutions": "node tests/testSolutions.js"
+    "test:solutions": "node tests/testSolutions.js",
+    "test:unit": "node --test tests/unit/**/*.test.js",
+    "test:integration": "node --test tests/integration/**/*.test.js"
   },
   "dependencies": {
     "@faker-js/faker": "^9.9.0",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "morgan": "^1.10.1",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "supertest": "^7.1.4"
   }
 }
