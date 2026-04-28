@@ -2,6 +2,7 @@ import type { Badge } from "@/types/badges";
 import { ICONS } from "./badgeIcons";
 import { cn } from "@/lib/utils";
 import { BadgeCheck } from "lucide-react";
+import { BadgeShareDialog } from "@/components/share/BadgeShareDialog";
 
 const formatDate = (iso: string) => {
   try {
@@ -66,8 +67,16 @@ export function BadgeCard({
       </div>
 
       {isEarned ? (
-        <div className="mt-3 text-[12px] arena-text-outline">
-          Earned {formatDate(earnedAt!)}
+        <div className="mt-4 flex items-center justify-between gap-3">
+          <div className="text-[12px] arena-text-outline">
+            Earned {formatDate(earnedAt!)}
+          </div>
+          <BadgeShareDialog
+            iconKey={badge.icon_key || null}
+            title={badge.title}
+            description={badge.description}
+            earnedAtLabel={formatDate(earnedAt!)}
+          />
         </div>
       ) : null}
     </div>
