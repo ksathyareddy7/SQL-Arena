@@ -36,7 +36,7 @@ export const renderBadgeAchievementCard = (opts: {
   ${brandFooter({ logoSvg: opts.logoSvg })}
   `;
 
-  const caption = `🏅 Badge unlocked: ${title}\n${description}\n\nSQL Arena`;
+  const caption = `🏅 Badge unlocked: ${title}\n${description}\n\nSQL Arena\n\nhttps://github.com/ksathyareddy7/sql-arena`;
   return { svg: baseSvg(content), caption };
 };
 

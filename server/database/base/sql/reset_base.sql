@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS mock_interview_session_questions CASCADE;
 DROP TABLE IF EXISTS mock_interview_sessions CASCADE;
 DROP TABLE IF EXISTS user_badges CASCADE;
 DROP TABLE IF EXISTS badges CASCADE;
+DROP TABLE IF EXISTS exercise_timers CASCADE;
 DROP TABLE IF EXISTS user_submissions CASCADE;
 DROP TABLE IF EXISTS user_progress CASCADE;
 DROP TABLE IF EXISTS user_solution_unlocks CASCADE;

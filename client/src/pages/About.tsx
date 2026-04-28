@@ -14,7 +14,7 @@ It’s called SQL Arena, and honestly, it’s been a refreshing change from the 
 • Clean SQL editor + schema explorer
 • Multiple solution approaches
 
-🔗 GitHub: YOUR_GITHUB_LINK
+🔗 GitHub: https://github.com/ksathyareddy7/sql-arena
 
 Kudos to @Sathya Reddy for building this 👏`;
 

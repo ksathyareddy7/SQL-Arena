@@ -242,6 +242,9 @@ export const resetUserProgress = async (req, res) => {
       userId,
     ]);
     await client.query(`DELETE FROM user_badges WHERE user_id = $1`, [userId]);
+    await client.query(`DELETE FROM exercise_timers WHERE user_id = $1`, [
+      userId,
+    ]);
 
     await client.query("COMMIT");
     return res.json({ ok: true });

@@ -217,6 +217,29 @@ CREATE INDEX idx_user_submissions_question_id ON user_submissions(question_id);
 CREATE INDEX idx_user_submissions_user_created_at ON user_submissions (user_id, created_at);
 
 -- ===================
+-- EXERCISE TIMERS (server-persisted)
+-- ===================
+CREATE TABLE exercise_timers (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  question_id INTEGER NOT NULL REFERENCES questions(id) ON DELETE CASCADE,
+  status TEXT NOT NULL,
+  started_at TIMESTAMP,
+  last_started_at TIMESTAMP,
+  accumulated_ms BIGINT NOT NULL DEFAULT 0,
+  pause_reason TEXT,
+  stop_reason TEXT,
+  updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  UNIQUE (user_id, question_id),
+  CONSTRAINT chk_exercise_timers_status CHECK (status IN ('idle', 'running', 'paused', 'stopped')),
+  CONSTRAINT chk_exercise_timers_pause_reason CHECK (pause_reason IS NULL OR pause_reason IN ('manual', 'inactivity', 'leave')),
+  CONSTRAINT chk_exercise_timers_stop_reason CHECK (stop_reason IS NULL OR stop_reason IN ('manual', 'leave', 'solved'))
+);
+
+CREATE INDEX idx_exercise_timers_user ON exercise_timers(user_id);
+CREATE INDEX idx_exercise_timers_question ON exercise_timers(question_id);
+
+-- ===================
 -- MOCK INTERVIEW SESSIONS
 -- ===================
 CREATE TABLE mock_interview_sessions (
