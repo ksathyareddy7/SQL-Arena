@@ -93,3 +93,4 @@ describe("<OutputCard />", () => {
     expect(toast.success).toHaveBeenCalled();
   });
 });
+

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { splitMarkdownIntoSections } from "../src/components/markdown/MarkdownRenderer";
+import { splitMarkdownIntoSections } from "@/components/markdown/MarkdownRenderer";
 
 describe("splitMarkdownIntoSections", () => {
   it("splits on --- outside fenced blocks", () => {
@@ -42,3 +42,4 @@ describe("splitMarkdownIntoSections", () => {
     expect(sections[1]).toContain("Tail.");
   });
 });
+

@@ -26,7 +26,6 @@ vi.mock("@/contexts/BadgesUnlockedDialogContext", () => ({
   useUnlockedBadgesDialog: () => ({ showUnlockedBadges: vi.fn() }),
 }));
 
-// Keep page logic, but mock the data hooks/mutations it depends on.
 const mockExercise = {
   id: 123,
   code: "SOCIAL_001",
@@ -57,9 +56,18 @@ vi.mock("@/queries/exercises", () => ({
 }));
 
 vi.mock("@/queries/query", () => ({
-  useExecuteQueryMutation: () => ({ isPending: false, mutateAsync: executeMutateAsync }),
-  useSubmitAnswerMutation: () => ({ isPending: false, mutateAsync: submitMutateAsync }),
-  useExplainQueryMutation: () => ({ isPending: false, mutateAsync: explainMutateAsync }),
+  useExecuteQueryMutation: () => ({
+    isPending: false,
+    mutateAsync: executeMutateAsync,
+  }),
+  useSubmitAnswerMutation: () => ({
+    isPending: false,
+    mutateAsync: submitMutateAsync,
+  }),
+  useExplainQueryMutation: () => ({
+    isPending: false,
+    mutateAsync: explainMutateAsync,
+  }),
 }));
 
 const timerStart = vi.fn();
@@ -78,7 +86,6 @@ vi.mock("@/hooks/useExerciseTimerServer", () => ({
   }),
 }));
 
-// Mock heavy UI components (Monaco, large subviews).
 vi.mock("@/components/exercise-detail/SQLInput", () => ({
   default: ({
     value,

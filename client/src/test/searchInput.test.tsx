@@ -41,3 +41,4 @@ describe("<SearchInput />", () => {
     expect(cleared).toBe(1);
   });
 });
+

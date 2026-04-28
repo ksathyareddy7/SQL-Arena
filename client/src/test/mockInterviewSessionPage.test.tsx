@@ -16,7 +16,13 @@ vi.mock("@/hooks/useMockInterviewSessionController", () => ({
     setView: vi.fn(),
     hints: [{ revealed: true }, { revealed: false }],
     remaining: 60,
-    exercise: { code: "SOCIAL_001", title: "Total Users", description: "D", schemas: [], relationships: [] },
+    exercise: {
+      code: "SOCIAL_001",
+      title: "Total Users",
+      description: "D",
+      schemas: [],
+      relationships: [],
+    },
     query: "",
     setQuery: vi.fn(),
     onBackToTemplates: vi.fn(),
@@ -25,6 +31,7 @@ vi.mock("@/hooks/useMockInterviewSessionController", () => ({
     onNext: vi.fn(),
     canPrev: false,
     canNext: true,
+    disabled: false,
     navigatePending: false,
     onEnd,
     onFormat: vi.fn(),
@@ -95,3 +102,4 @@ describe("<MockInterviewSessionPage />", () => {
     expect(onEnd).toHaveBeenCalled();
   });
 });
+

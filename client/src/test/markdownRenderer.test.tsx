@@ -30,7 +30,6 @@ describe("<MarkdownRenderer />", () => {
     render(<MarkdownRenderer content={"Use `SELECT` to query."} variant="bare" />);
     const code = screen.getByText("SELECT");
     expect(code.tagName.toLowerCase()).toBe("code");
-    // class includes the inline chip bg.
     expect(code.className).toContain("bg-[#EFF4FF]");
   });
 
@@ -42,15 +41,10 @@ describe("<MarkdownRenderer />", () => {
     render(
       <MarkdownRenderer
         variant="bare"
-        content={[
-          "```sql",
-          "SELECT 1;",
-          "```",
-        ].join("\n")}
+        content={["```sql", "SELECT 1;", "```"].join("\n")}
       />,
     );
 
-    // Header label from CodeWell meta.
     expect(screen.getByText("QUERY.SQL")).toBeInTheDocument();
     expect(screen.getByText(/SQL Dialect:/i)).toBeInTheDocument();
 
@@ -63,12 +57,7 @@ describe("<MarkdownRenderer />", () => {
     render(
       <MarkdownRenderer
         variant="bare"
-        content={[
-          "```mermaid",
-          "flowchart LR",
-          "  A --> B",
-          "```",
-        ].join("\n")}
+        content={["```mermaid", "flowchart LR", "  A --> B", "```"].join("\n")}
       />,
     );
 
