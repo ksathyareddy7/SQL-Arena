@@ -46,12 +46,14 @@ What setup does:
 
 ### 2) Servers
 
-Start dev servers for local postgres:
+##### Start dev servers for local postgres:
 
 ```bash
 cd server && npm run dev
 cd client && npm run dev
 ```
+
+##### Start dev servers for docker postgres:
 
 If you use Docker Postgres (port `5433`), run the API server in Docker DB mode:
 
