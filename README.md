@@ -10,6 +10,15 @@ A full-stack SQL practice platform: challenges, lessons, tracks, mock interviews
 
 See [`SCREENS.md`](SCREENS.md) for a screenshot-driven tour of the main features.
 
+## Landing Page (GitHub Pages)
+
+This repo includes a static landing page in `landing/` and a GitHub Actions workflow that publishes it to the `gh-pages` branch.
+
+Enable it once:
+- GitHub repo → **Settings** → **Pages**
+- Source: **Deploy from a branch**
+- Branch: `gh-pages` / folder `/ (root)`
+
 ## Tech Stack
 - **Frontend:** React, Vite, Tailwind CSS, Monaco Editor, Lucide Icons.
 - **Backend:** Node.js, Express, `pg` for PostgreSQL connection.
