@@ -725,10 +725,18 @@ for (let groupId = 1; groupId <= TOTAL_GROUPS; groupId++) {
 // GROUP_POSTS
 // -----------------------------
 console.log("Generating group_posts...");
-for (let i = 0; i < TOTAL_GROUP_POSTS; i++) {
+const groupPostPairs = new Set();
+while (groupPostPairs.size < TOTAL_GROUP_POSTS) {
   const groupId = randomInt(1, TOTAL_GROUPS);
   const postId = randomInt(1, TOTAL_POSTS);
-  const addedAt = randomDateBetween(postCreatedAt[postId], END_DATE);
+  const key = `${groupId}:${postId}`;
+  if (groupPostPairs.has(key)) continue;
+  groupPostPairs.add(key);
+
+  const from = new Date(
+    Math.max(groupCreatedAt[groupId].getTime(), postCreatedAt[postId].getTime()),
+  );
+  const addedAt = randomDateBetween(from, END_DATE);
   writeRow(groupPostsStream, [groupId, postId, toIso(addedAt)]);
 }
 

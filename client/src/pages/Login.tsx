@@ -18,7 +18,6 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   User,
-  Database,
   ChevronRight,
   LogIn,
   UserPlus,
@@ -118,9 +117,7 @@ export default function Login() {
       <div className="w-full max-w-md space-y-8 text-center relative z-10">
         {/* Logo and Welcome */}
         <div className="space-y-4">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-blue-600 dark:bg-blue-500 shadow-xl shadow-blue-500/20 transform -rotate-6 mx-auto mb-2">
-            <Database className="w-10 h-10 text-white" />
-          </div>
+          <img src="/favicon.svg" alt="SQL Arena" className="w-30 h-30 mx-auto" />
           <div className="space-y-2">
             <h1 className="text-4xl font-black tracking-tight text-slate-900 dark:text-white uppercase italic">
               SQL{" "}
