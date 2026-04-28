@@ -35,6 +35,7 @@ import HeatmapCard from "@/components/dashboard/HeatmapCard";
 import BadgesCard from "@/components/dashboard/BadgesCard";
 import ExercisesSolvedCard from "@/components/dashboard/ExercisesSolvedCard";
 import { formatPercent } from "@/components/dashboard/utils";
+import { ShareModal } from "@/components/share/ShareModal";
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -97,45 +98,53 @@ export default function Dashboard() {
           </p>
         </div>
 
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <button
-              type="button"
-              disabled={resetMutation.isPending}
-              className={cn(
-                "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold",
-                "border border-[color:rgb(186_26_26/0.25)] text-[var(--arena-error)]",
-                "hover:bg-[color-mix(in_srgb,var(--arena-error-container)_55%,transparent)] transition-colors",
-                "disabled:opacity-60 disabled:hover:bg-transparent",
-              )}
-            >
-              <RotateCcw className="w-4 h-4" />
-              Reset Progress
-            </button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Reset all progress?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This will delete your attempts, submissions heatmap, hint usage,
-                unlocked solutions, and earned badges for this account. This
-                action can’t be undone.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel disabled={resetMutation.isPending}>
-                Cancel
-              </AlertDialogCancel>
-              <AlertDialogAction
-                onClick={handleReset}
+        <div className="flex items-center gap-3">
+          <ShareModal
+            userName={user?.username}
+            stats={stats}
+            triggerLabel="Share Progress"
+          />
+
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <button
+                type="button"
                 disabled={resetMutation.isPending}
-                className="bg-destructive text-white hover:bg-destructive/90"
+                className={cn(
+                  "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold",
+                  "border border-[color:rgb(186_26_26/0.25)] text-[var(--arena-error)]",
+                  "hover:bg-[color-mix(in_srgb,var(--arena-error-container)_55%,transparent)] transition-colors",
+                  "disabled:opacity-60 disabled:hover:bg-transparent",
+                )}
               >
-                {resetMutation.isPending ? "Resetting..." : "Yes, reset"}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+                <RotateCcw className="w-4 h-4" />
+                Reset Progress
+              </button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Reset all progress?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will delete your attempts, submissions heatmap, hint
+                  usage, unlocked solutions, and earned badges for this account.
+                  This action can’t be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={resetMutation.isPending}>
+                  Cancel
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={handleReset}
+                  disabled={resetMutation.isPending}
+                  className="bg-destructive text-white hover:bg-destructive/90"
+                >
+                  {resetMutation.isPending ? "Resetting..." : "Yes, reset"}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-12">

@@ -24,33 +24,42 @@ import {
 
 const className = "h-5 w-5 text-[var(--arena-primary)]";
 
-export const ICONS: Record<string, ReactNode> = {
+export const ICON_COMPONENTS: Record<string, any> = {
   // onboarding / general
-  spark: <Sparkles className={className} />,
-  book: <BookOpen className={className} />,
-  timer: <Timer className={className} />,
+  spark: Sparkles,
+  book: BookOpen,
+  timer: Timer,
 
   // milestones
-  target: <Target className={className} />,
-  trophy: <Trophy className={className} />,
-  flame: <Flame className={className} />,
-  check: <Check className={className} />,
+  target: Target,
+  trophy: Trophy,
+  flame: Flame,
+  check: Check,
 
   // quality
-  bolt: <Zap className={className} />,
-  eye_off: <EyeOff className={className} />,
-  lock: <Lock className={className} />,
+  bolt: Zap,
+  eye_off: EyeOff,
+  lock: Lock,
 
   // concepts
-  link: <Link2 className={className} />,
-  wand: <Wand2 className={className} />,
-  sigma: <Sigma className={className} />,
-  search: <Search className={className} />,
-  arrow_down_up: <ArrowDownUp className={className} />,
-  funnel: <Funnel className={className} />,
-  sparkles: <Sparkles className={className} />,
-  calendar: <Calendar className={className} />,
-  code: <Code className={className} />,
-  check_circle: <CheckCircle2 className={className} />,
-  gauge: <Gauge className={className} />,
+  link: Link2,
+  wand: Wand2,
+  sigma: Sigma,
+  search: Search,
+  arrow_down_up: ArrowDownUp,
+  funnel: Funnel,
+  sparkles: Sparkles,
+  calendar: Calendar,
+  code: Code,
+  check_circle: CheckCircle2,
+  gauge: Gauge,
+};
+
+export const ICONS: Record<string, ReactNode> = {
+  ...Object.fromEntries(
+    Object.entries(ICON_COMPONENTS).map(([k, Comp]) => [
+      k,
+      <Comp key={k} className={className} />,
+    ]),
+  ),
 };
