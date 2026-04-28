@@ -124,6 +124,22 @@ Seed a single app (Docker DB):
 cd server && node scripts/setup.js --mode docker --seed-only --apps social
 ```
 
+### Seed data generation controls
+
+Regenerate seed CSVs even if `seedData/` already exists:
+
+```bash
+cd server
+node scripts/setup.js --seed-only --apps social --force-generate
+```
+
+Skip loading seed CSVs into the DB (schema + exercises only):
+
+```bash
+cd server
+node scripts/setup.js --seed-only --apps social --skip-seeddata
+```
+
 ### Reload an app’s exercises (questions/hints/concepts/solutions)
 
 If you only changed an app’s `*.data.js` (for example `server/database/chat/js/chat.data.js`) and you want to re-import the exercises without reseeding schema/seed data:

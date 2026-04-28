@@ -9,6 +9,38 @@ function invariant(condition, message) {
   if (!condition) throw new Error(message);
 }
 
+async function getTableColumns(client, { schema, table }) {
+  const { rows } = await client.query(
+    `
+      SELECT column_name
+      FROM information_schema.columns
+      WHERE table_schema = $1 AND table_name = $2
+      ORDER BY ordinal_position
+    `,
+    [schema, table],
+  );
+  return rows.map((r) => String(r.column_name));
+}
+
+async function validateCsvHeaderMatchesTable(client, { schema, table, csvColumns, filePath }) {
+  const tableColumns = await getTableColumns(client, { schema, table });
+  invariant(tableColumns.length > 0, `Table not found (or has no columns): ${schema}.${table}`);
+
+  const tableSet = new Set(tableColumns);
+  const unknown = csvColumns.filter((c) => !tableSet.has(c));
+  if (!unknown.length) return;
+
+  const knownPreview = tableColumns.slice(0, 18).join(", ") + (tableColumns.length > 18 ? ", ..." : "");
+  throw new Error(
+    `Seed CSV header does not match table columns:\n` +
+      `- table: ${schema}.${table}\n` +
+      `- csv:   ${filePath}\n` +
+      `- unknown CSV columns: ${unknown.join(", ")}\n` +
+      `- known table columns (preview): ${knownPreview}\n\n` +
+      `Fix: update the generator header for ${table} or update the schema to include those columns.`,
+  );
+}
+
 function usage() {
   const self = fileURLToPath(import.meta.url);
   return `Usage:\n  node ${self} <appName>\n\nExample:\n  node ${self} social`;
@@ -84,6 +116,7 @@ async function copyCsvIntoTable(client, { schema, table, file, nullEmpty, baseDi
   invariant(fs.existsSync(filePath), `Seed CSV not found: ${filePath}`);
 
   const columns = readCsvHeaderColumns(filePath);
+  await validateCsvHeaderMatchesTable(client, { schema, table, csvColumns: columns, filePath });
   const colsSql = columns.map((c) => `"${c}"`).join(", ");
   const copySql = `COPY ${schema}.${table} (${colsSql}) FROM STDIN WITH (FORMAT csv, HEADER true${
     nullEmpty ? ", NULL ''" : ""

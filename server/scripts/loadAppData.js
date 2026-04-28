@@ -37,13 +37,22 @@ async function main() {
   }
 
   const { questions, hints, conceptFilters, solutions } = mod || {};
-  invariant(Array.isArray(questions), `'${appName}' data must export 'questions' array`);
-  invariant(Array.isArray(hints), `'${appName}' data must export 'hints' array`);
+  invariant(
+    Array.isArray(questions),
+    `'${appName}' data must export 'questions' array`,
+  );
+  invariant(
+    Array.isArray(hints),
+    `'${appName}' data must export 'hints' array`,
+  );
   invariant(
     Array.isArray(conceptFilters),
     `'${appName}' data must export 'conceptFilters' array`,
   );
-  invariant(Array.isArray(solutions), `'${appName}' data must export 'solutions' array`);
+  invariant(
+    Array.isArray(solutions),
+    `'${appName}' data must export 'solutions' array`,
+  );
 
   // Optional table descriptions for UI polish.
   // Columns + relationships are introspected from `${appName}_schema`.
@@ -67,11 +76,11 @@ async function main() {
 
   console.log(`[${appName}] Loaded schema metadata`, schemaSummary);
   console.log(`[${appName}] Loaded exercises`, summary);
+  console.log(`[${appName}] Loaded successfully`);
 }
 
 main()
   .then(() => {
-    console.log(`[${appName}] Loaded successfully`);
     process.exit(0);
   })
   .catch((err) => {
