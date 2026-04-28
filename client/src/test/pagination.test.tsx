@@ -10,7 +10,6 @@ describe("<Pagination />", () => {
     const calls: number[] = [];
     render(<Pagination page={3} totalPages={10} onPage={(p) => calls.push(p)} />);
 
-    // Current page has aria-current.
     expect(screen.getByRole("button", { name: "3" })).toHaveAttribute(
       "aria-current",
       "page",

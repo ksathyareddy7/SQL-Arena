@@ -6,7 +6,7 @@ import {
   STOP_REASON,
   TIMER_STATUS,
   timerReducer,
-} from "../src/utils/exerciseTimerMachine";
+} from "@/utils/exerciseTimerMachine";
 
 describe("exerciseTimerMachine", () => {
   it("idle -> running on ACTIVITY (auto-start)", () => {
@@ -91,3 +91,4 @@ describe("exerciseTimerMachine", () => {
     expect(hydrated.totalElapsedMs).toBe((lastActivityAt + inactivityMs) - lastResumedAt);
   });
 });
+
