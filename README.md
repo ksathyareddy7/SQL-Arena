@@ -1,10 +1,14 @@
 <p align="center">
-  <img src="client/src/assets/sql-arena.svg" alt="SQL Arena" width="240" />
+  <img src="images/sql-arena.svg" alt="SQL Arena" width="240" />
 </p>
 
 # SQL Arena
 
 A full-stack SQL practice platform: challenges, lessons, tracks, mock interviews, and achievements — all running locally on PostgreSQL.
+
+## Screens
+
+See [`SCREENS.md`](SCREENS.md) for a screenshot-driven tour of the main features.
 
 ## Tech Stack
 - **Frontend:** React, Vite, Tailwind CSS, Monaco Editor, Lucide Icons.
