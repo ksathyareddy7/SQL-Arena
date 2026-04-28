@@ -64,7 +64,7 @@ export const renderProgressCard = (opts: {
   ${brandFooter({ logoSvg: opts.logoSvg })}
   `;
 
-  const caption = `📈 SQL journey progress\nSolved: ${solved}\nEasy: ${easy?.solved ?? 0}/${easy?.total ?? 0} • Medium: ${medium?.solved ?? 0}/${medium?.total ?? 0} • Hard: ${hard?.solved ?? 0}/${hard?.total ?? 0}\nStreak: ${streak} days\n\nSQL Arena`;
+  const caption = `📈 SQL journey progress\nSolved: ${solved}\nEasy: ${easy?.solved ?? 0}/${easy?.total ?? 0} • Medium: ${medium?.solved ?? 0}/${medium?.total ?? 0} • Hard: ${hard?.solved ?? 0}/${hard?.total ?? 0}\nStreak: ${streak} days\n\nSQL Arena\n\nhttps://github.com/ksathyareddy7/sql-arena`;
   return { svg: baseSvg(content), caption };
 };
 

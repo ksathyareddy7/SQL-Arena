@@ -23,7 +23,7 @@ import {
 } from "@/queries/query";
 import { diffColumns, columnWarningText, formatSql } from "@/utils/sql";
 import { fireSuccessConfetti } from "@/utils/confetti";
-import { useExerciseTimer } from "@/hooks/useExerciseTimer";
+import { useExerciseTimerServer } from "@/hooks/useExerciseTimerServer";
 import { STOP_REASON, TIMER_STATUS } from "@/utils/exerciseTimerMachine";
 import type {
   ExerciseOutputTab,
@@ -94,8 +94,9 @@ export default function ExerciseDetailPage() {
   const userEditedQueryRef = useRef(false);
   const [activeSolutionId, setActiveSolutionId] = useState<any>(null);
 
-  const timer = useExerciseTimer({
-    storageKey: userId && id ? `exercise-timer:v2:user:${userId}:q:${id}` : "",
+  const timer = useExerciseTimerServer({
+    userId,
+    questionId: id,
     inactivityMs: 90_000,
   });
 
