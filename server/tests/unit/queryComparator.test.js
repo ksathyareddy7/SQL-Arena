@@ -23,6 +23,17 @@ test("compareResults: ignore_order=true compares as multiset (order-agnostic)", 
   assert.deepEqual(out, { isCorrect: true });
 });
 
+test("compareResults: sort_by_columns enforces order by default", () => {
+  const out = compareResults({
+    expectedRows: [{ v: 2n }, { v: 1n }],
+    actualRows: [{ v: 1n }, { v: 2n }],
+    expectedColumns: ["v"],
+    config: { sort_by_columns: [{ column: "v", direction: "desc" }] },
+  });
+  assert.equal(out.isCorrect, false);
+  assert.match(out.reason, /Results must be ordered by v DESC/);
+});
+
 test("compareResults: ignore_order=false + sort_by_columns enforces ordering w/ Postgres NULL rules", () => {
   // DESC => NULLS FIRST
   const outDesc = compareResults({
@@ -62,4 +73,3 @@ test("compareResults: numeric tolerance", () => {
   });
   assert.deepEqual(out, { isCorrect: true });
 });
-

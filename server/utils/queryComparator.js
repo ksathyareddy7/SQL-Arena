@@ -300,12 +300,22 @@ export const compareResults = ({
   expectedColumns,
   config = {},
 }) => {
-  const ignoreOrder =
-    config.ignore_order !== undefined ? config.ignore_order : true;
-
   const sortByColumns = Array.isArray(config.sort_by_columns)
     ? config.sort_by_columns
     : [];
+
+  // Default behavior:
+  // - Ignore order unless the question explicitly requires it.
+  // - Ordering is considered "required" when sort_by_columns is provided.
+  //
+  // Backward compatibility:
+  // - If sort_by_columns is NOT provided, we still respect ignore_order if present.
+  const ignoreOrder =
+    sortByColumns.length > 0
+      ? false
+      : typeof config.ignore_order === "boolean"
+        ? config.ignore_order
+        : true;
 
   const tolerance =
     typeof config.numeric_tolerance === "number"

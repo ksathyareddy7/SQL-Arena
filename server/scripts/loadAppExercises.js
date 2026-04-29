@@ -154,6 +154,63 @@ function canonicalizeConceptList(concepts, questionCode) {
   return out;
 }
 
+function safeIdent(name, label) {
+  invariant(
+    /^[a-z_][a-z0-9_]*$/.test(String(name || "")),
+    `Invalid ${label}: ${name}`,
+  );
+  return String(name);
+}
+
+function stripTrailingSemicolon(sql) {
+  const s = String(sql || "").trim();
+  return s.endsWith(";") ? s.slice(0, -1).trim() : s;
+}
+
+async function computeExpectedPreview(client, appName, question) {
+  const schema = safeIdent(`${appName}_schema`, "schema");
+  const expectedQuery = stripTrailingSemicolon(question.expected_query);
+
+  if (!isNonEmptyString(expectedQuery)) {
+    return { fields: null, rows: null };
+  }
+
+  // Keep previews light and robust — expected queries can be expensive.
+  // If a query fails or times out, we just store NULL previews.
+  //
+  // IMPORTANT: In Postgres, any error inside a transaction aborts the entire
+  // transaction until ROLLBACK. Since the loader runs inside a transaction,
+  // we must isolate preview execution inside a SAVEPOINT and roll back to it
+  // on failure, otherwise one bad expected query will abort the whole load.
+  try {
+    await client.query(`SAVEPOINT expected_preview`);
+    await client.query(`SET LOCAL search_path TO ${schema}, public;`);
+    await client.query(`SET LOCAL statement_timeout = '2000ms';`);
+
+    const limit = 10;
+    const res = await client.query(
+      `SELECT * FROM (${expectedQuery}) AS expected_preview LIMIT ${limit}`,
+    );
+
+    const fields = Array.isArray(res.fields)
+      ? res.fields.map((f) => f?.name).filter(Boolean)
+      : [];
+
+    const rows = Array.isArray(res.rows) ? res.rows : [];
+
+    await client.query(`RELEASE SAVEPOINT expected_preview`);
+    return { fields, rows };
+  } catch {
+    try {
+      await client.query(`ROLLBACK TO SAVEPOINT expected_preview`);
+      await client.query(`RELEASE SAVEPOINT expected_preview`);
+    } catch {
+      // ignore
+    }
+    return { fields: null, rows: null };
+  }
+}
+
 /**
  * Validates question objects. This is intentionally strict because:
  * - We want failures at load time (not later during query execution/tests).
@@ -423,10 +480,12 @@ async function upsertQuestions(client, questions) {
         difficulty,
         expected_query,
         solution_columns,
+        expected_preview_fields,
+        expected_preview_rows,
         tables,
         comparison_config
       )
-      VALUES ($1,$2,$3,$4,$5,$6,$7::jsonb,$8::jsonb,$9::jsonb)
+      VALUES ($1,$2,$3,$4,$5,$6,$7::jsonb,$8::jsonb,$9::jsonb,$10::jsonb,$11::jsonb)
       ON CONFLICT (code)
       DO UPDATE SET
         app_id = EXCLUDED.app_id,
@@ -435,6 +494,8 @@ async function upsertQuestions(client, questions) {
         difficulty = EXCLUDED.difficulty,
         expected_query = EXCLUDED.expected_query,
         solution_columns = EXCLUDED.solution_columns,
+        expected_preview_fields = EXCLUDED.expected_preview_fields,
+        expected_preview_rows = EXCLUDED.expected_preview_rows,
         tables = EXCLUDED.tables,
         comparison_config = EXCLUDED.comparison_config
     `,
@@ -446,6 +507,8 @@ async function upsertQuestions(client, questions) {
         q.difficulty,
         q.expected_query,
         JSON.stringify(q.solution_columns ?? []),
+        JSON.stringify(q.expected_preview_fields ?? null),
+        JSON.stringify(q.expected_preview_rows ?? null),
         JSON.stringify(q.tables ?? []),
         JSON.stringify(q.comparison_config ?? {}),
       ],
@@ -667,6 +730,14 @@ export async function loadAppExercises({
 
   const run = async (client) => {
     await ensureAppRow(client, appName, appIdFromQuestions);
+
+    // Compute previews before upsert so changes in expected_query update preview too.
+    for (const q of qs) {
+      const preview = await computeExpectedPreview(client, appName, q);
+      q.expected_preview_fields = preview.fields;
+      q.expected_preview_rows = preview.rows;
+    }
+
     await upsertQuestions(client, qs);
 
     const questionIdByCode = await getQuestionIdByCode(client, allQuestionCodes);

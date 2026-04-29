@@ -54,7 +54,7 @@ export const questions = [
     expected_query: "SELECT COUNT(*) AS total_users FROM users;",
     solution_columns: ["total_users"],
     tables: ["users"],
-    comparison_config: { ignore_order: true },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -66,7 +66,7 @@ export const questions = [
       "SELECT COUNT(*) AS active_workspaces FROM workspaces WHERE is_active = true;",
     solution_columns: ["active_workspaces"],
     tables: ["workspaces"],
-    comparison_config: { ignore_order: true },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -75,13 +75,10 @@ export const questions = [
     description: "List all verified users.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, full_name, email FROM users WHERE is_verified = true ORDER BY id ASC;",
+      "SELECT id, full_name, email FROM users WHERE is_verified = true;",
     solution_columns: ["id", "full_name", "email"],
     tables: ["users"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "id", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -90,17 +87,10 @@ export const questions = [
     description: "Find all public channels in the platform.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, workspace_id, channel_name FROM channels WHERE visibility = 'public' ORDER BY workspace_id ASC, channel_name ASC, id ASC;",
+      "SELECT id, workspace_id, channel_name FROM channels WHERE visibility = 'public';",
     solution_columns: ["id", "workspace_id", "channel_name"],
     tables: ["channels"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "workspace_id", direction: "asc" },
-        { column: "channel_name", direction: "asc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -109,13 +99,10 @@ export const questions = [
     description: "List all users that are bots.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, full_name, username FROM users WHERE is_bot = true ORDER BY id ASC;",
+      "SELECT id, full_name, username FROM users WHERE is_bot = true;",
     solution_columns: ["id", "full_name", "username"],
     tables: ["users"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "id", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -125,16 +112,10 @@ export const questions = [
       "For each workspace, find the total number of members with active membership status.",
     difficulty: "easy",
     expected_query:
-      "SELECT workspace_id, COUNT(*) AS active_member_count FROM workspace_members WHERE membership_status = 'active' GROUP BY workspace_id ORDER BY active_member_count DESC, workspace_id ASC;",
+      "SELECT workspace_id, COUNT(*) AS active_member_count FROM workspace_members WHERE membership_status = 'active' GROUP BY workspace_id;",
     solution_columns: ["workspace_id", "active_member_count"],
     tables: ["workspace_members"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "active_member_count", direction: "desc" },
-        { column: "workspace_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -143,16 +124,10 @@ export const questions = [
     description: "For each workspace, count how many channels it has.",
     difficulty: "easy",
     expected_query:
-      "SELECT workspace_id, COUNT(*) AS total_channels FROM channels GROUP BY workspace_id ORDER BY total_channels DESC, workspace_id ASC;",
+      "SELECT workspace_id, COUNT(*) AS total_channels FROM channels GROUP BY workspace_id;",
     solution_columns: ["workspace_id", "total_channels"],
     tables: ["channels"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "total_channels", direction: "desc" },
-        { column: "workspace_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -161,16 +136,10 @@ export const questions = [
     description: "List all archived channels.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, workspace_id, channel_name, archived_at FROM channels WHERE is_archived = true ORDER BY archived_at DESC, id ASC;",
+      "SELECT id, workspace_id, channel_name, archived_at FROM channels WHERE is_archived = true;",
     solution_columns: ["id", "workspace_id", "channel_name", "archived_at"],
     tables: ["channels"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "archived_at", direction: "desc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -179,16 +148,10 @@ export const questions = [
     description: "Find all messages that contain links and are not deleted.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, workspace_id, sender_member_id, sent_at FROM messages WHERE contains_link = true AND is_deleted = false ORDER BY sent_at DESC, id ASC;",
+      "SELECT id, workspace_id, sender_member_id, sent_at FROM messages WHERE contains_link = true AND is_deleted = false;",
     solution_columns: ["id", "workspace_id", "sender_member_id", "sent_at"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "sent_at", direction: "desc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -200,7 +163,7 @@ export const questions = [
       "SELECT COUNT(*) AS direct_conversations_count FROM conversations WHERE conversation_type = 'direct';",
     solution_columns: ["direct_conversations_count"],
     tables: ["conversations"],
-    comparison_config: { ignore_order: true },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -209,7 +172,7 @@ export const questions = [
     description: "List all pinned messages across all channels.",
     difficulty: "easy",
     expected_query:
-      "SELECT message_id, channel_id, pinned_by_member_id, pinned_at FROM message_pins ORDER BY pinned_at DESC, message_id ASC;",
+      "SELECT message_id, channel_id, pinned_by_member_id, pinned_at FROM message_pins;",
     solution_columns: [
       "message_id",
       "channel_id",
@@ -217,13 +180,7 @@ export const questions = [
       "pinned_at",
     ],
     tables: ["message_pins"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "pinned_at", direction: "desc" },
-        { column: "message_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -232,7 +189,7 @@ export const questions = [
     description: "Find all unread notifications for workspace members.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, workspace_member_id, notification_type, created_at FROM notifications WHERE is_read = false ORDER BY created_at DESC, id ASC;",
+      "SELECT id, workspace_member_id, notification_type, created_at FROM notifications WHERE is_read = false;",
     solution_columns: [
       "id",
       "workspace_member_id",
@@ -240,13 +197,7 @@ export const questions = [
       "created_at",
     ],
     tables: ["notifications"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "created_at", direction: "desc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -256,16 +207,10 @@ export const questions = [
       "List all users who currently have an active online presence session.",
     difficulty: "easy",
     expected_query:
-      "SELECT DISTINCT u.id, u.full_name, u.username, u.last_seen_at FROM users u JOIN workspace_members wm ON u.id = wm.user_id JOIN user_presence_logs upl ON wm.id = upl.workspace_member_id WHERE upl.presence_status = 'online' AND upl.ended_at IS NULL ORDER BY u.last_seen_at DESC, u.id ASC;",
+      "SELECT DISTINCT u.id, u.full_name, u.username, u.last_seen_at FROM users u JOIN workspace_members wm ON u.id = wm.user_id JOIN user_presence_logs upl ON wm.id = upl.workspace_member_id WHERE upl.presence_status = 'online' AND upl.ended_at IS NULL;",
     solution_columns: ["id", "full_name", "username", "last_seen_at"],
     tables: ["users", "workspace_members", "user_presence_logs"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "last_seen_at", direction: "desc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -277,7 +222,7 @@ export const questions = [
       "SELECT COUNT(*) AS messages_sent_today FROM messages WHERE DATE(sent_at) = CURRENT_DATE;",
     solution_columns: ["messages_sent_today"],
     tables: ["messages"],
-    comparison_config: { ignore_order: true },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -286,16 +231,10 @@ export const questions = [
     description: "Count how many times each emoji reaction was used.",
     difficulty: "easy",
     expected_query:
-      "SELECT emoji_code, COUNT(*) AS reaction_count FROM message_reactions GROUP BY emoji_code ORDER BY reaction_count DESC, emoji_code ASC;",
+      "SELECT emoji_code, COUNT(*) AS reaction_count FROM message_reactions GROUP BY emoji_code;",
     solution_columns: ["emoji_code", "reaction_count"],
     tables: ["message_reactions"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "reaction_count", direction: "desc" },
-        { column: "emoji_code", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -304,16 +243,10 @@ export const questions = [
     description: "List workspace members who joined in the current month.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, workspace_id, user_id, joined_at FROM workspace_members WHERE DATE_TRUNC('month', joined_at) = DATE_TRUNC('month', CURRENT_DATE) ORDER BY joined_at DESC, id ASC;",
+      "SELECT id, workspace_id, user_id, joined_at FROM workspace_members WHERE DATE_TRUNC('month', joined_at) = DATE_TRUNC('month', CURRENT_DATE);",
     solution_columns: ["id", "workspace_id", "user_id", "joined_at"],
     tables: ["workspace_members"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "joined_at", direction: "desc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -322,16 +255,10 @@ export const questions = [
     description: "Find the number of private channels in each workspace.",
     difficulty: "easy",
     expected_query:
-      "SELECT workspace_id, COUNT(*) AS private_channels_count FROM channels WHERE visibility = 'private' GROUP BY workspace_id ORDER BY private_channels_count DESC, workspace_id ASC;",
+      "SELECT workspace_id, COUNT(*) AS private_channels_count FROM channels WHERE visibility = 'private' GROUP BY workspace_id;",
     solution_columns: ["workspace_id", "private_channels_count"],
     tables: ["channels"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "private_channels_count", direction: "desc" },
-        { column: "workspace_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -340,16 +267,10 @@ export const questions = [
     description: "List all deleted messages.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, workspace_id, sender_member_id, deleted_at FROM messages WHERE is_deleted = true ORDER BY deleted_at DESC, id ASC;",
+      "SELECT id, workspace_id, sender_member_id, deleted_at FROM messages WHERE is_deleted = true;",
     solution_columns: ["id", "workspace_id", "sender_member_id", "deleted_at"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "deleted_at", direction: "desc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -359,16 +280,10 @@ export const questions = [
       "Find users who currently have an active do-not-disturb presence session.",
     difficulty: "easy",
     expected_query:
-      "SELECT DISTINCT u.id AS user_id, upl.started_at AS dnd_started_at FROM users u JOIN workspace_members wm ON u.id = wm.user_id JOIN user_presence_logs upl ON wm.id = upl.workspace_member_id WHERE upl.presence_status = 'dnd' AND upl.ended_at IS NULL ORDER BY dnd_started_at DESC, user_id ASC;",
+      "SELECT DISTINCT u.id AS user_id, upl.started_at AS dnd_started_at FROM users u JOIN workspace_members wm ON u.id = wm.user_id JOIN user_presence_logs upl ON wm.id = upl.workspace_member_id WHERE upl.presence_status = 'dnd' AND upl.ended_at IS NULL;",
     solution_columns: ["user_id", "dnd_started_at"],
     tables: ["users", "workspace_members", "user_presence_logs"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "dnd_started_at", direction: "desc" },
-        { column: "user_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -377,13 +292,10 @@ export const questions = [
     description: "List users who do not have a phone number set.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, full_name, email FROM users WHERE phone IS NULL ORDER BY id ASC;",
+      "SELECT id, full_name, email FROM users WHERE phone IS NULL;",
     solution_columns: ["id", "full_name", "email"],
     tables: ["users"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "id", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -393,16 +305,10 @@ export const questions = [
       "For each channel, find the total number of non-deleted messages.",
     difficulty: "easy",
     expected_query:
-      "SELECT channel_id, COUNT(*) AS total_messages FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id ORDER BY total_messages DESC, channel_id ASC;",
+      "SELECT channel_id, COUNT(*) AS total_messages FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id;",
     solution_columns: ["channel_id", "total_messages"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "total_messages", direction: "desc" },
-        { column: "channel_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -411,16 +317,10 @@ export const questions = [
     description: "For each parent message, count how many replies it has.",
     difficulty: "easy",
     expected_query:
-      "SELECT parent_message_id, COUNT(*) AS reply_count FROM messages WHERE parent_message_id IS NOT NULL GROUP BY parent_message_id ORDER BY reply_count DESC, parent_message_id ASC;",
+      "SELECT parent_message_id, COUNT(*) AS reply_count FROM messages WHERE parent_message_id IS NOT NULL GROUP BY parent_message_id;",
     solution_columns: ["parent_message_id", "reply_count"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "reply_count", direction: "desc" },
-        { column: "parent_message_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -429,16 +329,10 @@ export const questions = [
     description: "List users created in the last 30 days.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, full_name, username, created_at FROM users WHERE created_at >= CURRENT_DATE - INTERVAL '30 days' ORDER BY created_at DESC, id ASC;",
+      "SELECT id, full_name, username, created_at FROM users WHERE created_at >= CURRENT_DATE - INTERVAL '30 days';",
     solution_columns: ["id", "full_name", "username", "created_at"],
     tables: ["users"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "created_at", direction: "desc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -447,16 +341,10 @@ export const questions = [
     description: "List all channel memberships.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, channel_id, workspace_member_id, joined_at FROM channel_members ORDER BY joined_at DESC, id ASC;",
+      "SELECT id, channel_id, workspace_member_id, joined_at FROM channel_members;",
     solution_columns: ["id", "channel_id", "workspace_member_id", "joined_at"],
     tables: ["channel_members"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "joined_at", direction: "desc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -466,16 +354,10 @@ export const questions = [
       "Count how many message attachments exist for each attachment type.",
     difficulty: "easy",
     expected_query:
-      "SELECT attachment_type, COUNT(*) AS attachment_count FROM message_attachments GROUP BY attachment_type ORDER BY attachment_count DESC, attachment_type ASC;",
+      "SELECT attachment_type, COUNT(*) AS attachment_count FROM message_attachments GROUP BY attachment_type;",
     solution_columns: ["attachment_type", "attachment_count"],
     tables: ["message_attachments"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "attachment_count", direction: "desc" },
-        { column: "attachment_type", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -484,16 +366,10 @@ export const questions = [
     description: "List all workspaces created in the current year.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, workspace_name, created_at FROM workspaces WHERE DATE_TRUNC('year', created_at) = DATE_TRUNC('year', CURRENT_DATE) ORDER BY created_at DESC, id ASC;",
+      "SELECT id, workspace_name, created_at FROM workspaces WHERE DATE_TRUNC('year', created_at) = DATE_TRUNC('year', CURRENT_DATE);",
     solution_columns: ["id", "workspace_name", "created_at"],
     tables: ["workspaces"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "created_at", direction: "desc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -502,16 +378,10 @@ export const questions = [
     description: "List all notification preferences that are currently muted.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, workspace_member_id, channel_id, mute_until FROM notification_preferences WHERE mute_until IS NOT NULL ORDER BY mute_until DESC, id ASC;",
+      "SELECT id, workspace_member_id, channel_id, mute_until FROM notification_preferences WHERE mute_until IS NOT NULL;",
     solution_columns: ["id", "workspace_member_id", "channel_id", "mute_until"],
     tables: ["notification_preferences"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "mute_until", direction: "desc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -520,16 +390,10 @@ export const questions = [
     description: "List all invites that are still pending.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, workspace_id, invited_email, created_at FROM invites WHERE invite_status = 'pending' ORDER BY created_at DESC, id ASC;",
+      "SELECT id, workspace_id, invited_email, created_at FROM invites WHERE invite_status = 'pending';",
     solution_columns: ["id", "workspace_id", "invited_email", "created_at"],
     tables: ["invites"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "created_at", direction: "desc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -538,7 +402,7 @@ export const questions = [
     description: "Find all moderation actions that are currently applied.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, workspace_id, target_member_id, target_message_id, created_at FROM moderation_actions WHERE action_status = 'applied' ORDER BY created_at DESC, id ASC;",
+      "SELECT id, workspace_id, target_member_id, target_message_id, created_at FROM moderation_actions WHERE action_status = 'applied';",
     solution_columns: [
       "id",
       "workspace_id",
@@ -547,13 +411,7 @@ export const questions = [
       "created_at",
     ],
     tables: ["moderation_actions"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "created_at", direction: "desc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -565,7 +423,7 @@ export const questions = [
       "SELECT COUNT(*) AS voice_calls_count FROM calls WHERE call_type = 'voice';",
     solution_columns: ["voice_calls_count"],
     tables: ["calls"],
-    comparison_config: { ignore_order: true },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -579,7 +437,6 @@ export const questions = [
     solution_columns: ["channel_id", "total_messages"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "total_messages", direction: "desc" },
         { column: "channel_id", direction: "asc" },
@@ -592,14 +449,10 @@ export const questions = [
     title: "Members With Saved Messages",
     description: "List workspace members who have saved at least one message.",
     difficulty: "easy",
-    expected_query:
-      "SELECT DISTINCT workspace_member_id FROM saved_messages ORDER BY workspace_member_id ASC;",
+    expected_query: "SELECT DISTINCT workspace_member_id FROM saved_messages;",
     solution_columns: ["workspace_member_id"],
     tables: ["saved_messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "workspace_member_id", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -608,13 +461,10 @@ export const questions = [
     description: "Find all messages that have at least one attachment.",
     difficulty: "easy",
     expected_query:
-      "SELECT DISTINCT ma.message_id FROM message_attachments ma ORDER BY ma.message_id ASC;",
+      "SELECT DISTINCT ma.message_id FROM message_attachments ma;",
     solution_columns: ["message_id"],
     tables: ["message_attachments"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "message_id", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -623,16 +473,10 @@ export const questions = [
     description: "List users who have been inactive for more than 30 days.",
     difficulty: "easy",
     expected_query:
-      "SELECT id, full_name, last_seen_at FROM users WHERE last_seen_at < CURRENT_DATE - INTERVAL '30 days' ORDER BY last_seen_at ASC, id ASC;",
+      "SELECT id, full_name, last_seen_at FROM users WHERE last_seen_at < CURRENT_DATE - INTERVAL '30 days';",
     solution_columns: ["id", "full_name", "last_seen_at"],
     tables: ["users"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "last_seen_at", direction: "asc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -641,16 +485,10 @@ export const questions = [
     description: "Find calls that had more than 2 participants.",
     difficulty: "easy",
     expected_query:
-      "SELECT call_id, COUNT(*) AS participant_count FROM call_participants GROUP BY call_id HAVING COUNT(*) > 2 ORDER BY participant_count DESC, call_id ASC;",
+      "SELECT call_id, COUNT(*) AS participant_count FROM call_participants GROUP BY call_id HAVING COUNT(*) > 2;",
     solution_columns: ["call_id", "participant_count"],
     tables: ["call_participants"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "participant_count", direction: "desc" },
-        { column: "call_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -659,16 +497,10 @@ export const questions = [
     description: "Find users who are members of more than one workspace.",
     difficulty: "medium",
     expected_query:
-      "SELECT user_id, COUNT(DISTINCT workspace_id) AS workspace_count FROM workspace_members WHERE membership_status = 'active' GROUP BY user_id HAVING COUNT(DISTINCT workspace_id) > 1 ORDER BY workspace_count DESC, user_id ASC;",
+      "SELECT user_id, COUNT(DISTINCT workspace_id) AS workspace_count FROM workspace_members WHERE membership_status = 'active' GROUP BY user_id HAVING COUNT(DISTINCT workspace_id) > 1;",
     solution_columns: ["user_id", "workspace_count"],
     tables: ["workspace_members"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "workspace_count", direction: "desc" },
-        { column: "user_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -681,7 +513,6 @@ export const questions = [
     solution_columns: ["message_id", "reaction_count"],
     tables: ["message_reactions"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "reaction_count", direction: "desc" },
         { column: "message_id", direction: "asc" },
@@ -695,16 +526,10 @@ export const questions = [
     description: "For each workspace member, count unread notifications.",
     difficulty: "medium",
     expected_query:
-      "SELECT workspace_member_id, COUNT(*) AS unread_count FROM notifications WHERE is_read = false GROUP BY workspace_member_id ORDER BY unread_count DESC, workspace_member_id ASC;",
+      "SELECT workspace_member_id, COUNT(*) AS unread_count FROM notifications WHERE is_read = false GROUP BY workspace_member_id;",
     solution_columns: ["workspace_member_id", "unread_count"],
     tables: ["notifications"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "unread_count", direction: "desc" },
-        { column: "workspace_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -714,16 +539,10 @@ export const questions = [
       "Find workspace members who were mentioned the most in messages.",
     difficulty: "medium",
     expected_query:
-      "SELECT mentioned_member_id AS workspace_member_id, COUNT(*) AS mention_count FROM message_mentions GROUP BY mentioned_member_id ORDER BY mention_count DESC, workspace_member_id ASC;",
+      "SELECT mentioned_member_id AS workspace_member_id, COUNT(*) AS mention_count FROM message_mentions GROUP BY mentioned_member_id;",
     solution_columns: ["workspace_member_id", "mention_count"],
     tables: ["message_mentions"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "mention_count", direction: "desc" },
-        { column: "workspace_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -736,7 +555,7 @@ export const questions = [
       "WITH thread_replies AS ( SELECT parent_message_id, COUNT(*) AS reply_count FROM messages WHERE parent_message_id IS NOT NULL GROUP BY parent_message_id ) SELECT ROUND(AVG(reply_count), 2) AS avg_replies_per_thread FROM thread_replies;",
     solution_columns: ["avg_replies_per_thread"],
     tables: ["messages"],
-    comparison_config: { ignore_order: true },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -750,7 +569,6 @@ export const questions = [
     solution_columns: ["sender_member_id", "message_count"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "message_count", direction: "desc" },
         { column: "sender_member_id", direction: "asc" },
@@ -764,17 +582,10 @@ export const questions = [
     description: "Find channels that do not have any messages.",
     difficulty: "medium",
     expected_query:
-      "SELECT c.id, c.workspace_id, c.channel_name FROM channels c LEFT JOIN messages m ON c.id = m.channel_id GROUP BY c.id, c.workspace_id, c.channel_name HAVING COUNT(m.id) = 0 ORDER BY c.workspace_id ASC, c.channel_name ASC, c.id ASC;",
+      "SELECT c.id, c.workspace_id, c.channel_name FROM channels c LEFT JOIN messages m ON c.id = m.channel_id GROUP BY c.id, c.workspace_id, c.channel_name HAVING COUNT(m.id) = 0;",
     solution_columns: ["id", "workspace_id", "channel_name"],
     tables: ["channels", "messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "workspace_id", direction: "asc" },
-        { column: "channel_name", direction: "asc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -784,13 +595,10 @@ export const questions = [
       "Find users who are active workspace members but have never sent any message.",
     difficulty: "medium",
     expected_query:
-      "SELECT DISTINCT wm.user_id FROM workspace_members wm LEFT JOIN messages m ON wm.id = m.sender_member_id WHERE wm.membership_status = 'active' GROUP BY wm.user_id HAVING COUNT(m.id) = 0 ORDER BY wm.user_id ASC;",
+      "SELECT DISTINCT wm.user_id FROM workspace_members wm LEFT JOIN messages m ON wm.id = m.sender_member_id WHERE wm.membership_status = 'active' GROUP BY wm.user_id HAVING COUNT(m.id) = 0;",
     solution_columns: ["user_id"],
     tables: ["workspace_members", "messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "user_id", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -802,7 +610,7 @@ export const questions = [
       "WITH channel_message_counts AS ( SELECT channel_id, COUNT(*) AS message_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id ) SELECT ROUND(AVG(message_count), 2) AS avg_messages_per_channel FROM channel_message_counts;",
     solution_columns: ["avg_messages_per_channel"],
     tables: ["messages"],
-    comparison_config: { ignore_order: true },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -811,16 +619,10 @@ export const questions = [
     description: "Find channels that have more than 100 non-deleted messages.",
     difficulty: "medium",
     expected_query:
-      "SELECT channel_id, COUNT(*) AS total_messages FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id HAVING COUNT(*) > 100 ORDER BY total_messages DESC, channel_id ASC;",
+      "SELECT channel_id, COUNT(*) AS total_messages FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id HAVING COUNT(*) > 100;",
     solution_columns: ["channel_id", "total_messages"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "total_messages", direction: "desc" },
-        { column: "channel_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -830,13 +632,10 @@ export const questions = [
       "Find workspace members who have sent at least one message and also added at least one reaction.",
     difficulty: "medium",
     expected_query:
-      "SELECT DISTINCT m.sender_member_id AS workspace_member_id FROM messages m JOIN message_reactions r ON m.sender_member_id = r.workspace_member_id ORDER BY workspace_member_id ASC;",
+      "SELECT DISTINCT m.sender_member_id AS workspace_member_id FROM messages m JOIN message_reactions r ON m.sender_member_id = r.workspace_member_id;",
     solution_columns: ["workspace_member_id"],
     tables: ["messages", "message_reactions"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "workspace_member_id", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -850,7 +649,6 @@ export const questions = [
     solution_columns: ["workspace_id", "total_messages"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "total_messages", direction: "desc" },
         { column: "workspace_id", direction: "asc" },
@@ -867,7 +665,7 @@ export const questions = [
       "WITH reaction_counts AS ( SELECT message_id, COUNT(*) AS reaction_count FROM message_reactions GROUP BY message_id ) SELECT ROUND(AVG(reaction_count), 2) AS avg_reaction_count FROM reaction_counts;",
     solution_columns: ["avg_reaction_count"],
     tables: ["message_reactions"],
-    comparison_config: { ignore_order: true },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -876,16 +674,10 @@ export const questions = [
     description: "Find the number of members in each private channel.",
     difficulty: "medium",
     expected_query:
-      "SELECT cm.channel_id, COUNT(*) AS member_count FROM channel_members cm JOIN channels c ON cm.channel_id = c.id WHERE c.visibility = 'private' GROUP BY cm.channel_id ORDER BY member_count DESC, cm.channel_id ASC;",
+      "SELECT cm.channel_id, COUNT(*) AS member_count FROM channel_members cm JOIN channels c ON cm.channel_id = c.id WHERE c.visibility = 'private' GROUP BY cm.channel_id;",
     solution_columns: ["channel_id", "member_count"],
     tables: ["channel_members", "channels"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "member_count", direction: "desc" },
-        { column: "channel_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -894,16 +686,10 @@ export const questions = [
     description: "Find how many active workspace owners each workspace has.",
     difficulty: "medium",
     expected_query:
-      "SELECT workspace_id, COUNT(*) AS owner_count FROM workspace_members WHERE membership_status = 'active' AND member_type = 'owner' GROUP BY workspace_id ORDER BY owner_count DESC, workspace_id ASC;",
+      "SELECT workspace_id, COUNT(*) AS owner_count FROM workspace_members WHERE membership_status = 'active' AND member_type = 'owner' GROUP BY workspace_id;",
     solution_columns: ["workspace_id", "owner_count"],
     tables: ["workspace_members"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "owner_count", direction: "desc" },
-        { column: "workspace_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -917,7 +703,6 @@ export const questions = [
     solution_columns: ["channel_id", "unique_senders"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "unique_senders", direction: "desc" },
         { column: "channel_id", direction: "asc" },
@@ -931,16 +716,10 @@ export const questions = [
     description: "Find workspace members who belong to more than 3 channels.",
     difficulty: "medium",
     expected_query:
-      "SELECT workspace_member_id, COUNT(DISTINCT channel_id) AS channel_count FROM channel_members GROUP BY workspace_member_id HAVING COUNT(DISTINCT channel_id) > 3 ORDER BY channel_count DESC, workspace_member_id ASC;",
+      "SELECT workspace_member_id, COUNT(DISTINCT channel_id) AS channel_count FROM channel_members GROUP BY workspace_member_id HAVING COUNT(DISTINCT channel_id) > 3;",
     solution_columns: ["workspace_member_id", "channel_count"],
     tables: ["channel_members"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "channel_count", direction: "desc" },
-        { column: "workspace_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -949,17 +728,10 @@ export const questions = [
     description: "Find channels that do not have any channel members.",
     difficulty: "medium",
     expected_query:
-      "SELECT c.id, c.workspace_id, c.channel_name FROM channels c LEFT JOIN channel_members cm ON c.id = cm.channel_id GROUP BY c.id, c.workspace_id, c.channel_name HAVING COUNT(cm.id) = 0 ORDER BY c.workspace_id ASC, c.channel_name ASC, c.id ASC;",
+      "SELECT c.id, c.workspace_id, c.channel_name FROM channels c LEFT JOIN channel_members cm ON c.id = cm.channel_id GROUP BY c.id, c.workspace_id, c.channel_name HAVING COUNT(cm.id) = 0;",
     solution_columns: ["id", "workspace_id", "channel_name"],
     tables: ["channels", "channel_members"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "workspace_id", direction: "asc" },
-        { column: "channel_name", direction: "asc" },
-        { column: "id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -969,16 +741,10 @@ export const questions = [
       "For each workspace, find the average number of non-deleted messages sent per active workspace member.",
     difficulty: "medium",
     expected_query:
-      "WITH workspace_message_counts AS ( SELECT workspace_id, COUNT(*) AS total_messages FROM messages WHERE is_deleted = false GROUP BY workspace_id ), workspace_active_members AS ( SELECT workspace_id, COUNT(*) AS active_members FROM workspace_members WHERE membership_status = 'active' GROUP BY workspace_id ) SELECT wam.workspace_id, ROUND(COALESCE(wmc.total_messages, 0)::numeric / NULLIF(wam.active_members, 0), 2) AS avg_messages_per_active_member FROM workspace_active_members wam LEFT JOIN workspace_message_counts wmc ON wam.workspace_id = wmc.workspace_id ORDER BY avg_messages_per_active_member DESC, wam.workspace_id ASC;",
+      "WITH workspace_message_counts AS ( SELECT workspace_id, COUNT(*) AS total_messages FROM messages WHERE is_deleted = false GROUP BY workspace_id ), workspace_active_members AS ( SELECT workspace_id, COUNT(*) AS active_members FROM workspace_members WHERE membership_status = 'active' GROUP BY workspace_id ) SELECT wam.workspace_id, ROUND(COALESCE(wmc.total_messages, 0)::numeric / NULLIF(wam.active_members, 0), 2) AS avg_messages_per_active_member FROM workspace_active_members wam LEFT JOIN workspace_message_counts wmc ON wam.workspace_id = wmc.workspace_id;",
     solution_columns: ["workspace_id", "avg_messages_per_active_member"],
     tables: ["messages", "workspace_members"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "avg_messages_per_active_member", direction: "desc" },
-        { column: "workspace_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -992,7 +758,6 @@ export const questions = [
     solution_columns: ["message_id", "mention_count"],
     tables: ["message_mentions"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "mention_count", direction: "desc" },
         { column: "message_id", direction: "asc" },
@@ -1007,16 +772,10 @@ export const questions = [
       "Find workspace members who were mentioned in more than one workspace.",
     difficulty: "medium",
     expected_query:
-      "SELECT mm.mentioned_member_id AS workspace_member_id, COUNT(DISTINCT m.workspace_id) AS workspace_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY mm.mentioned_member_id HAVING COUNT(DISTINCT m.workspace_id) > 1 ORDER BY workspace_count DESC, workspace_member_id ASC;",
+      "SELECT mm.mentioned_member_id AS workspace_member_id, COUNT(DISTINCT m.workspace_id) AS workspace_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY mm.mentioned_member_id HAVING COUNT(DISTINCT m.workspace_id) > 1;",
     solution_columns: ["workspace_member_id", "workspace_count"],
     tables: ["message_mentions", "messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "workspace_count", direction: "desc" },
-        { column: "workspace_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -1025,16 +784,10 @@ export const questions = [
     description: "Find channels where more than 20 messages have attachments.",
     difficulty: "medium",
     expected_query:
-      "SELECT m.channel_id, COUNT(DISTINCT ma.message_id) AS attachment_message_count FROM message_attachments ma JOIN messages m ON ma.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.channel_id HAVING COUNT(DISTINCT ma.message_id) > 20 ORDER BY attachment_message_count DESC, m.channel_id ASC;",
+      "SELECT m.channel_id, COUNT(DISTINCT ma.message_id) AS attachment_message_count FROM message_attachments ma JOIN messages m ON ma.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.channel_id HAVING COUNT(DISTINCT ma.message_id) > 20;",
     solution_columns: ["channel_id", "attachment_message_count"],
     tables: ["message_attachments", "messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "attachment_message_count", direction: "desc" },
-        { column: "channel_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -1048,7 +801,6 @@ export const questions = [
     solution_columns: ["conversation_id", "total_messages"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "total_messages", direction: "desc" },
         { column: "conversation_id", direction: "asc" },
@@ -1062,16 +814,10 @@ export const questions = [
     description: "Find workspace members who have muted more than 2 channels.",
     difficulty: "medium",
     expected_query:
-      "SELECT workspace_member_id, COUNT(*) AS muted_channel_count FROM notification_preferences WHERE mute_until IS NOT NULL GROUP BY workspace_member_id HAVING COUNT(*) > 2 ORDER BY muted_channel_count DESC, workspace_member_id ASC;",
+      "SELECT workspace_member_id, COUNT(*) AS muted_channel_count FROM notification_preferences WHERE mute_until IS NOT NULL GROUP BY workspace_member_id HAVING COUNT(*) > 2;",
     solution_columns: ["workspace_member_id", "muted_channel_count"],
     tables: ["notification_preferences"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "muted_channel_count", direction: "desc" },
-        { column: "workspace_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -1080,17 +826,10 @@ export const questions = [
     description: "For each workspace, count accepted and pending invites.",
     difficulty: "medium",
     expected_query:
-      "SELECT workspace_id, COUNT(*) FILTER (WHERE invite_status = 'accepted') AS accepted_invites, COUNT(*) FILTER (WHERE invite_status = 'pending') AS pending_invites FROM invites GROUP BY workspace_id ORDER BY accepted_invites DESC, pending_invites DESC, workspace_id ASC;",
+      "SELECT workspace_id, COUNT(*) FILTER (WHERE invite_status = 'accepted') AS accepted_invites, COUNT(*) FILTER (WHERE invite_status = 'pending') AS pending_invites FROM invites GROUP BY workspace_id;",
     solution_columns: ["workspace_id", "accepted_invites", "pending_invites"],
     tables: ["invites"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "accepted_invites", direction: "desc" },
-        { column: "pending_invites", direction: "desc" },
-        { column: "workspace_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -1100,13 +839,10 @@ export const questions = [
       "For each workspace, find the member who sent the highest number of non-deleted messages.",
     difficulty: "medium",
     expected_query:
-      "WITH member_message_counts AS ( SELECT workspace_id, sender_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), ranked_members AS ( SELECT workspace_id, sender_member_id, message_count, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY message_count DESC, sender_member_id ASC) AS rn FROM member_message_counts ) SELECT workspace_id, sender_member_id, message_count FROM ranked_members WHERE rn = 1 ORDER BY workspace_id ASC;",
+      "WITH member_message_counts AS ( SELECT workspace_id, sender_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), ranked_members AS ( SELECT workspace_id, sender_member_id, message_count, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY message_count DESC, sender_member_id ASC) AS rn FROM member_message_counts ) SELECT workspace_id, sender_member_id, message_count FROM ranked_members WHERE rn = 1;",
     solution_columns: ["workspace_id", "sender_member_id", "message_count"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "workspace_id", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -1116,13 +852,10 @@ export const questions = [
       "For each channel, find the message with the highest number of reactions.",
     difficulty: "medium",
     expected_query:
-      "WITH reaction_counts AS ( SELECT m.channel_id, mr.message_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.channel_id, mr.message_id ), ranked_messages AS ( SELECT channel_id, message_id, reaction_count, ROW_NUMBER() OVER (PARTITION BY channel_id ORDER BY reaction_count DESC, message_id ASC) AS rn FROM reaction_counts ) SELECT channel_id, message_id, reaction_count FROM ranked_messages WHERE rn = 1 ORDER BY channel_id ASC;",
+      "WITH reaction_counts AS ( SELECT m.channel_id, mr.message_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.channel_id, mr.message_id ), ranked_messages AS ( SELECT channel_id, message_id, reaction_count, ROW_NUMBER() OVER (PARTITION BY channel_id ORDER BY reaction_count DESC, message_id ASC) AS rn FROM reaction_counts ) SELECT channel_id, message_id, reaction_count FROM ranked_messages WHERE rn = 1;",
     solution_columns: ["channel_id", "message_id", "reaction_count"],
     tables: ["message_reactions", "messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "channel_id", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -1132,17 +865,10 @@ export const questions = [
       "Find members whose message count is greater than the average message count of members in their workspace.",
     difficulty: "medium",
     expected_query:
-      "WITH member_counts AS ( SELECT workspace_id, sender_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(message_count) AS avg_count FROM member_counts GROUP BY workspace_id ) SELECT mc.workspace_id, mc.sender_member_id, mc.message_count FROM member_counts mc JOIN workspace_avg wa ON mc.workspace_id = wa.workspace_id WHERE mc.message_count > wa.avg_count ORDER BY mc.workspace_id ASC, mc.message_count DESC, mc.sender_member_id ASC;",
+      "WITH member_counts AS ( SELECT workspace_id, sender_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(message_count) AS avg_count FROM member_counts GROUP BY workspace_id ) SELECT mc.workspace_id, mc.sender_member_id, mc.message_count FROM member_counts mc JOIN workspace_avg wa ON mc.workspace_id = wa.workspace_id WHERE mc.message_count > wa.avg_count;",
     solution_columns: ["workspace_id", "sender_member_id", "message_count"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "workspace_id", direction: "asc" },
-        { column: "message_count", direction: "desc" },
-        { column: "sender_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -1156,7 +882,6 @@ export const questions = [
     solution_columns: ["parent_message_id", "first_reply_minutes"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "first_reply_minutes", direction: "asc" },
         { column: "parent_message_id", direction: "asc" },
@@ -1175,7 +900,6 @@ export const questions = [
     solution_columns: ["message_id", "saved_count"],
     tables: ["saved_messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "saved_count", direction: "desc" },
         { column: "message_id", direction: "asc" },
@@ -1190,16 +914,10 @@ export const questions = [
       "Find channels where reply messages are more than 30 percent of total messages.",
     difficulty: "medium",
     expected_query:
-      "SELECT channel_id, COUNT(*) FILTER (WHERE parent_message_id IS NOT NULL) AS reply_count, COUNT(*) AS total_messages FROM messages WHERE channel_id IS NOT NULL GROUP BY channel_id HAVING COUNT(*) FILTER (WHERE parent_message_id IS NOT NULL)::numeric / COUNT(*) > 0.30 ORDER BY reply_count DESC, channel_id ASC;",
+      "SELECT channel_id, COUNT(*) FILTER (WHERE parent_message_id IS NOT NULL) AS reply_count, COUNT(*) AS total_messages FROM messages WHERE channel_id IS NOT NULL GROUP BY channel_id HAVING COUNT(*) FILTER (WHERE parent_message_id IS NOT NULL)::numeric / COUNT(*) > 0.30;",
     solution_columns: ["channel_id", "reply_count", "total_messages"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "reply_count", direction: "desc" },
-        { column: "channel_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -1209,13 +927,10 @@ export const questions = [
       "Find workspace members who reacted to messages but never sent a message.",
     difficulty: "medium",
     expected_query:
-      "SELECT DISTINCT mr.workspace_member_id FROM message_reactions mr LEFT JOIN messages m ON mr.workspace_member_id = m.sender_member_id GROUP BY mr.workspace_member_id HAVING COUNT(m.id) = 0 ORDER BY mr.workspace_member_id ASC;",
+      "SELECT DISTINCT mr.workspace_member_id FROM message_reactions mr LEFT JOIN messages m ON mr.workspace_member_id = m.sender_member_id GROUP BY mr.workspace_member_id HAVING COUNT(m.id) = 0;",
     solution_columns: ["workspace_member_id"],
     tables: ["message_reactions", "messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "workspace_member_id", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -1224,13 +939,10 @@ export const questions = [
     description: "Find daily non-deleted message counts for the last 30 days.",
     difficulty: "medium",
     expected_query:
-      "SELECT DATE(sent_at) AS message_date, COUNT(*) AS total_messages FROM messages WHERE is_deleted = false AND sent_at >= CURRENT_DATE - INTERVAL '30 days' GROUP BY DATE(sent_at) ORDER BY message_date ASC;",
+      "SELECT DATE(sent_at) AS message_date, COUNT(*) AS total_messages FROM messages WHERE is_deleted = false AND sent_at >= CURRENT_DATE - INTERVAL '30 days' GROUP BY DATE(sent_at);",
     solution_columns: ["message_date", "total_messages"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "message_date", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -1240,16 +952,10 @@ export const questions = [
       "Find channels whose member count is above the average across all channels.",
     difficulty: "medium",
     expected_query:
-      "WITH channel_counts AS ( SELECT channel_id, COUNT(*) AS member_count FROM channel_members GROUP BY channel_id ), avg_count AS ( SELECT AVG(member_count) AS avg_members FROM channel_counts ) SELECT cc.channel_id, cc.member_count FROM channel_counts cc CROSS JOIN avg_count ac WHERE cc.member_count > ac.avg_members ORDER BY cc.member_count DESC, cc.channel_id ASC;",
+      "WITH channel_counts AS ( SELECT channel_id, COUNT(*) AS member_count FROM channel_members GROUP BY channel_id ), avg_count AS ( SELECT AVG(member_count) AS avg_members FROM channel_counts ) SELECT cc.channel_id, cc.member_count FROM channel_counts cc CROSS JOIN avg_count ac WHERE cc.member_count > ac.avg_members;",
     solution_columns: ["channel_id", "member_count"],
     tables: ["channel_members"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "member_count", direction: "desc" },
-        { column: "channel_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
@@ -1263,7 +969,6 @@ export const questions = [
     solution_columns: ["message_hour", "total_messages"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "total_messages", direction: "desc" },
         { column: "message_hour", direction: "asc" },
@@ -1278,21 +983,15 @@ export const questions = [
       "Find members who sent non-deleted messages on at least 3 different consecutive dates.",
     difficulty: "medium",
     expected_query:
-      "WITH member_days AS ( SELECT DISTINCT sender_member_id, DATE(sent_at) AS message_date FROM messages WHERE is_deleted = false ), grouped_days AS ( SELECT sender_member_id, message_date, message_date - (ROW_NUMBER() OVER (PARTITION BY sender_member_id ORDER BY message_date))::int AS grp FROM member_days ) SELECT sender_member_id, COUNT(*) AS consecutive_days_count FROM grouped_days GROUP BY sender_member_id, grp HAVING COUNT(*) >= 3 ORDER BY consecutive_days_count DESC, sender_member_id ASC;",
+      "WITH member_days AS ( SELECT DISTINCT sender_member_id, DATE(sent_at) AS message_date FROM messages WHERE is_deleted = false ), grouped_days AS ( SELECT sender_member_id, message_date, message_date - (ROW_NUMBER() OVER (PARTITION BY sender_member_id ORDER BY message_date))::int AS grp FROM member_days ) SELECT sender_member_id, COUNT(*) AS consecutive_days_count FROM grouped_days GROUP BY sender_member_id, grp HAVING COUNT(*) >= 3;",
     solution_columns: ["sender_member_id", "consecutive_days_count"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "consecutive_days_count", direction: "desc" },
-        { column: "sender_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_072",
-    title: "Users With Faster Than Average First Reply",
+    title: "Users With Faster Than Avg Reply",
     description:
       "Find parent messages whose first reply time is faster than the overall average first reply time.",
     difficulty: "medium",
@@ -1301,7 +1000,6 @@ export const questions = [
     solution_columns: ["parent_message_id", "first_reply_minutes"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "first_reply_minutes", direction: "asc" },
         { column: "parent_message_id", direction: "asc" },
@@ -1311,12 +1009,12 @@ export const questions = [
   {
     app_id: appId,
     code: "CHAT_073",
-    title: "Members With Higher Channel Activity Than Workspace Activity",
+    title: "Members Above Channel Avg",
     description:
       "Find member-channel pairs where the member sent more messages in a channel than their average messages per channel in that workspace.",
     difficulty: "medium",
     expected_query:
-      "WITH member_channel_counts AS ( SELECT workspace_id, channel_id, sender_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false AND channel_id IS NOT NULL GROUP BY workspace_id, channel_id, sender_member_id ), member_workspace_avg AS ( SELECT workspace_id, sender_member_id, AVG(message_count) AS avg_channel_message_count FROM member_channel_counts GROUP BY workspace_id, sender_member_id ) SELECT mcc.workspace_id, mcc.channel_id, mcc.sender_member_id, mcc.message_count FROM member_channel_counts mcc JOIN member_workspace_avg mwa ON mcc.workspace_id = mwa.workspace_id AND mcc.sender_member_id = mwa.sender_member_id WHERE mcc.message_count > mwa.avg_channel_message_count ORDER BY mcc.workspace_id ASC, mcc.channel_id ASC, mcc.message_count DESC, mcc.sender_member_id ASC;",
+      "WITH member_channel_counts AS ( SELECT workspace_id, channel_id, sender_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false AND channel_id IS NOT NULL GROUP BY workspace_id, channel_id, sender_member_id ), member_workspace_avg AS ( SELECT workspace_id, sender_member_id, AVG(message_count) AS avg_channel_message_count FROM member_channel_counts GROUP BY workspace_id, sender_member_id ) SELECT mcc.workspace_id, mcc.channel_id, mcc.sender_member_id, mcc.message_count FROM member_channel_counts mcc JOIN member_workspace_avg mwa ON mcc.workspace_id = mwa.workspace_id AND mcc.sender_member_id = mwa.sender_member_id WHERE mcc.message_count > mwa.avg_channel_message_count;",
     solution_columns: [
       "workspace_id",
       "channel_id",
@@ -1324,20 +1022,12 @@ export const questions = [
       "message_count",
     ],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "workspace_id", direction: "asc" },
-        { column: "channel_id", direction: "asc" },
-        { column: "message_count", direction: "desc" },
-        { column: "sender_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_074",
-    title: "Most Replied To Users",
+    title: "Most Replied Users",
     description:
       "Find the top 10 members whose messages received the highest number of direct replies.",
     difficulty: "medium",
@@ -1346,7 +1036,6 @@ export const questions = [
     solution_columns: ["sender_member_id", "reply_count"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "reply_count", direction: "desc" },
         { column: "sender_member_id", direction: "asc" },
@@ -1356,27 +1045,20 @@ export const questions = [
   {
     app_id: appId,
     code: "CHAT_075",
-    title: "Members Above Workspace Reaction Average",
+    title: "Members Above Reaction Avg",
     description:
       "Find workspace members whose total reactions given are above the average reactions given in their workspace.",
     difficulty: "medium",
     expected_query:
-      "WITH member_reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(reaction_count) AS avg_reaction_count FROM member_reaction_counts GROUP BY workspace_id ) SELECT mrc.workspace_id, mrc.workspace_member_id, mrc.reaction_count FROM member_reaction_counts mrc JOIN workspace_avg wa ON mrc.workspace_id = wa.workspace_id WHERE mrc.reaction_count > wa.avg_reaction_count ORDER BY mrc.workspace_id ASC, mrc.reaction_count DESC, mrc.workspace_member_id ASC;",
+      "WITH member_reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(reaction_count) AS avg_reaction_count FROM member_reaction_counts GROUP BY workspace_id ) SELECT mrc.workspace_id, mrc.workspace_member_id, mrc.reaction_count FROM member_reaction_counts mrc JOIN workspace_avg wa ON mrc.workspace_id = wa.workspace_id WHERE mrc.reaction_count > wa.avg_reaction_count;",
     solution_columns: ["workspace_id", "workspace_member_id", "reaction_count"],
     tables: ["message_reactions", "messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "workspace_id", direction: "asc" },
-        { column: "reaction_count", direction: "desc" },
-        { column: "workspace_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_076",
-    title: "Top 3 Members Per Workspace By Messages",
+    title: "Top 3 Members Per Workspace",
     description:
       "For each workspace, find the top 3 members who sent the most non-deleted messages.",
     difficulty: "hard",
@@ -1385,7 +1067,6 @@ export const questions = [
     solution_columns: ["workspace_id", "sender_member_id", "message_count"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "workspace_id", direction: "asc" },
         { column: "message_count", direction: "desc" },
@@ -1396,7 +1077,7 @@ export const questions = [
   {
     app_id: appId,
     code: "CHAT_077",
-    title: "Longest Reply Chain Root Messages",
+    title: "Deepest Reply Threads",
     description:
       "Find the top 10 root messages that have the deepest reply chain.",
     difficulty: "hard",
@@ -1405,7 +1086,6 @@ export const questions = [
     solution_columns: ["root_message_id", "max_reply_depth"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "max_reply_depth", direction: "desc" },
         { column: "root_message_id", direction: "asc" },
@@ -1415,35 +1095,28 @@ export const questions = [
   {
     app_id: appId,
     code: "CHAT_078",
-    title: "Members More Popular Than Their Repliers",
+    title: "Members More Popular Than Repliers",
     description:
-      "Find members whose total received reply count is greater than the average received reply count of the members who replied to them.",
+      "Find members whose received replies exceed average of their repliers.",
     difficulty: "hard",
     expected_query:
-      "WITH received_replies AS ( SELECT p.sender_member_id AS member_id, COUNT(*) AS received_reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id GROUP BY p.sender_member_id ), replier_received_replies AS ( SELECT p.sender_member_id AS member_id, r.sender_member_id AS replier_member_id FROM messages r JOIN messages p ON r.parent_message_id = p.id ), replier_avg AS ( SELECT rrr.member_id, AVG(COALESCE(rr.received_reply_count, 0)) AS avg_replier_received_reply_count FROM replier_received_replies rrr LEFT JOIN received_replies rr ON rrr.replier_member_id = rr.member_id GROUP BY rrr.member_id ) SELECT rr.member_id, rr.received_reply_count FROM received_replies rr JOIN replier_avg ra ON rr.member_id = ra.member_id WHERE rr.received_reply_count > ra.avg_replier_received_reply_count ORDER BY rr.received_reply_count DESC, rr.member_id ASC;",
+      "WITH received_replies AS ( SELECT p.sender_member_id AS member_id, COUNT(*) AS received_reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id GROUP BY p.sender_member_id ), replier_received_replies AS ( SELECT p.sender_member_id AS member_id, r.sender_member_id AS replier_member_id FROM messages r JOIN messages p ON r.parent_message_id = p.id ), replier_avg AS ( SELECT rrr.member_id, AVG(COALESCE(rr.received_reply_count, 0)) AS avg_replier_received_reply_count FROM replier_received_replies rrr LEFT JOIN received_replies rr ON rrr.replier_member_id = rr.member_id GROUP BY rrr.member_id ) SELECT rr.member_id, rr.received_reply_count FROM received_replies rr JOIN replier_avg ra ON rr.member_id = ra.member_id WHERE rr.received_reply_count > ra.avg_replier_received_reply_count;",
     solution_columns: ["member_id", "received_reply_count"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "received_reply_count", direction: "desc" },
-        { column: "member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_079",
-    title: "Rolling 7 Day Message Leaders",
+    title: "Rolling 7 Day Leaders",
     description:
-      "For each calendar date, find the member with the highest non-deleted message count in the trailing 7 day window ending on that date.",
+      "For each date, find the member with highest rolling 7-day messages.",
     difficulty: "hard",
     expected_query:
       "WITH daily_member_messages AS ( SELECT DATE_TRUNC('day', sent_at) AS message_date, sender_member_id, COUNT(*) AS daily_count FROM messages WHERE is_deleted = false GROUP BY DATE_TRUNC('day', sent_at), sender_member_id ), rolling_counts AS ( SELECT message_date, sender_member_id, SUM(daily_count) OVER ( PARTITION BY sender_member_id ORDER BY message_date RANGE BETWEEN INTERVAL '6 days' PRECEDING AND CURRENT ROW ) AS rolling_7d_count FROM daily_member_messages ), daily_leaders AS ( SELECT DISTINCT ON (message_date) message_date::date AS message_date, sender_member_id, rolling_7d_count FROM rolling_counts ORDER BY message_date, rolling_7d_count DESC, sender_member_id ASC ) SELECT message_date, sender_member_id, rolling_7d_count FROM daily_leaders ORDER BY message_date ASC;",
     solution_columns: ["message_date", "sender_member_id", "rolling_7d_count"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [{ column: "message_date", direction: "asc" }],
     },
   },
@@ -1455,30 +1128,23 @@ export const questions = [
       "Find channels whose non-deleted message count increased week over week for at least 3 consecutive weeks.",
     difficulty: "hard",
     expected_query:
-      "WITH weekly_channel_messages AS ( SELECT channel_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS weekly_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id, DATE_TRUNC('week', sent_at)::date ), weekly_growth AS ( SELECT channel_id, week_start, weekly_count, LAG(weekly_count) OVER (PARTITION BY channel_id ORDER BY week_start) AS prev_week_count FROM weekly_channel_messages ), growth_flags AS ( SELECT channel_id, week_start, CASE WHEN prev_week_count IS NOT NULL AND weekly_count > prev_week_count THEN 1 ELSE 0 END AS is_growth_week FROM weekly_growth ), grouped_growth AS ( SELECT channel_id, week_start, is_growth_week, ROW_NUMBER() OVER (PARTITION BY channel_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY channel_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT channel_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY channel_id, grp HAVING COUNT(*) >= 3 ORDER BY consecutive_growth_weeks DESC, channel_id ASC;",
+      "WITH weekly_channel_messages AS ( SELECT channel_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS weekly_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id, DATE_TRUNC('week', sent_at)::date ), weekly_growth AS ( SELECT channel_id, week_start, weekly_count, LAG(weekly_count) OVER (PARTITION BY channel_id ORDER BY week_start) AS prev_week_count FROM weekly_channel_messages ), growth_flags AS ( SELECT channel_id, week_start, CASE WHEN prev_week_count IS NOT NULL AND weekly_count > prev_week_count THEN 1 ELSE 0 END AS is_growth_week FROM weekly_growth ), grouped_flags AS ( SELECT channel_id, week_start, is_growth_week, ROW_NUMBER() OVER (PARTITION BY channel_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY channel_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags ), grouped_growth AS ( SELECT channel_id, week_start, grp FROM grouped_flags WHERE is_growth_week = 1 ) SELECT channel_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY channel_id, grp HAVING COUNT(*) >= 3;",
     solution_columns: ["channel_id", "consecutive_growth_weeks"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "consecutive_growth_weeks", direction: "desc" },
-        { column: "channel_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_081",
     title: "Fastest Median First Reply Channels",
     description:
-      "Find the top 10 channels with the lowest median first reply time in minutes for parent messages that received at least one reply.",
+      "Find the top 10 channels with the lowest median first reply time.",
     difficulty: "hard",
     expected_query:
-      "WITH first_replies AS ( SELECT parent_message_id, MIN(sent_at) AS first_reply_at FROM messages WHERE parent_message_id IS NOT NULL GROUP BY parent_message_id ), parent_reply_times AS ( SELECT p.channel_id, p.id AS parent_message_id, EXTRACT(EPOCH FROM (fr.first_reply_at - p.sent_at)) / 60.0 AS first_reply_minutes FROM messages p JOIN first_replies fr ON p.id = fr.parent_message_id WHERE p.channel_id IS NOT NULL ) SELECT channel_id, ROUND((PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY first_reply_minutes))::numeric, 2) AS median_first_reply_minutes FROM parent_reply_times GROUP BY channel_id ORDER BY median_first_reply_minutes ASC, channel_id ASC LIMIT 10;",
+      "WITH first_replies AS ( SELECT parent_message_id, MIN(sent_at) AS first_reply_at FROM messages WHERE parent_message_id IS NOT NULL GROUP BY parent_message_id ), parent_reply_times AS ( SELECT p.channel_id, EXTRACT(EPOCH FROM (fr.first_reply_at - p.sent_at)) / 60.0 AS first_reply_minutes FROM messages p JOIN first_replies fr ON p.id = fr.parent_message_id WHERE p.channel_id IS NOT NULL ) SELECT channel_id, ROUND((PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY first_reply_minutes))::numeric, 2) AS median_first_reply_minutes FROM parent_reply_times GROUP BY channel_id ORDER BY median_first_reply_minutes ASC, channel_id ASC LIMIT 10;",
     solution_columns: ["channel_id", "median_first_reply_minutes"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "median_first_reply_minutes", direction: "asc" },
         { column: "channel_id", direction: "asc" },
@@ -1489,69 +1155,52 @@ export const questions = [
     app_id: appId,
     code: "CHAT_082",
     title: "Members In Every Public Channel",
-    description:
-      "Find workspace members who belong to every public channel of their workspace.",
+    description: "Find workspace members who belong to every public channel.",
     difficulty: "hard",
     expected_query:
-      "WITH public_channels AS ( SELECT workspace_id, COUNT(*) AS public_channel_count FROM channels WHERE visibility = 'public' GROUP BY workspace_id ), public_memberships AS ( SELECT c.workspace_id, cm.workspace_member_id, COUNT(DISTINCT cm.channel_id) AS joined_public_channels FROM channel_members cm JOIN channels c ON cm.channel_id = c.id WHERE c.visibility = 'public' GROUP BY c.workspace_id, cm.workspace_member_id ) SELECT pm.workspace_id, pm.workspace_member_id FROM public_memberships pm JOIN public_channels pc ON pm.workspace_id = pc.workspace_id WHERE pm.joined_public_channels = pc.public_channel_count ORDER BY pm.workspace_id ASC, pm.workspace_member_id ASC;",
+      "WITH public_channels AS ( SELECT workspace_id, COUNT(*) AS public_channel_count FROM channels WHERE visibility = 'public' GROUP BY workspace_id ), public_memberships AS ( SELECT c.workspace_id, cm.workspace_member_id, COUNT(DISTINCT cm.channel_id) AS joined_public_channels FROM channel_members cm JOIN channels c ON cm.channel_id = c.id WHERE c.visibility = 'public' GROUP BY c.workspace_id, cm.workspace_member_id ) SELECT pm.workspace_id, pm.workspace_member_id FROM public_memberships pm JOIN public_channels pc ON pm.workspace_id = pc.workspace_id WHERE pm.joined_public_channels = pc.public_channel_count;",
     solution_columns: ["workspace_id", "workspace_member_id"],
     tables: ["channels", "channel_members"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "workspace_id", direction: "asc" },
-        { column: "workspace_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_083",
-    title: "Members Whose Reactions Exceed Messages In Most Channels",
+    title: "Members Reaction vs Message Dominance",
     description:
-      "Find workspace members for whom the number of channels where they gave more reactions than messages is greater than the number of channels where they sent more messages than reactions.",
+      "Find members where channels with more reactions exceed channels with more messages.",
     difficulty: "hard",
     expected_query:
-      "WITH message_counts AS ( SELECT workspace_id, channel_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, channel_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, m.channel_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.workspace_id, m.channel_id, mr.workspace_member_id ), combined AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id) AS workspace_id, COALESCE(mc.channel_id, rc.channel_id) AS channel_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.channel_id = rc.channel_id AND mc.workspace_member_id = rc.workspace_member_id ) SELECT workspace_id, workspace_member_id FROM combined GROUP BY workspace_id, workspace_member_id HAVING COUNT(*) FILTER (WHERE reaction_count > message_count) > COUNT(*) FILTER (WHERE message_count > reaction_count) ORDER BY workspace_id ASC, workspace_member_id ASC;",
+      "WITH message_counts AS ( SELECT workspace_id, channel_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, channel_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, m.channel_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.workspace_id, m.channel_id, mr.workspace_member_id ), combined AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id) AS workspace_id, COALESCE(mc.channel_id, rc.channel_id) AS channel_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.channel_id = rc.channel_id AND mc.workspace_member_id = rc.workspace_member_id ) SELECT workspace_id, workspace_member_id FROM combined GROUP BY workspace_id, workspace_member_id HAVING COUNT(*) FILTER (WHERE reaction_count > message_count) > COUNT(*) FILTER (WHERE message_count > reaction_count);",
     solution_columns: ["workspace_id", "workspace_member_id"],
     tables: ["messages", "message_reactions"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "workspace_id", direction: "asc" },
-        { column: "workspace_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_084",
-    title: "Most Replied To Root Message Per Workspace",
-    description:
-      "For each workspace, find the root message whose entire reply tree contains the highest total number of descendant replies.",
+    title: "Top Root Message Per Workspace",
+    description: "Find root message with most replies per workspace.",
     difficulty: "hard",
     expected_query:
-      "WITH RECURSIVE reply_tree AS ( SELECT m.workspace_id, m.id AS root_message_id, m.id, m.parent_message_id FROM messages m WHERE m.parent_message_id IS NULL UNION ALL SELECT rt.workspace_id, rt.root_message_id, m.id, m.parent_message_id FROM messages m JOIN reply_tree rt ON m.parent_message_id = rt.id ), reply_totals AS ( SELECT workspace_id, root_message_id, COUNT(*) - 1 AS total_descendant_replies FROM reply_tree GROUP BY workspace_id, root_message_id ), ranked_roots AS ( SELECT workspace_id, root_message_id, total_descendant_replies, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY total_descendant_replies DESC, root_message_id ASC) AS rn FROM reply_totals ) SELECT workspace_id, root_message_id, total_descendant_replies FROM ranked_roots WHERE rn = 1 ORDER BY workspace_id ASC;",
+      "WITH RECURSIVE reply_tree AS ( SELECT m.workspace_id, m.id AS root_message_id, m.id, m.parent_message_id FROM messages m WHERE m.parent_message_id IS NULL UNION ALL SELECT rt.workspace_id, rt.root_message_id, m.id, m.parent_message_id FROM messages m JOIN reply_tree rt ON m.parent_message_id = rt.id ), reply_totals AS ( SELECT workspace_id, root_message_id, COUNT(*) - 1 AS total_descendant_replies FROM reply_tree GROUP BY workspace_id, root_message_id ), ranked_roots AS ( SELECT workspace_id, root_message_id, total_descendant_replies, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY total_descendant_replies DESC, root_message_id ASC) AS rn FROM reply_totals ) SELECT workspace_id, root_message_id, total_descendant_replies FROM ranked_roots WHERE rn = 1;",
     solution_columns: [
       "workspace_id",
       "root_message_id",
       "total_descendant_replies",
     ],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "workspace_id", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_085",
-    title: "Power Users Across Message Reaction And Mention Activity",
+    title: "Power Users Multi Metrics",
     description:
-      "Find workspace members who are above their workspace average in sent messages, reactions given, and members mentioned.",
+      "Find members above workspace averages in messages, reactions and mentions.",
     difficulty: "hard",
     expected_query:
-      "WITH message_counts AS ( SELECT workspace_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), mention_counts AS ( SELECT m.workspace_id, m.sender_member_id AS workspace_member_id, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY m.workspace_id, m.sender_member_id ), member_metrics AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id, mic.workspace_id) AS workspace_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id, mic.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count, COALESCE(mic.mention_count, 0) AS mention_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.workspace_member_id = rc.workspace_member_id FULL OUTER JOIN mention_counts mic ON COALESCE(mc.workspace_id, rc.workspace_id) = mic.workspace_id AND COALESCE(mc.workspace_member_id, rc.workspace_member_id) = mic.workspace_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(message_count) AS avg_message_count, AVG(reaction_count) AS avg_reaction_count, AVG(mention_count) AS avg_mention_count FROM member_metrics GROUP BY workspace_id ) SELECT mm.workspace_id, mm.workspace_member_id, mm.message_count, mm.reaction_count, mm.mention_count FROM member_metrics mm JOIN workspace_avg wa ON mm.workspace_id = wa.workspace_id WHERE mm.message_count > wa.avg_message_count AND mm.reaction_count > wa.avg_reaction_count AND mm.mention_count > wa.avg_mention_count ORDER BY mm.workspace_id ASC, mm.workspace_member_id ASC;",
+      "WITH message_counts AS ( SELECT workspace_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), mention_counts AS ( SELECT m.workspace_id, m.sender_member_id AS workspace_member_id, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY m.workspace_id, m.sender_member_id ), member_metrics AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id, mic.workspace_id) AS workspace_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id, mic.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count, COALESCE(mic.mention_count, 0) AS mention_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.workspace_member_id = rc.workspace_member_id FULL OUTER JOIN mention_counts mic ON COALESCE(mc.workspace_id, rc.workspace_id) = mic.workspace_id AND COALESCE(mc.workspace_member_id, rc.workspace_member_id) = mic.workspace_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(message_count) AS avg_message_count, AVG(reaction_count) AS avg_reaction_count, AVG(mention_count) AS avg_mention_count FROM member_metrics GROUP BY workspace_id ) SELECT mm.workspace_id, mm.workspace_member_id, mm.message_count, mm.reaction_count, mm.mention_count FROM member_metrics mm JOIN workspace_avg wa ON mm.workspace_id = wa.workspace_id WHERE mm.message_count > wa.avg_message_count AND mm.reaction_count > wa.avg_reaction_count AND mm.mention_count > wa.avg_mention_count;",
     solution_columns: [
       "workspace_id",
       "workspace_member_id",
@@ -1560,27 +1209,19 @@ export const questions = [
       "mention_count",
     ],
     tables: ["messages", "message_reactions", "message_mentions"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "workspace_id", direction: "asc" },
-        { column: "workspace_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_086",
     title: "Dormant But Unread Heavy Members",
-    description:
-      "Find workspace members who have not sent any message in the last 30 days but still have more than 20 unread channel messages based on their channel last read timestamp.",
+    description: "Find members inactive 30 days but with >20 unread messages.",
     difficulty: "hard",
     expected_query:
       "WITH last_sent AS ( SELECT sender_member_id AS workspace_member_id, MAX(sent_at) AS last_sent_at FROM messages WHERE is_deleted = false GROUP BY sender_member_id ), unread_counts AS ( SELECT cm.workspace_member_id, COUNT(m.id) AS unread_message_count FROM channel_members cm JOIN messages m ON m.channel_id = cm.channel_id AND m.sent_at > COALESCE(cm.last_read_at, TIMESTAMP '1970-01-01') AND m.is_deleted = false GROUP BY cm.workspace_member_id ) SELECT uc.workspace_member_id, uc.unread_message_count FROM unread_counts uc LEFT JOIN last_sent ls ON uc.workspace_member_id = ls.workspace_member_id WHERE (ls.last_sent_at IS NULL OR ls.last_sent_at < CURRENT_DATE - INTERVAL '30 days') AND uc.unread_message_count > 20 ORDER BY uc.unread_message_count DESC, uc.workspace_member_id ASC;",
     solution_columns: ["workspace_member_id", "unread_message_count"],
     tables: ["channel_members", "messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "unread_message_count", direction: "desc" },
         { column: "workspace_member_id", direction: "asc" },
@@ -1590,35 +1231,27 @@ export const questions = [
   {
     app_id: appId,
     code: "CHAT_087",
-    title: "Conversation Pairs With Mutual Replies",
+    title: "Mutual Reply Pairs",
     description:
-      "Find pairs of members in direct conversations where each member has replied to the other at least 3 times.",
+      "Find pairs where both members replied to each other >=3 times.",
     difficulty: "hard",
     expected_query:
-      "WITH direct_replies AS ( SELECT LEAST(p.sender_member_id, r.sender_member_id) AS member_1, GREATEST(p.sender_member_id, r.sender_member_id) AS member_2, p.sender_member_id AS original_sender, r.sender_member_id AS replier_sender, COUNT(*) AS reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id WHERE p.conversation_id IS NOT NULL AND r.conversation_id = p.conversation_id GROUP BY LEAST(p.sender_member_id, r.sender_member_id), GREATEST(p.sender_member_id, r.sender_member_id), p.sender_member_id, r.sender_member_id ), pair_summary AS ( SELECT member_1, member_2, COUNT(*) FILTER (WHERE original_sender = member_1 AND replier_sender = member_2 AND reply_count >= 3) AS member_2_replies_to_member_1, COUNT(*) FILTER (WHERE original_sender = member_2 AND replier_sender = member_1 AND reply_count >= 3) AS member_1_replies_to_member_2 FROM direct_replies GROUP BY member_1, member_2 ) SELECT member_1, member_2 FROM pair_summary WHERE member_2_replies_to_member_1 > 0 AND member_1_replies_to_member_2 > 0 ORDER BY member_1 ASC, member_2 ASC;",
+      "WITH direct_replies AS ( SELECT LEAST(p.sender_member_id, r.sender_member_id) AS member_1, GREATEST(p.sender_member_id, r.sender_member_id) AS member_2, p.sender_member_id AS original_sender, r.sender_member_id AS replier_sender, COUNT(*) AS reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id WHERE p.conversation_id IS NOT NULL AND r.conversation_id = p.conversation_id GROUP BY LEAST(p.sender_member_id, r.sender_member_id), GREATEST(p.sender_member_id, r.sender_member_id), p.sender_member_id, r.sender_member_id ), pair_summary AS ( SELECT member_1, member_2, COUNT(*) FILTER (WHERE original_sender = member_1 AND replier_sender = member_2 AND reply_count >= 3) AS c1, COUNT(*) FILTER (WHERE original_sender = member_2 AND replier_sender = member_1 AND reply_count >= 3) AS c2 FROM direct_replies GROUP BY member_1, member_2 ) SELECT member_1, member_2 FROM pair_summary WHERE c1 > 0 AND c2 > 0;",
     solution_columns: ["member_1", "member_2"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "member_1", direction: "asc" },
-        { column: "member_2", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_088",
-    title: "Channels Where Top Sender Dominates",
-    description:
-      "Find channels where the top sender contributed more than 50 percent of all non-deleted messages.",
+    title: "Channels Dominated By One User",
+    description: "Find channels where one user contributed >50% messages.",
     difficulty: "hard",
     expected_query:
       "WITH channel_member_counts AS ( SELECT channel_id, sender_member_id, COUNT(*) AS message_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id, sender_member_id ), channel_totals AS ( SELECT channel_id, SUM(message_count) AS total_messages, MAX(message_count) AS top_member_messages FROM channel_member_counts GROUP BY channel_id ) SELECT channel_id, top_member_messages, total_messages FROM channel_totals WHERE top_member_messages::numeric / total_messages > 0.50 ORDER BY top_member_messages DESC, channel_id ASC;",
     solution_columns: ["channel_id", "top_member_messages", "total_messages"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "top_member_messages", direction: "desc" },
         { column: "channel_id", direction: "asc" },
@@ -1628,28 +1261,20 @@ export const questions = [
   {
     app_id: appId,
     code: "CHAT_089",
-    title: "Workspaces With Rising 4 Week Activity",
-    description:
-      "Find workspaces whose weekly non-deleted message counts increased for 4 consecutive weeks.",
+    title: "Workspaces With 4 Week Growth",
+    description: "Find workspaces with 4 consecutive weekly growth.",
     difficulty: "hard",
     expected_query:
-      "WITH weekly_workspace_messages AS ( SELECT workspace_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS weekly_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date ), growth_flags AS ( SELECT workspace_id, week_start, CASE WHEN weekly_count > LAG(weekly_count) OVER (PARTITION BY workspace_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_workspace_messages ), grouped_growth AS ( SELECT workspace_id, week_start, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT workspace_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_id, grp HAVING COUNT(*) >= 4 ORDER BY consecutive_growth_weeks DESC, workspace_id ASC;",
+      "WITH weekly_workspace_messages AS ( SELECT workspace_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS weekly_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date ), growth_flags AS ( SELECT workspace_id, week_start, CASE WHEN weekly_count > LAG(weekly_count) OVER (PARTITION BY workspace_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_workspace_messages ), grouped_growth AS ( SELECT workspace_id, week_start, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT workspace_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_id, grp HAVING COUNT(*) >= 4;",
     solution_columns: ["workspace_id", "consecutive_growth_weeks"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "consecutive_growth_weeks", direction: "desc" },
-        { column: "workspace_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_090",
-    title: "Members With Faster Replies Than Their Own Workspace Median",
-    description:
-      "Find workspace members whose median reply time to parent messages is lower than the median reply time of all repliers in their workspace.",
+    title: "Members Faster Than Workspace Median",
+    description: "Find members with median reply time below workspace median.",
     difficulty: "hard",
     expected_query:
       "WITH member_reply_times AS ( SELECT r.workspace_id, r.sender_member_id AS workspace_member_id, EXTRACT(EPOCH FROM (r.sent_at - p.sent_at)) / 60.0 AS reply_minutes FROM messages r JOIN messages p ON r.parent_message_id = p.id ), member_medians AS ( SELECT workspace_id, workspace_member_id, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reply_minutes) AS member_median_reply_minutes FROM member_reply_times GROUP BY workspace_id, workspace_member_id ), workspace_reply_times AS ( SELECT workspace_id, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reply_minutes) AS workspace_median_reply_minutes FROM member_reply_times GROUP BY workspace_id ) SELECT mm.workspace_id, mm.workspace_member_id, ROUND(mm.member_median_reply_minutes::numeric, 2) AS member_median_reply_minutes FROM member_medians mm JOIN workspace_reply_times wrt ON mm.workspace_id = wrt.workspace_id WHERE mm.member_median_reply_minutes < wrt.workspace_median_reply_minutes ORDER BY mm.workspace_id ASC, member_median_reply_minutes ASC, mm.workspace_member_id ASC;",
@@ -1660,7 +1285,6 @@ export const questions = [
     ],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "workspace_id", direction: "asc" },
         { column: "member_median_reply_minutes", direction: "asc" },
@@ -1671,16 +1295,15 @@ export const questions = [
   {
     app_id: appId,
     code: "CHAT_091",
-    title: "Members With Highest 30 Day Growth",
+    title: "Members Highest 30 Day Growth",
     description:
-      "Find the top 10 members whose message count growth in the last 30 days is highest compared to the previous 30 days.",
+      "Find the top 10 members whose message growth in last 30 days vs previous 30 days is highest.",
     difficulty: "hard",
     expected_query:
       "WITH current_30d AS ( SELECT sender_member_id AS member_id, COUNT(*) AS current_count FROM messages WHERE is_deleted = false AND sent_at >= CURRENT_DATE - INTERVAL '30 days' GROUP BY sender_member_id ), previous_30d AS ( SELECT sender_member_id AS member_id, COUNT(*) AS previous_count FROM messages WHERE is_deleted = false AND sent_at >= CURRENT_DATE - INTERVAL '60 days' AND sent_at < CURRENT_DATE - INTERVAL '30 days' GROUP BY sender_member_id ) SELECT COALESCE(c.member_id, p.member_id) AS member_id, COALESCE(c.current_count, 0) - COALESCE(p.previous_count, 0) AS growth_count FROM current_30d c FULL OUTER JOIN previous_30d p ON c.member_id = p.member_id ORDER BY growth_count DESC, member_id ASC LIMIT 10;",
     solution_columns: ["member_id", "growth_count"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "growth_count", direction: "desc" },
         { column: "member_id", direction: "asc" },
@@ -1690,32 +1313,26 @@ export const questions = [
   {
     app_id: appId,
     code: "CHAT_092",
-    title: "Channels With Deep And Wide Threads",
-    description:
-      "Find channels where at least one thread has depth greater than 5 and total replies greater than 20.",
+    title: "Channels Deep And Wide Threads",
+    description: "Find channels where a thread has depth > 5 and replies > 20.",
     difficulty: "hard",
     expected_query:
-      "WITH RECURSIVE thread_tree AS ( SELECT channel_id, id AS root_message_id, id, parent_message_id, 0 AS depth FROM messages WHERE parent_message_id IS NULL AND channel_id IS NOT NULL UNION ALL SELECT tt.channel_id, tt.root_message_id, m.id, m.parent_message_id, tt.depth + 1 FROM messages m JOIN thread_tree tt ON m.parent_message_id = tt.id ), thread_stats AS ( SELECT channel_id, root_message_id, MAX(depth) AS max_depth, COUNT(*) - 1 AS total_replies FROM thread_tree GROUP BY channel_id, root_message_id ) SELECT DISTINCT channel_id FROM thread_stats WHERE max_depth > 5 AND total_replies > 20 ORDER BY channel_id ASC;",
+      "WITH RECURSIVE thread_tree AS ( SELECT channel_id, id AS root_message_id, id, parent_message_id, 0 AS depth FROM messages WHERE parent_message_id IS NULL AND channel_id IS NOT NULL UNION ALL SELECT tt.channel_id, tt.root_message_id, m.id, m.parent_message_id, tt.depth + 1 FROM messages m JOIN thread_tree tt ON m.parent_message_id = tt.id ), thread_stats AS ( SELECT channel_id, root_message_id, MAX(depth) AS max_depth, COUNT(*) - 1 AS total_replies FROM thread_tree GROUP BY channel_id, root_message_id ) SELECT DISTINCT channel_id FROM thread_stats WHERE max_depth > 5 AND total_replies > 20;",
     solution_columns: ["channel_id"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [{ column: "channel_id", direction: "asc" }],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_093",
-    title: "Most Engaging Channels By Interaction Score",
-    description:
-      "Find the top 10 channels ranked by interaction score where score = messages + reactions + replies.",
+    title: "Most Engaging Channels",
+    description: "Find top 10 channels ranked by interaction score.",
     difficulty: "hard",
     expected_query:
       "WITH channel_messages AS ( SELECT channel_id, COUNT(*) AS message_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id ), channel_reactions AS ( SELECT m.channel_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.channel_id ), channel_replies AS ( SELECT channel_id, COUNT(*) AS reply_count FROM messages WHERE channel_id IS NOT NULL AND parent_message_id IS NOT NULL GROUP BY channel_id ) SELECT COALESCE(cm.channel_id, cr.channel_id, cp.channel_id) AS channel_id, COALESCE(cm.message_count,0) + COALESCE(cr.reaction_count,0) + COALESCE(cp.reply_count,0) AS interaction_score FROM channel_messages cm FULL OUTER JOIN channel_reactions cr ON cm.channel_id = cr.channel_id FULL OUTER JOIN channel_replies cp ON COALESCE(cm.channel_id, cr.channel_id) = cp.channel_id ORDER BY interaction_score DESC, channel_id ASC LIMIT 10;",
     solution_columns: ["channel_id", "interaction_score"],
     tables: ["messages", "message_reactions"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "interaction_score", direction: "desc" },
         { column: "channel_id", direction: "asc" },
@@ -1725,35 +1342,27 @@ export const questions = [
   {
     app_id: appId,
     code: "CHAT_094",
-    title: "Power Members In Every Workspace Channel",
-    description:
-      "Find members who have sent at least one message in every channel of their workspace.",
+    title: "Power Members Every Channel",
+    description: "Find members active in every channel of their workspace.",
     difficulty: "hard",
     expected_query:
-      "WITH workspace_channels AS ( SELECT workspace_id, COUNT(*) AS total_channels FROM channels GROUP BY workspace_id ), member_channel_activity AS ( SELECT workspace_id, sender_member_id AS member_id, COUNT(DISTINCT channel_id) AS active_channels FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, sender_member_id ) SELECT mca.workspace_id, mca.member_id FROM member_channel_activity mca JOIN workspace_channels wc ON mca.workspace_id = wc.workspace_id WHERE mca.active_channels = wc.total_channels ORDER BY mca.workspace_id ASC, mca.member_id ASC;",
+      "WITH workspace_channels AS ( SELECT workspace_id, COUNT(*) AS total_channels FROM channels GROUP BY workspace_id ), member_channel_activity AS ( SELECT workspace_id, sender_member_id AS member_id, COUNT(DISTINCT channel_id) AS active_channels FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, sender_member_id ) SELECT mca.workspace_id, mca.member_id FROM member_channel_activity mca JOIN workspace_channels wc ON mca.workspace_id = wc.workspace_id WHERE mca.active_channels = wc.total_channels;",
     solution_columns: ["workspace_id", "member_id"],
     tables: ["messages", "channels"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "workspace_id", direction: "asc" },
-        { column: "member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_095",
-    title: "Channels With Highest Reply Velocity",
+    title: "Channels Reply Velocity",
     description:
-      "Find the top 10 channels with the highest replies per hour in the last 7 days.",
+      "Find top 10 channels with highest replies per hour (last 7 days).",
     difficulty: "hard",
     expected_query:
       "WITH channel_replies AS ( SELECT channel_id, COUNT(*) AS reply_count FROM messages WHERE channel_id IS NOT NULL AND parent_message_id IS NOT NULL AND sent_at >= CURRENT_DATE - INTERVAL '7 days' GROUP BY channel_id ) SELECT channel_id, ROUND(reply_count::numeric / (7 * 24), 2) AS replies_per_hour FROM channel_replies ORDER BY replies_per_hour DESC, channel_id ASC LIMIT 10;",
     solution_columns: ["channel_id", "replies_per_hour"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "replies_per_hour", direction: "desc" },
         { column: "channel_id", direction: "asc" },
@@ -1763,35 +1372,27 @@ export const questions = [
   {
     app_id: appId,
     code: "CHAT_096",
-    title: "Members Whose Mentions Grew Week Over Week",
-    description:
-      "Find workspace members whose received mention count increased every week for 3 consecutive weeks.",
+    title: "Members Weekly Mention Growth",
+    description: "Find members with 3 consecutive weeks of mention growth.",
     difficulty: "hard",
     expected_query:
-      "WITH weekly_mentions AS ( SELECT mm.mentioned_member_id AS workspace_member_id, DATE_TRUNC('week', m.sent_at)::date AS week_start, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY mm.mentioned_member_id, DATE_TRUNC('week', m.sent_at)::date ), growth_flags AS ( SELECT workspace_member_id, week_start, CASE WHEN mention_count > LAG(mention_count) OVER (PARTITION BY workspace_member_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_mentions ), grouped_growth AS ( SELECT workspace_member_id, week_start, ROW_NUMBER() OVER (PARTITION BY workspace_member_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_member_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT workspace_member_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_member_id, grp HAVING COUNT(*) >= 3 ORDER BY consecutive_growth_weeks DESC, workspace_member_id ASC;",
+      "WITH weekly_mentions AS ( SELECT mm.mentioned_member_id AS workspace_member_id, DATE_TRUNC('week', m.sent_at)::date AS week_start, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY mm.mentioned_member_id, DATE_TRUNC('week', m.sent_at)::date ), growth_flags AS ( SELECT workspace_member_id, week_start, CASE WHEN mention_count > LAG(mention_count) OVER (PARTITION BY workspace_member_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_mentions ), grouped_growth AS ( SELECT workspace_member_id, week_start, ROW_NUMBER() OVER (PARTITION BY workspace_member_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_member_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT workspace_member_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_member_id, grp HAVING COUNT(*) >= 3;",
     solution_columns: ["workspace_member_id", "consecutive_growth_weeks"],
     tables: ["message_mentions", "messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "consecutive_growth_weeks", direction: "desc" },
-        { column: "workspace_member_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_097",
-    title: "Conversations With Highest Sender Reciprocity",
+    title: "Conversations Highest Reciprocity",
     description:
-      "Find the top 10 conversations with the most balanced message exchange between senders.",
+      "Find top 10 conversations with most balanced sender distribution.",
     difficulty: "hard",
     expected_query:
       "WITH sender_counts AS ( SELECT conversation_id, sender_member_id, COUNT(*) AS message_count FROM messages WHERE conversation_id IS NOT NULL AND is_deleted = false GROUP BY conversation_id, sender_member_id ), conversation_balance AS ( SELECT conversation_id, MIN(message_count) AS min_sender_messages, MAX(message_count) AS max_sender_messages, SUM(message_count) AS total_messages, COUNT(*) AS sender_count FROM sender_counts GROUP BY conversation_id HAVING COUNT(*) > 1 ) SELECT conversation_id, sender_count, total_messages FROM conversation_balance ORDER BY (max_sender_messages - min_sender_messages) ASC, total_messages DESC, conversation_id ASC LIMIT 10;",
     solution_columns: ["conversation_id", "sender_count", "total_messages"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "total_messages", direction: "desc" },
         { column: "conversation_id", direction: "asc" },
@@ -1801,35 +1402,26 @@ export const questions = [
   {
     app_id: appId,
     code: "CHAT_098",
-    title: "Workspaces With Rising Engagement Score",
-    description:
-      "Find workspaces whose combined engagement score (messages + reactions + mentions) increased for 4 consecutive weeks.",
+    title: "Workspaces Rising Engagement",
+    description: "Find workspaces with 4 consecutive weeks of growth.",
     difficulty: "hard",
     expected_query:
-      "WITH weekly_scores AS ( SELECT workspace_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS message_score FROM messages WHERE is_deleted = false GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date ), growth_flags AS ( SELECT workspace_id, week_start, CASE WHEN message_score > LAG(message_score) OVER (PARTITION BY workspace_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_scores ), grouped_growth AS ( SELECT workspace_id, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT workspace_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_id, grp HAVING COUNT(*) >= 4 ORDER BY consecutive_growth_weeks DESC, workspace_id ASC;",
+      "WITH weekly_scores AS ( SELECT workspace_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS message_score FROM messages WHERE is_deleted = false GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date ), growth_flags AS ( SELECT workspace_id, week_start, CASE WHEN message_score > LAG(message_score) OVER (PARTITION BY workspace_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_scores ), grouped_growth AS ( SELECT workspace_id, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT workspace_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_id, grp HAVING COUNT(*) >= 4;",
     solution_columns: ["workspace_id", "consecutive_growth_weeks"],
     tables: ["messages"],
-    comparison_config: {
-      ignore_order: false,
-      sort_by_columns: [
-        { column: "consecutive_growth_weeks", direction: "desc" },
-        { column: "workspace_id", direction: "asc" },
-      ],
-    },
+    comparison_config: {},
   },
   {
     app_id: appId,
     code: "CHAT_099",
-    title: "Members Above 90th Percentile Activity",
-    description:
-      "Find members whose total message count is above the 90th percentile across all members.",
+    title: "Members Above 90th Percentile",
+    description: "Find members above 90th percentile message count.",
     difficulty: "hard",
     expected_query:
       "WITH member_counts AS ( SELECT sender_member_id AS member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY sender_member_id ), percentile_value AS ( SELECT PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY message_count) AS p90 FROM member_counts ) SELECT mc.member_id, mc.message_count FROM member_counts mc CROSS JOIN percentile_value pv WHERE mc.message_count > pv.p90 ORDER BY mc.message_count DESC, mc.member_id ASC;",
     solution_columns: ["member_id", "message_count"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "message_count", direction: "desc" },
         { column: "member_id", direction: "asc" },
@@ -1839,16 +1431,15 @@ export const questions = [
   {
     app_id: appId,
     code: "CHAT_100",
-    title: "Top Cross Workspace Power Users",
+    title: "Top Cross Workspace Users",
     description:
-      "Find the top 10 users active in the highest number of workspaces with at least 50 messages in each.",
+      "Find top 10 users active in most workspaces (>=50 messages each).",
     difficulty: "hard",
     expected_query:
       "WITH workspace_user_counts AS ( SELECT workspace_id, sender_member_id AS member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id HAVING COUNT(*) >= 50 ) SELECT member_id, COUNT(DISTINCT workspace_id) AS active_workspace_count FROM workspace_user_counts GROUP BY member_id ORDER BY active_workspace_count DESC, member_id ASC LIMIT 10;",
     solution_columns: ["member_id", "active_workspace_count"],
     tables: ["messages"],
     comparison_config: {
-      ignore_order: false,
       sort_by_columns: [
         { column: "active_workspace_count", direction: "desc" },
         { column: "member_id", direction: "asc" },
@@ -4878,9 +4469,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 2,
         query:
-          "SELECT workspace_id, COUNT(*) FILTER (WHERE membership_status = 'active') AS active_member_count FROM workspace_members GROUP BY workspace_id ORDER BY active_member_count DESC, workspace_id ASC;",
+          "SELECT workspace_id, COUNT(*) FILTER (WHERE membership_status = 'active') AS active_member_count FROM workspace_members GROUP BY workspace_id HAVING COUNT(*) FILTER (WHERE membership_status = 'active') > 0 ORDER BY active_member_count DESC, workspace_id ASC;",
         explanation:
-          "## Approach\n\nCount active rows inside the aggregate.\n\n## Query\n\n```sql\nSELECT workspace_id,\n       COUNT(*) FILTER (WHERE membership_status = 'active') AS active_member_count\nFROM workspace_members\nGROUP BY workspace_id\nORDER BY active_member_count DESC, workspace_id ASC;\n```\n\n## Explanation\n\n- The query groups all membership rows by workspace.\n- `FILTER` limits the count to active memberships only.\n- This is useful when you want multiple conditional counts together.\n\n## Difference from the optimal approach\n\nFlexible, but less direct for a single metric.",
+          "## Approach\n\nGroup memberships by workspace, count only active memberships, and remove workspaces with zero active members.\n\n## Query\n\n```sql\nSELECT workspace_id,\n       COUNT(*) FILTER (WHERE membership_status = 'active') AS active_member_count\nFROM workspace_members\nGROUP BY workspace_id\nHAVING COUNT(*) FILTER (WHERE membership_status = 'active') > 0\nORDER BY active_member_count DESC, workspace_id ASC;\n```\n\n## Explanation\n\n- The query groups memberships by workspace.\n- `FILTER` counts only rows where `membership_status = 'active'`.\n- `HAVING` removes workspaces that have no active members.\n- The ordering matches the required result.\n\n## Difference from the optimal approach\n\nThis is useful when combining multiple conditional counts, but for one metric, filtering in `WHERE` is simpler.",
       },
       {
         approach_title: "CTE active counts",
@@ -5108,14 +4699,14 @@ export const solutions = [
     code: "CHAT_013",
     approaches: [
       {
-        approach_title: "Active online join",
-        approach_type: "joins",
+        approach_title: "Active online users",
+        approach_type: "exists",
         is_optimal: true,
         display_order: 1,
         query:
-          "SELECT DISTINCT u.id, u.full_name, u.username, u.last_seen_at FROM users u JOIN workspace_members wm ON u.id = wm.user_id JOIN user_presence_logs upl ON wm.id = upl.workspace_member_id WHERE upl.presence_status = 'online' AND upl.ended_at IS NULL ORDER BY u.last_seen_at DESC NULLS LAST, u.id ASC;",
+          "SELECT u.id, u.full_name, u.username, u.last_seen_at FROM users u WHERE EXISTS ( SELECT 1 FROM workspace_members wm JOIN user_presence_logs upl ON wm.id = upl.workspace_member_id WHERE wm.user_id = u.id AND upl.presence_status = 'online' AND upl.ended_at IS NULL ) ORDER BY u.last_seen_at DESC NULLS LAST, u.id ASC;",
         explanation:
-          "## Approach\n\nJoin users to workspace memberships and active presence logs, then keep online sessions only.\n\n## Query\n\n```sql\nSELECT DISTINCT u.id, u.full_name, u.username, u.last_seen_at\nFROM users u\nJOIN workspace_members wm\n  ON u.id = wm.user_id\nJOIN user_presence_logs upl\n  ON wm.id = upl.workspace_member_id\nWHERE upl.presence_status = 'online'\n  AND upl.ended_at IS NULL\nORDER BY u.last_seen_at DESC NULLS LAST, u.id ASC;\n```\n\n## Explanation\n\n- `users` does not have a `presence_status` column.\n- Current presence is stored in `user_presence_logs`.\n- `ended_at IS NULL` keeps active sessions.\n- `DISTINCT` avoids duplicate users.\n- `NULLS LAST` keeps ordering deterministic when `last_seen_at` is missing.\n\n## Why this is optimal\n\nIt uses the correct source of online status and satisfies the expected ordering.",
+          "## Approach\n\nReturn users only when they have an active online presence row.\n\n## Query\n\n```sql\nSELECT u.id, u.full_name, u.username, u.last_seen_at\nFROM users u\nWHERE EXISTS (\n  SELECT 1\n  FROM workspace_members wm\n  JOIN user_presence_logs upl\n    ON wm.id = upl.workspace_member_id\n  WHERE wm.user_id = u.id\n    AND upl.presence_status = 'online'\n    AND upl.ended_at IS NULL\n)\nORDER BY u.last_seen_at DESC NULLS LAST, u.id ASC;\n```\n\n## Explanation\n\n- Online status is stored in `user_presence_logs`.\n- `presence_status = 'online'` keeps online sessions.\n- `ended_at IS NULL` keeps only active sessions.\n- `EXISTS` avoids duplicate users naturally.\n- The output is ordered by latest activity first, then user id.\n\n## Why this is optimal\n\nIt returns one row per user without needing `DISTINCT`, making the result deterministic.",
       },
       {
         approach_title: "CTE online users",
@@ -5123,19 +4714,19 @@ export const solutions = [
         is_optimal: false,
         display_order: 2,
         query:
-          "WITH online_members AS ( SELECT DISTINCT wm.user_id FROM workspace_members wm JOIN user_presence_logs upl ON wm.id = upl.workspace_member_id WHERE upl.presence_status = 'online' AND upl.ended_at IS NULL ) SELECT u.id, u.full_name, u.username, u.last_seen_at FROM users u JOIN online_members om ON u.id = om.user_id ORDER BY u.last_seen_at DESC NULLS LAST, u.id ASC;",
+          "WITH online_users AS ( SELECT DISTINCT wm.user_id FROM workspace_members wm JOIN user_presence_logs upl ON wm.id = upl.workspace_member_id WHERE upl.presence_status = 'online' AND upl.ended_at IS NULL ) SELECT u.id, u.full_name, u.username, u.last_seen_at FROM users u JOIN online_users ou ON u.id = ou.user_id ORDER BY u.last_seen_at DESC NULLS LAST, u.id ASC;",
         explanation:
-          "## Approach\n\nFirst collect online user ids in a CTE, then join back to `users`.\n\n## Query\n\n```sql\nWITH online_members AS (\n  SELECT DISTINCT wm.user_id\n  FROM workspace_members wm\n  JOIN user_presence_logs upl\n    ON wm.id = upl.workspace_member_id\n  WHERE upl.presence_status = 'online'\n    AND upl.ended_at IS NULL\n)\nSELECT u.id, u.full_name, u.username, u.last_seen_at\nFROM users u\nJOIN online_members om\n  ON u.id = om.user_id\nORDER BY u.last_seen_at DESC NULLS LAST, u.id ASC;\n```\n\n## Difference from the optimal approach\n\nMore verbose, but valid.",
+          "## Approach\n\nFirst collect unique online user ids in a CTE, then join back to `users`.\n\n## Query\n\n```sql\nWITH online_users AS (\n  SELECT DISTINCT wm.user_id\n  FROM workspace_members wm\n  JOIN user_presence_logs upl\n    ON wm.id = upl.workspace_member_id\n  WHERE upl.presence_status = 'online'\n    AND upl.ended_at IS NULL\n)\nSELECT u.id, u.full_name, u.username, u.last_seen_at\nFROM users u\nJOIN online_users ou\n  ON u.id = ou.user_id\nORDER BY u.last_seen_at DESC NULLS LAST, u.id ASC;\n```\n\n## Explanation\n\n- The CTE finds each user who currently has an active online presence.\n- `DISTINCT wm.user_id` prevents duplicate user ids.\n- The outer query fetches user details.\n- The final `ORDER BY` matches the required ordering.\n\n## Difference from the optimal approach\n\nIt is valid and readable, but `EXISTS` avoids the extra CTE.",
       },
       {
-        approach_title: "Exists online",
-        approach_type: "exists",
+        approach_title: "Grouped online users",
+        approach_type: "aggregation",
         is_optimal: false,
         display_order: 3,
         query:
-          "SELECT u.id, u.full_name, u.username, u.last_seen_at FROM users u WHERE EXISTS ( SELECT 1 FROM workspace_members wm JOIN user_presence_logs upl ON wm.id = upl.workspace_member_id WHERE wm.user_id = u.id AND upl.presence_status = 'online' AND upl.ended_at IS NULL ) ORDER BY u.last_seen_at DESC NULLS LAST, u.id ASC;",
+          "SELECT u.id, u.full_name, u.username, u.last_seen_at FROM users u JOIN workspace_members wm ON u.id = wm.user_id JOIN user_presence_logs upl ON wm.id = upl.workspace_member_id WHERE upl.presence_status = 'online' AND upl.ended_at IS NULL GROUP BY u.id, u.full_name, u.username, u.last_seen_at ORDER BY u.last_seen_at DESC NULLS LAST, u.id ASC;",
         explanation:
-          "## Approach\n\nReturn a user only when an active online presence row exists.\n\n## Query\n\n```sql\nSELECT u.id, u.full_name, u.username, u.last_seen_at\nFROM users u\nWHERE EXISTS (\n  SELECT 1\n  FROM workspace_members wm\n  JOIN user_presence_logs upl\n    ON wm.id = upl.workspace_member_id\n  WHERE wm.user_id = u.id\n    AND upl.presence_status = 'online'\n    AND upl.ended_at IS NULL\n)\nORDER BY u.last_seen_at DESC NULLS LAST, u.id ASC;\n```\n\n## Difference from the optimal approach\n\nAlso valid, and avoids duplicates naturally.",
+          "## Approach\n\nJoin through active online presence rows, then group by user columns to remove duplicates.\n\n## Query\n\n```sql\nSELECT u.id, u.full_name, u.username, u.last_seen_at\nFROM users u\nJOIN workspace_members wm\n  ON u.id = wm.user_id\nJOIN user_presence_logs upl\n  ON wm.id = upl.workspace_member_id\nWHERE upl.presence_status = 'online'\n  AND upl.ended_at IS NULL\nGROUP BY u.id, u.full_name, u.username, u.last_seen_at\nORDER BY u.last_seen_at DESC NULLS LAST, u.id ASC;\n```\n\n## Explanation\n\n- The joins find users with active online presence rows.\n- `GROUP BY` collapses duplicate user rows caused by multiple workspace memberships or presence logs.\n- The final ordering is deterministic.\n\n## Difference from the optimal approach\n\nIt works, but grouping is heavier than using `EXISTS` for this type of presence check.",
       },
     ],
   },
@@ -6098,24 +5689,34 @@ export const solutions = [
     code: "CHAT_043",
     approaches: [
       {
-        approach_title: "Left join zero",
-        approach_type: "left_join",
+        approach_title: "User-level NOT EXISTS",
+        approach_type: "exists",
         is_optimal: true,
         display_order: 1,
         query:
-          "SELECT DISTINCT wm.user_id FROM workspace_members wm LEFT JOIN messages m ON wm.id = m.sender_member_id WHERE wm.membership_status = 'active' GROUP BY wm.user_id HAVING COUNT(m.id) = 0 ORDER BY wm.user_id ASC;",
+          "SELECT DISTINCT wm.user_id FROM workspace_members wm WHERE wm.membership_status = 'active' AND NOT EXISTS ( SELECT 1 FROM workspace_members wm2 JOIN messages m ON wm2.id = m.sender_member_id WHERE wm2.user_id = wm.user_id AND wm2.membership_status = 'active' );",
         explanation:
-          "## Approach\n\nStart from active workspace memberships, left join messages, then keep users with zero sent messages.\n\n## Query\n\n```sql\nSELECT DISTINCT wm.user_id\nFROM workspace_members wm\nLEFT JOIN messages m\n  ON wm.id = m.sender_member_id\nWHERE wm.membership_status = 'active'\nGROUP BY wm.user_id\nHAVING COUNT(m.id) = 0\nORDER BY wm.user_id ASC;\n```\n\n## Explanation\n\n- `workspace_members` gives the active workspace-level membership rows.\n- `LEFT JOIN` keeps active members even if they never sent a message.\n- `COUNT(m.id) = 0` filters to users with no sent messages.\n- `DISTINCT` ensures each user appears once.\n\n## Why this is optimal\n\nIt matches the expected query shape and correctly handles members with zero messages.",
+          "## 🧠 Approach\n\nFind users who have at least one active workspace membership, but have never sent a message from any of their active memberships.\n\n## 🔍 Explanation\n\n- `workspace_members` is membership-level, not user-level.\n- A single user can have multiple active memberships.\n- The wrong version checked whether each individual membership had no messages, which incorrectly included users who had one silent membership but another membership with messages.\n- This fixed query checks at the user level.\n- The outer query finds active users through `workspace_members wm`.\n- The `NOT EXISTS` subquery checks whether the same user has any active membership that appears as a message sender.\n- If no such message exists, the user truly never sent messages from any active membership.\n- No final `ORDER BY` is used because the question does not require ordered output and `comparison_config` is empty.\n\n## ✅ Why this is correct\n\nIt matches the expected query semantics: group all active memberships by `user_id`, then keep only users where the total message count is zero.",
       },
       {
-        approach_title: "CTE active members",
+        approach_title: "CTE active users anti-join",
         approach_type: "cte",
+        is_optimal: false,
+        display_order: 2,
+        query:
+          "WITH active_users AS ( SELECT DISTINCT user_id FROM workspace_members WHERE membership_status = 'active' ), users_with_messages AS ( SELECT DISTINCT wm.user_id FROM workspace_members wm JOIN messages m ON wm.id = m.sender_member_id WHERE wm.membership_status = 'active' ) SELECT au.user_id FROM active_users au LEFT JOIN users_with_messages uwm ON au.user_id = uwm.user_id WHERE uwm.user_id IS NULL;",
+        explanation:
+          "## 🧠 Approach\n\nSeparate users into two sets: active users and active users who have sent messages. Then return active users missing from the second set.\n\n## 🔍 Explanation\n\n- `active_users` returns every user with at least one active membership.\n- `users_with_messages` returns users who sent at least one message from an active membership.\n- The final `LEFT JOIN ... IS NULL` is an anti-join.\n- It keeps only active users who do not appear in the message-sender set.\n- This avoids the membership-level bug from the previous solution.\n- No final `ORDER BY` is needed because output order is ignored for this question.\n\n## ⚖️ Difference from optimal approach\n\nThis is very readable because it makes both sets explicit, but the `NOT EXISTS` version is more direct.",
+      },
+      {
+        approach_title: "Grouped user message count",
+        approach_type: "aggregation",
         is_optimal: false,
         display_order: 3,
         query:
-          "WITH active_members AS (\n  SELECT id, user_id\n  FROM workspace_members\n  WHERE membership_status = 'active'\n)\nSELECT DISTINCT am.user_id\nFROM active_members am\nLEFT JOIN messages m\n  ON am.id = m.sender_member_id\nGROUP BY am.user_id\nHAVING COUNT(m.id) = 0\nORDER BY am.user_id ASC;",
+          "SELECT wm.user_id FROM workspace_members wm LEFT JOIN messages m ON wm.id = m.sender_member_id WHERE wm.membership_status = 'active' GROUP BY wm.user_id HAVING COUNT(m.id) = 0;",
         explanation:
-          "## Approach\n\nFirst isolate active memberships in a CTE, then find users with zero messages.\n\n## Query\n\n```sql\nWITH active_members AS (\n  SELECT id, user_id\n  FROM workspace_members\n  WHERE membership_status = 'active'\n)\nSELECT DISTINCT am.user_id\nFROM active_members am\nLEFT JOIN messages m\n  ON am.id = m.sender_member_id\nGROUP BY am.user_id\nHAVING COUNT(m.id) = 0\nORDER BY am.user_id ASC;\n```\n\n## Explanation\n\n- The CTE keeps only active membership rows.\n- The outer query checks which users have no related messages.\n\n## Difference from the optimal approach\n\nMore verbose, but easier to extend with more active-member logic.",
+          "## 🧠 Approach\n\nGroup active memberships by user and count how many messages were sent from those memberships.\n\n## 🔍 Explanation\n\n- The join connects each active membership to messages sent from that membership.\n- Grouping by `wm.user_id` combines all active memberships belonging to the same user.\n- `HAVING COUNT(m.id) = 0` keeps only users with zero messages across all active memberships.\n- This directly matches the expected query logic.\n- No final ordering is included because the question does not require sorted output.\n\n## ⚖️ Difference from optimal approach\n\nThis is closest to the expected query and easy to verify, while the `NOT EXISTS` version is usually a cleaner anti-join pattern.",
       },
     ],
   },
@@ -6918,14 +6519,14 @@ export const solutions = [
     code: "CHAT_067",
     approaches: [
       {
-        approach_title: "Left join zero",
-        approach_type: "left_join",
+        approach_title: "No messages (exists)",
+        approach_type: "exists",
         is_optimal: true,
         display_order: 1,
         query:
-          "SELECT DISTINCT mr.workspace_member_id FROM message_reactions mr LEFT JOIN messages m ON mr.workspace_member_id = m.sender_member_id GROUP BY mr.workspace_member_id HAVING COUNT(m.id) = 0 ORDER BY mr.workspace_member_id ASC;",
+          "SELECT DISTINCT mr.workspace_member_id FROM message_reactions mr WHERE NOT EXISTS ( SELECT 1 FROM messages m WHERE m.sender_member_id = mr.workspace_member_id ) ORDER BY mr.workspace_member_id ASC;",
         explanation:
-          "## Approach\n\nStart from members who reacted, left join their sent messages, then keep those with zero messages.\n\n## Query\n\n```sql\nSELECT DISTINCT mr.workspace_member_id\nFROM message_reactions mr\nLEFT JOIN messages m\n  ON mr.workspace_member_id = m.sender_member_id\nGROUP BY mr.workspace_member_id\nHAVING COUNT(m.id) = 0\nORDER BY mr.workspace_member_id ASC;\n```\n\n## Explanation\n\n- `message_reactions` stores the reacting member in `workspace_member_id`.\n- The `LEFT JOIN` adds any messages sent by that same member.\n- `COUNT(m.id) = 0` keeps only members who never sent a message.\n- `DISTINCT` ensures one row per member.\n\n## Why this is optimal\n\nIt matches the real schema and clearly handles members with zero sent messages.",
+          "## 🧠 Approach\n\nWe need to find workspace members who have **reacted to messages** but have **never sent any message themselves**.\n\nInstead of joining and grouping (which can introduce unnecessary complexity), we use a `NOT EXISTS` anti-join to directly filter out members who have sent messages.\n\n---\n\n## 🧩 Query\n\n```sql\nSELECT DISTINCT mr.workspace_member_id\nFROM message_reactions mr\nWHERE NOT EXISTS (\n  SELECT 1\n  FROM messages m\n  WHERE m.sender_member_id = mr.workspace_member_id\n)\nORDER BY mr.workspace_member_id ASC;\n```\n\n---\n\n## 🔍 Explanation\n\n- `message_reactions` contains members who have reacted to messages.\n- We start from this table because we only care about **reacting members**.\n- For each reacting member, we check:\n  - Does any message exist where they are the sender?\n- `NOT EXISTS` ensures:\n  - Only members with **zero sent messages** are kept.\n- `SELECT DISTINCT` is required because:\n  - A member may have reacted multiple times, leading to duplicate rows.\n- The result is ordered by `workspace_member_id` for deterministic output.\n\n---\n\n## ✅ Why this is optimal\n\n- Uses a clean anti-join pattern (`NOT EXISTS`) instead of aggregation.\n- Avoids unnecessary joins and grouping.\n- Ensures correctness even if a member has multiple reactions.\n- Efficient and easy to reason about.\n",
       },
       {
         approach_title: "Not exists sender",
@@ -7203,9 +6804,9 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH member_reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(reaction_count) AS avg_reaction_count FROM member_reaction_counts GROUP BY workspace_id ) SELECT mrc.workspace_id, mrc.workspace_member_id, mrc.reaction_count FROM member_reaction_counts mrc JOIN workspace_avg wa ON mrc.workspace_id = wa.workspace_id WHERE mrc.reaction_count > wa.avg_reaction_count ORDER BY mrc.workspace_id ASC, mrc.reaction_count DESC, mrc.workspace_member_id ASC;",
+          "WITH member_reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(reaction_count) AS avg_reaction_count FROM member_reaction_counts GROUP BY workspace_id ) SELECT mrc.workspace_id, mrc.workspace_member_id, mrc.reaction_count FROM member_reaction_counts mrc JOIN workspace_avg wa ON mrc.workspace_id = wa.workspace_id WHERE mrc.reaction_count > wa.avg_reaction_count;",
         explanation:
-          "## Approach\n\nCount reactions given by each workspace member inside each workspace, compute the workspace average, then keep members above that average.\n\n## Query\n\n```sql\nWITH member_reaction_counts AS (\n  SELECT m.workspace_id,\n         mr.workspace_member_id,\n         COUNT(*) AS reaction_count\n  FROM message_reactions mr\n  JOIN messages m\n    ON mr.message_id = m.id\n  GROUP BY m.workspace_id, mr.workspace_member_id\n), workspace_avg AS (\n  SELECT workspace_id,\n         AVG(reaction_count) AS avg_reaction_count\n  FROM member_reaction_counts\n  GROUP BY workspace_id\n)\nSELECT mrc.workspace_id,\n       mrc.workspace_member_id,\n       mrc.reaction_count\nFROM member_reaction_counts mrc\nJOIN workspace_avg wa\n  ON mrc.workspace_id = wa.workspace_id\nWHERE mrc.reaction_count > wa.avg_reaction_count\nORDER BY mrc.workspace_id ASC, mrc.reaction_count DESC, mrc.workspace_member_id ASC;\n```\n\n## Explanation\n\n- `message_reactions` stores the reacting member in `workspace_member_id`.\n- `workspace_id` must be derived by joining `messages` through `message_id`.\n- The first CTE computes reaction totals per member per workspace.\n- The second CTE computes the average reaction count within each workspace.\n- The final query keeps only members above their workspace average.\n\n## Why this is optimal\n\nIt uses the real schema and cleanly separates the member metric from the workspace benchmark.",
+          "## Approach\n\nCount reactions given by each workspace member inside each workspace, compute the workspace average, then keep members above that average.\n\n## Explanation\n\n- `message_reactions` stores the reacting member in `workspace_member_id`.\n- `workspace_id` is derived by joining `messages` through `message_id`.\n- `member_reaction_counts` calculates each member's reaction total per workspace.\n- `workspace_avg` calculates the average reaction count in each workspace.\n- The final query keeps only members whose reaction count is greater than their workspace average.\n- No final `ORDER BY` is needed because the fixed question config uses `comparison_config: {}`.",
       },
       {
         approach_title: "Window avg reactions",
@@ -7213,9 +6814,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 2,
         query:
-          "WITH member_reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ) SELECT workspace_id, workspace_member_id, reaction_count FROM ( SELECT workspace_id, workspace_member_id, reaction_count, AVG(reaction_count) OVER (PARTITION BY workspace_id) AS avg_reaction_count FROM member_reaction_counts ) mrc WHERE reaction_count > avg_reaction_count ORDER BY workspace_id ASC, reaction_count DESC, workspace_member_id ASC;",
+          "WITH member_reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ) SELECT workspace_id, workspace_member_id, reaction_count FROM ( SELECT workspace_id, workspace_member_id, reaction_count, AVG(reaction_count) OVER (PARTITION BY workspace_id) AS avg_reaction_count FROM member_reaction_counts ) mrc WHERE reaction_count > avg_reaction_count;",
         explanation:
-          "## Approach\n\nCompute reaction counts first, then attach the workspace average using a window function.\n\n## Query\n\n```sql\nWITH member_reaction_counts AS (\n  SELECT m.workspace_id,\n         mr.workspace_member_id,\n         COUNT(*) AS reaction_count\n  FROM message_reactions mr\n  JOIN messages m\n    ON mr.message_id = m.id\n  GROUP BY m.workspace_id, mr.workspace_member_id\n)\nSELECT workspace_id, workspace_member_id, reaction_count\nFROM (\n  SELECT workspace_id,\n         workspace_member_id,\n         reaction_count,\n         AVG(reaction_count) OVER (PARTITION BY workspace_id) AS avg_reaction_count\n  FROM member_reaction_counts\n) mrc\nWHERE reaction_count > avg_reaction_count\nORDER BY workspace_id ASC, reaction_count DESC, workspace_member_id ASC;\n```\n\n## Explanation\n\n- The grouped counts are computed once.\n- `AVG(reaction_count) OVER (PARTITION BY workspace_id)` adds the workspace average to each member row.\n- The outer query filters to above-average members.\n\n## Difference from the optimal approach\n\nElegant, but slightly less explicit than separate CTEs.",
+          "## Approach\n\nCompute reaction counts first, then attach the workspace average using a window function.\n\n## Explanation\n\n- The CTE creates one row per workspace member with their total reactions.\n- `AVG(reaction_count) OVER (PARTITION BY workspace_id)` adds the workspace average to every member row.\n- The outer query filters members whose reaction count is above that average.\n- No output ordering is required for this question.",
       },
       {
         approach_title: "Nested reaction CTE",
@@ -7223,12 +6824,13 @@ export const solutions = [
         is_optimal: false,
         display_order: 3,
         query:
-          "WITH member_reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(reaction_count) AS avg_reaction_count FROM member_reaction_counts GROUP BY workspace_id ), above_avg_members AS ( SELECT mrc.workspace_id, mrc.workspace_member_id, mrc.reaction_count FROM member_reaction_counts mrc JOIN workspace_avg wa ON mrc.workspace_id = wa.workspace_id WHERE mrc.reaction_count > wa.avg_reaction_count ) SELECT workspace_id, workspace_member_id, reaction_count FROM above_avg_members ORDER BY workspace_id ASC, reaction_count DESC, workspace_member_id ASC;",
+          "WITH member_reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(reaction_count) AS avg_reaction_count FROM member_reaction_counts GROUP BY workspace_id ), above_avg_members AS ( SELECT mrc.workspace_id, mrc.workspace_member_id, mrc.reaction_count FROM member_reaction_counts mrc JOIN workspace_avg wa ON mrc.workspace_id = wa.workspace_id WHERE mrc.reaction_count > wa.avg_reaction_count ) SELECT workspace_id, workspace_member_id, reaction_count FROM above_avg_members;",
         explanation:
-          "## Approach\n\nCompute counts and averages first, then isolate the qualifying rows in a third CTE.\n\n## Query\n\n```sql\nWITH member_reaction_counts AS (\n  SELECT m.workspace_id,\n         mr.workspace_member_id,\n         COUNT(*) AS reaction_count\n  FROM message_reactions mr\n  JOIN messages m\n    ON mr.message_id = m.id\n  GROUP BY m.workspace_id, mr.workspace_member_id\n), workspace_avg AS (\n  SELECT workspace_id,\n         AVG(reaction_count) AS avg_reaction_count\n  FROM member_reaction_counts\n  GROUP BY workspace_id\n), above_avg_members AS (\n  SELECT mrc.workspace_id,\n         mrc.workspace_member_id,\n         mrc.reaction_count\n  FROM member_reaction_counts mrc\n  JOIN workspace_avg wa\n    ON mrc.workspace_id = wa.workspace_id\n  WHERE mrc.reaction_count > wa.avg_reaction_count\n)\nSELECT workspace_id, workspace_member_id, reaction_count\nFROM above_avg_members\nORDER BY workspace_id ASC, reaction_count DESC, workspace_member_id ASC;\n```\n\n## Explanation\n\n- The first CTE computes reaction counts per workspace member.\n- The second CTE computes workspace averages.\n- The third CTE isolates members above the workspace average.\n- The final query applies the output order.\n\n## Difference from the optimal approach\n\nMore verbose, but very readable.",
+          "## Approach\n\nCompute counts and averages first, then isolate the qualifying rows in a third CTE.\n\n## Explanation\n\n- The first CTE computes member-level reaction totals.\n- The second CTE computes workspace-level averages.\n- The third CTE keeps only above-average members.\n- The final SELECT returns the required columns without unnecessary ordering.",
       },
     ],
   },
+
   {
     code: "CHAT_076",
     approaches: [
@@ -7240,7 +6842,7 @@ export const solutions = [
         query:
           "WITH member_message_counts AS ( SELECT workspace_id, sender_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), ranked_members AS ( SELECT workspace_id, sender_member_id, message_count, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY message_count DESC, sender_member_id ASC) AS rn FROM member_message_counts ) SELECT workspace_id, sender_member_id, message_count FROM ranked_members WHERE rn <= 3 ORDER BY workspace_id ASC, message_count DESC, sender_member_id ASC;",
         explanation:
-          "## Approach\n\nCount messages per member in each workspace, rank them, then keep the top 3 ranks.\n\n## Query\n\n```sql\nWITH member_message_counts AS (\n  SELECT workspace_id, sender_member_id, COUNT(*) AS message_count\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY workspace_id, sender_member_id\n), ranked_members AS (\n  SELECT workspace_id, sender_member_id, message_count,\n         ROW_NUMBER() OVER (\n           PARTITION BY workspace_id\n           ORDER BY message_count DESC, sender_member_id ASC\n         ) AS rn\n  FROM member_message_counts\n)\nSELECT workspace_id, sender_member_id, message_count\nFROM ranked_members\nWHERE rn <= 3\nORDER BY workspace_id ASC, message_count DESC, sender_member_id ASC;\n```\n\n## Explanation\n\n- The first CTE computes message totals per member per workspace.\n- `ROW_NUMBER()` ranks members inside each workspace.\n- `rn <= 3` keeps the top 3 members from each workspace.\n- The final ordering matches the expected output.\n\n## Why this is optimal\n\nIt is the cleanest way to return the top N rows per group.",
+          "## Approach\n\nCount messages per member in each workspace, rank members inside each workspace, then keep the top 3.\n\n## Explanation\n\n- `member_message_counts` calculates non-deleted message totals per member per workspace.\n- `ROW_NUMBER()` assigns a deterministic rank using `message_count DESC, sender_member_id ASC`.\n- `rn <= 3` keeps exactly 3 members per workspace.\n- Final `ORDER BY` is required because this is a Top N/ranking question and the config has `sort_by_columns`.",
       },
       {
         approach_title: "Top 3 dense rank",
@@ -7250,20 +6852,21 @@ export const solutions = [
         query:
           "WITH member_message_counts AS ( SELECT workspace_id, sender_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), ranked_members AS ( SELECT workspace_id, sender_member_id, message_count, DENSE_RANK() OVER (PARTITION BY workspace_id ORDER BY message_count DESC, sender_member_id ASC) AS rnk FROM member_message_counts ) SELECT workspace_id, sender_member_id, message_count FROM ranked_members WHERE rnk <= 3 ORDER BY workspace_id ASC, message_count DESC, sender_member_id ASC;",
         explanation:
-          "## Approach\n\nUse `DENSE_RANK()` to rank members within each workspace and keep the first 3 ranks.\n\n## Query\n\n```sql\nWITH member_message_counts AS (\n  SELECT workspace_id, sender_member_id, COUNT(*) AS message_count\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY workspace_id, sender_member_id\n), ranked_members AS (\n  SELECT workspace_id, sender_member_id, message_count,\n         DENSE_RANK() OVER (\n           PARTITION BY workspace_id\n           ORDER BY message_count DESC, sender_member_id ASC\n         ) AS rnk\n  FROM member_message_counts\n)\nSELECT workspace_id, sender_member_id, message_count\nFROM ranked_members\nWHERE rnk <= 3\nORDER BY workspace_id ASC, message_count DESC, sender_member_id ASC;\n```\n\n## Explanation\n\n- The grouped counts are the same as the optimal approach.\n- The window function ranks members within each workspace.\n- Because `sender_member_id` is included in the ordering, the ranking still behaves deterministically.\n\n## Difference from the optimal approach\n\nIt works, but `ROW_NUMBER()` is more direct when you want exactly 3 rows per workspace.",
+          "## Approach\n\nUse `DENSE_RANK()` to rank members by message count within each workspace.\n\n## Explanation\n\n- The grouped counts are the same as the optimal solution.\n- `DENSE_RANK()` ranks rows using the required deterministic ordering.\n- Because `sender_member_id` is included in the ranking order, ties are resolved consistently.\n- `ROW_NUMBER()` is still more direct when the goal is exactly 3 rows per workspace.",
       },
       {
-        approach_title: "Join max ranks",
+        approach_title: "Top 3 rank range",
         approach_type: "window",
         is_optimal: false,
         display_order: 3,
         query:
           "WITH member_message_counts AS ( SELECT workspace_id, sender_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), ranked_members AS ( SELECT workspace_id, sender_member_id, message_count, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY message_count DESC, sender_member_id ASC) AS rn FROM member_message_counts ) SELECT workspace_id, sender_member_id, message_count FROM ranked_members WHERE rn BETWEEN 1 AND 3 ORDER BY workspace_id ASC, message_count DESC, sender_member_id ASC;",
         explanation:
-          "## Approach\n\nRank members per workspace, then keep rows whose rank falls between 1 and 3.\n\n## Query\n\n```sql\nWITH member_message_counts AS (\n  SELECT workspace_id, sender_member_id, COUNT(*) AS message_count\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY workspace_id, sender_member_id\n), ranked_members AS (\n  SELECT workspace_id, sender_member_id, message_count,\n         ROW_NUMBER() OVER (\n           PARTITION BY workspace_id\n           ORDER BY message_count DESC, sender_member_id ASC\n         ) AS rn\n  FROM member_message_counts\n)\nSELECT workspace_id, sender_member_id, message_count\nFROM ranked_members\nWHERE rn BETWEEN 1 AND 3\nORDER BY workspace_id ASC, message_count DESC, sender_member_id ASC;\n```\n\n## Explanation\n\n- This uses the same ranking logic as the optimal approach.\n- The filter `BETWEEN 1 AND 3` is just another way to express the top 3 rows.\n\n## Difference from the optimal approach\n\nEquivalent, but `rn <= 3` is slightly simpler.",
+          "## Approach\n\nRank members per workspace and keep rows whose rank is between 1 and 3.\n\n## Explanation\n\n- This uses the same ranking logic as the optimal approach.\n- `rn BETWEEN 1 AND 3` is equivalent to `rn <= 3`.\n- Final ordering is required because the question explicitly asks for top 3 members.",
       },
     ],
   },
+
   {
     code: "CHAT_077",
     approaches: [
@@ -7275,7 +6878,7 @@ export const solutions = [
         query:
           "WITH RECURSIVE message_tree AS ( SELECT id AS root_message_id, id, parent_message_id, 0 AS depth FROM messages WHERE parent_message_id IS NULL UNION ALL SELECT mt.root_message_id, m.id, m.parent_message_id, mt.depth + 1 FROM messages m JOIN message_tree mt ON m.parent_message_id = mt.id ) SELECT root_message_id, MAX(depth) AS max_reply_depth FROM message_tree GROUP BY root_message_id ORDER BY max_reply_depth DESC, root_message_id ASC LIMIT 10;",
         explanation:
-          "## Approach\n\nTraverse each reply tree recursively from every root message, then keep the maximum depth for each root.\n\n## Query\n\n```sql\nWITH RECURSIVE message_tree AS (\n  SELECT id AS root_message_id, id, parent_message_id, 0 AS depth\n  FROM messages\n  WHERE parent_message_id IS NULL\n\n  UNION ALL\n\n  SELECT mt.root_message_id,\n         m.id,\n         m.parent_message_id,\n         mt.depth + 1\n  FROM messages m\n  JOIN message_tree mt\n    ON m.parent_message_id = mt.id\n)\nSELECT root_message_id, MAX(depth) AS max_reply_depth\nFROM message_tree\nGROUP BY root_message_id\nORDER BY max_reply_depth DESC, root_message_id ASC\nLIMIT 10;\n```\n\n## Explanation\n\n- The base case starts each root message at depth 0.\n- The recursive step walks from each message to its direct replies.\n- `depth + 1` tracks how deep the chain goes.\n- `MAX(depth)` gives the deepest reply level for each root.\n\n## Why this is optimal\n\nA recursive CTE is the correct and clearest tool for traversing hierarchical reply chains.",
+          "## Approach\n\nTraverse each reply tree recursively from every root message, then calculate the deepest reply level.\n\n## Explanation\n\n- The base query starts with root messages where `parent_message_id IS NULL`.\n- The recursive part walks from each message to its replies.\n- `depth + 1` tracks how far each reply is from the root.\n- `MAX(depth)` gives the deepest chain for each root message.\n- `ORDER BY ... LIMIT 10` is required because this is a top 10 question.",
       },
       {
         approach_title: "Recursive rank top",
@@ -7285,7 +6888,7 @@ export const solutions = [
         query:
           "WITH RECURSIVE message_tree AS ( SELECT id AS root_message_id, id, parent_message_id, 0 AS depth FROM messages WHERE parent_message_id IS NULL UNION ALL SELECT mt.root_message_id, m.id, m.parent_message_id, mt.depth + 1 FROM messages m JOIN message_tree mt ON m.parent_message_id = mt.id ), root_depths AS ( SELECT root_message_id, MAX(depth) AS max_reply_depth FROM message_tree GROUP BY root_message_id ) SELECT root_message_id, max_reply_depth FROM root_depths ORDER BY max_reply_depth DESC, root_message_id ASC LIMIT 10;",
         explanation:
-          "## Approach\n\nBuild the recursive tree first, then move the root-depth aggregation into a separate CTE.\n\n## Query\n\n```sql\nWITH RECURSIVE message_tree AS (\n  SELECT id AS root_message_id, id, parent_message_id, 0 AS depth\n  FROM messages\n  WHERE parent_message_id IS NULL\n\n  UNION ALL\n\n  SELECT mt.root_message_id,\n         m.id,\n         m.parent_message_id,\n         mt.depth + 1\n  FROM messages m\n  JOIN message_tree mt\n    ON m.parent_message_id = mt.id\n), root_depths AS (\n  SELECT root_message_id, MAX(depth) AS max_reply_depth\n  FROM message_tree\n  GROUP BY root_message_id\n)\nSELECT root_message_id, max_reply_depth\nFROM root_depths\nORDER BY max_reply_depth DESC, root_message_id ASC\nLIMIT 10;\n```\n\n## Explanation\n\n- The recursive logic is the same as the optimal approach.\n- The second CTE isolates the per-root depth metric.\n- The final query returns the top 10 roots.\n\n## Difference from the optimal approach\n\nVery clear, but slightly more verbose.",
+          "## Approach\n\nBuild the recursive tree first, then aggregate root depths in a separate CTE.\n\n## Explanation\n\n- `message_tree` creates the hierarchy of root messages and replies.\n- `root_depths` computes the deepest reply depth for each root.\n- The final query sorts deepest threads first and returns the top 10.\n- This is slightly more verbose than the optimal approach but easier to read.",
       },
       {
         approach_title: "Recursive row number",
@@ -7295,10 +6898,11 @@ export const solutions = [
         query:
           "WITH RECURSIVE message_tree AS ( SELECT id AS root_message_id, id, parent_message_id, 0 AS depth FROM messages WHERE parent_message_id IS NULL UNION ALL SELECT mt.root_message_id, m.id, m.parent_message_id, mt.depth + 1 FROM messages m JOIN message_tree mt ON m.parent_message_id = mt.id ), root_depths AS ( SELECT root_message_id, MAX(depth) AS max_reply_depth FROM message_tree GROUP BY root_message_id ), ranked_roots AS ( SELECT root_message_id, max_reply_depth, ROW_NUMBER() OVER (ORDER BY max_reply_depth DESC, root_message_id ASC) AS rn FROM root_depths ) SELECT root_message_id, max_reply_depth FROM ranked_roots WHERE rn <= 10 ORDER BY max_reply_depth DESC, root_message_id ASC;",
         explanation:
-          "## Approach\n\nCompute each root's maximum depth, then rank roots with a window function.\n\n## Query\n\n```sql\nWITH RECURSIVE message_tree AS (\n  SELECT id AS root_message_id, id, parent_message_id, 0 AS depth\n  FROM messages\n  WHERE parent_message_id IS NULL\n\n  UNION ALL\n\n  SELECT mt.root_message_id,\n         m.id,\n         m.parent_message_id,\n         mt.depth + 1\n  FROM messages m\n  JOIN message_tree mt\n    ON m.parent_message_id = mt.id\n), root_depths AS (\n  SELECT root_message_id, MAX(depth) AS max_reply_depth\n  FROM message_tree\n  GROUP BY root_message_id\n), ranked_roots AS (\n  SELECT root_message_id,\n         max_reply_depth,\n         ROW_NUMBER() OVER (ORDER BY max_reply_depth DESC, root_message_id ASC) AS rn\n  FROM root_depths\n)\nSELECT root_message_id, max_reply_depth\nFROM ranked_roots\nWHERE rn <= 10\nORDER BY max_reply_depth DESC, root_message_id ASC;\n```\n\n## Explanation\n\n- The recursive tree logic stays the same.\n- After computing depth per root, `ROW_NUMBER()` ranks roots from deepest to shallowest.\n- The final query keeps the top 10 ranked rows.\n\n## Difference from the optimal approach\n\nUseful for ranking workflows, but more complex than a simple `ORDER BY ... LIMIT 10`.",
+          "## Approach\n\nCompute maximum depth per root, then rank roots with `ROW_NUMBER()`.\n\n## Explanation\n\n- The recursive CTE builds the full reply tree.\n- `root_depths` calculates the maximum reply depth per root message.\n- `ROW_NUMBER()` ranks roots by deepest thread first.\n- `rn <= 10` keeps the top 10 rows.\n- This is useful for ranking workflows, but `ORDER BY ... LIMIT 10` is simpler here.",
       },
     ],
   },
+
   {
     code: "CHAT_078",
     approaches: [
@@ -7308,9 +6912,9 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH received_replies AS ( SELECT p.sender_member_id AS member_id, COUNT(*) AS received_reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id GROUP BY p.sender_member_id ), replier_received_replies AS ( SELECT p.sender_member_id AS member_id, r.sender_member_id AS replier_member_id FROM messages r JOIN messages p ON r.parent_message_id = p.id ), replier_avg AS ( SELECT rrr.member_id, AVG(COALESCE(rr.received_reply_count, 0)) AS avg_replier_received_reply_count FROM replier_received_replies rrr LEFT JOIN received_replies rr ON rrr.replier_member_id = rr.member_id GROUP BY rrr.member_id ) SELECT rr.member_id, rr.received_reply_count FROM received_replies rr JOIN replier_avg ra ON rr.member_id = ra.member_id WHERE rr.received_reply_count > ra.avg_replier_received_reply_count ORDER BY rr.received_reply_count DESC, rr.member_id ASC;",
+          "WITH received_replies AS ( SELECT p.sender_member_id AS member_id, COUNT(*) AS received_reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id GROUP BY p.sender_member_id ), replier_received_replies AS ( SELECT p.sender_member_id AS member_id, r.sender_member_id AS replier_member_id FROM messages r JOIN messages p ON r.parent_message_id = p.id ), replier_avg AS ( SELECT rrr.member_id, AVG(COALESCE(rr.received_reply_count, 0)) AS avg_replier_received_reply_count FROM replier_received_replies rrr LEFT JOIN received_replies rr ON rrr.replier_member_id = rr.member_id GROUP BY rrr.member_id ) SELECT rr.member_id, rr.received_reply_count FROM received_replies rr JOIN replier_avg ra ON rr.member_id = ra.member_id WHERE rr.received_reply_count > ra.avg_replier_received_reply_count;",
         explanation:
-          "## Approach\n\nCount replies received by each member, find who replied to them, compute the average received-reply count of those repliers, then compare.\n\n## Query\n\n```sql\nWITH received_replies AS (\n  SELECT p.sender_member_id AS member_id, COUNT(*) AS received_reply_count\n  FROM messages r\n  JOIN messages p\n    ON r.parent_message_id = p.id\n  GROUP BY p.sender_member_id\n), replier_received_replies AS (\n  SELECT p.sender_member_id AS member_id,\n         r.sender_member_id AS replier_member_id\n  FROM messages r\n  JOIN messages p\n    ON r.parent_message_id = p.id\n), replier_avg AS (\n  SELECT rrr.member_id,\n         AVG(COALESCE(rr.received_reply_count, 0)) AS avg_replier_received_reply_count\n  FROM replier_received_replies rrr\n  LEFT JOIN received_replies rr\n    ON rrr.replier_member_id = rr.member_id\n  GROUP BY rrr.member_id\n)\nSELECT rr.member_id, rr.received_reply_count\nFROM received_replies rr\nJOIN replier_avg ra\n  ON rr.member_id = ra.member_id\nWHERE rr.received_reply_count > ra.avg_replier_received_reply_count\nORDER BY rr.received_reply_count DESC, rr.member_id ASC;\n```\n\n## Explanation\n\n- The first CTE computes total replies received by each member.\n- The second CTE identifies the members who replied to each person.\n- The third CTE computes the average received-reply count of those repliers.\n- The final query keeps members whose own received replies exceed that average.\n\n## Why this is optimal\n\nIt cleanly breaks down a complex comparative relationship into understandable steps.",
+          "## Approach\n\nCount replies received by each member, calculate the average popularity of their repliers, then compare.\n\n## Explanation\n\n- `received_replies` counts how many replies each original message sender received.\n- `replier_received_replies` maps each original sender to the members who replied to them.\n- `replier_avg` calculates the average received-reply count of those repliers.\n- The final query returns members whose own received reply count is greater than that replier average.\n- No final ordering is required because the question config is `{}`.",
       },
       {
         approach_title: "Nested compare CTE",
@@ -7318,9 +6922,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 2,
         query:
-          "WITH received_replies AS ( SELECT p.sender_member_id AS member_id, COUNT(*) AS received_reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id GROUP BY p.sender_member_id ), replier_pairs AS ( SELECT p.sender_member_id AS member_id, r.sender_member_id AS replier_member_id FROM messages r JOIN messages p ON r.parent_message_id = p.id ), replier_avg AS ( SELECT rp.member_id, AVG(COALESCE(rr2.received_reply_count, 0)) AS avg_replier_received_reply_count FROM replier_pairs rp LEFT JOIN received_replies rr2 ON rp.replier_member_id = rr2.member_id GROUP BY rp.member_id ), popular_members AS ( SELECT rr.member_id, rr.received_reply_count FROM received_replies rr JOIN replier_avg ra ON rr.member_id = ra.member_id WHERE rr.received_reply_count > ra.avg_replier_received_reply_count ) SELECT member_id, received_reply_count FROM popular_members ORDER BY received_reply_count DESC, member_id ASC;",
+          "WITH received_replies AS ( SELECT p.sender_member_id AS member_id, COUNT(*) AS received_reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id GROUP BY p.sender_member_id ), replier_pairs AS ( SELECT p.sender_member_id AS member_id, r.sender_member_id AS replier_member_id FROM messages r JOIN messages p ON r.parent_message_id = p.id ), replier_avg AS ( SELECT rp.member_id, AVG(COALESCE(rr2.received_reply_count, 0)) AS avg_replier_received_reply_count FROM replier_pairs rp LEFT JOIN received_replies rr2 ON rp.replier_member_id = rr2.member_id GROUP BY rp.member_id ), popular_members AS ( SELECT rr.member_id, rr.received_reply_count FROM received_replies rr JOIN replier_avg ra ON rr.member_id = ra.member_id WHERE rr.received_reply_count > ra.avg_replier_received_reply_count ) SELECT member_id, received_reply_count FROM popular_members;",
         explanation:
-          "## Approach\n\nUse an extra CTE to isolate the final qualifying members after building the reply metrics.\n\n## Query\n\n```sql\nWITH received_replies AS (\n  SELECT p.sender_member_id AS member_id, COUNT(*) AS received_reply_count\n  FROM messages r\n  JOIN messages p\n    ON r.parent_message_id = p.id\n  GROUP BY p.sender_member_id\n), replier_pairs AS (\n  SELECT p.sender_member_id AS member_id,\n         r.sender_member_id AS replier_member_id\n  FROM messages r\n  JOIN messages p\n    ON r.parent_message_id = p.id\n), replier_avg AS (\n  SELECT rp.member_id,\n         AVG(COALESCE(rr2.received_reply_count, 0)) AS avg_replier_received_reply_count\n  FROM replier_pairs rp\n  LEFT JOIN received_replies rr2\n    ON rp.replier_member_id = rr2.member_id\n  GROUP BY rp.member_id\n), popular_members AS (\n  SELECT rr.member_id, rr.received_reply_count\n  FROM received_replies rr\n  JOIN replier_avg ra\n    ON rr.member_id = ra.member_id\n  WHERE rr.received_reply_count > ra.avg_replier_received_reply_count\n)\nSELECT member_id, received_reply_count\nFROM popular_members\nORDER BY received_reply_count DESC, member_id ASC;\n```\n\n## Explanation\n\n- The first three CTEs build the reply metrics.\n- The fourth CTE isolates the final members who satisfy the comparison.\n- The last query only handles output ordering.\n\n## Difference from the optimal approach\n\nVery readable, but more verbose.",
+          "## Approach\n\nUse an additional CTE to isolate the final qualifying members.\n\n## Explanation\n\n- The first CTE builds each member's received-reply count.\n- The second CTE builds original-sender to replier relationships.\n- The third CTE calculates the repliers' average popularity.\n- `popular_members` keeps only members above that benchmark.\n- The final SELECT returns the required result without unnecessary ordering.",
       },
       {
         approach_title: "Window on repliers",
@@ -7328,12 +6932,13 @@ export const solutions = [
         is_optimal: false,
         display_order: 3,
         query:
-          "WITH received_replies AS ( SELECT p.sender_member_id AS member_id, COUNT(*) AS received_reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id GROUP BY p.sender_member_id ), replier_pairs AS ( SELECT p.sender_member_id AS member_id, r.sender_member_id AS replier_member_id FROM messages r JOIN messages p ON r.parent_message_id = p.id ), replier_scores AS ( SELECT rp.member_id, COALESCE(rr2.received_reply_count, 0) AS replier_received_reply_count FROM replier_pairs rp LEFT JOIN received_replies rr2 ON rp.replier_member_id = rr2.member_id ) SELECT rr.member_id, rr.received_reply_count FROM received_replies rr JOIN ( SELECT DISTINCT member_id, AVG(replier_received_reply_count) OVER (PARTITION BY member_id) AS avg_replier_received_reply_count FROM replier_scores ) ra ON rr.member_id = ra.member_id WHERE rr.received_reply_count > ra.avg_replier_received_reply_count ORDER BY rr.received_reply_count DESC, rr.member_id ASC;",
+          "WITH received_replies AS ( SELECT p.sender_member_id AS member_id, COUNT(*) AS received_reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id GROUP BY p.sender_member_id ), replier_pairs AS ( SELECT p.sender_member_id AS member_id, r.sender_member_id AS replier_member_id FROM messages r JOIN messages p ON r.parent_message_id = p.id ), replier_scores AS ( SELECT rp.member_id, COALESCE(rr2.received_reply_count, 0) AS replier_received_reply_count FROM replier_pairs rp LEFT JOIN received_replies rr2 ON rp.replier_member_id = rr2.member_id ) SELECT rr.member_id, rr.received_reply_count FROM received_replies rr JOIN ( SELECT DISTINCT member_id, AVG(replier_received_reply_count) OVER (PARTITION BY member_id) AS avg_replier_received_reply_count FROM replier_scores ) ra ON rr.member_id = ra.member_id WHERE rr.received_reply_count > ra.avg_replier_received_reply_count;",
         explanation:
-          "## Approach\n\nBuild each target member's replier scores, then use a window average across those replier rows.\n\n## Query\n\n```sql\nWITH received_replies AS (\n  SELECT p.sender_member_id AS member_id, COUNT(*) AS received_reply_count\n  FROM messages r\n  JOIN messages p\n    ON r.parent_message_id = p.id\n  GROUP BY p.sender_member_id\n), replier_pairs AS (\n  SELECT p.sender_member_id AS member_id,\n         r.sender_member_id AS replier_member_id\n  FROM messages r\n  JOIN messages p\n    ON r.parent_message_id = p.id\n), replier_scores AS (\n  SELECT rp.member_id,\n         COALESCE(rr2.received_reply_count, 0) AS replier_received_reply_count\n  FROM replier_pairs rp\n  LEFT JOIN received_replies rr2\n    ON rp.replier_member_id = rr2.member_id\n)\nSELECT rr.member_id, rr.received_reply_count\nFROM received_replies rr\nJOIN (\n  SELECT DISTINCT member_id,\n         AVG(replier_received_reply_count) OVER (PARTITION BY member_id) AS avg_replier_received_reply_count\n  FROM replier_scores\n) ra\n  ON rr.member_id = ra.member_id\nWHERE rr.received_reply_count > ra.avg_replier_received_reply_count\nORDER BY rr.received_reply_count DESC, rr.member_id ASC;\n```\n\n## Explanation\n\n- The first part computes received-reply totals and replier relationships.\n- The window function averages the replier scores for each target member.\n- The final query compares each member against that value.\n\n## Difference from the optimal approach\n\nInteresting, but less straightforward than grouped averages.",
+          "## Approach\n\nBuild replier scores, then use a window average to calculate the benchmark per member.\n\n## Explanation\n\n- `replier_scores` assigns each replier their own received-reply count.\n- The window average computes the average score of all repliers for each target member.\n- The final comparison keeps target members whose received replies exceed that average.\n- This is valid, but grouped averages are easier to reason about.",
       },
     ],
   },
+
   {
     code: "CHAT_079",
     approaches: [
@@ -7345,7 +6950,7 @@ export const solutions = [
         query:
           "WITH daily_member_messages AS ( SELECT DATE_TRUNC('day', sent_at) AS message_date, sender_member_id, COUNT(*) AS daily_count FROM messages WHERE is_deleted = false GROUP BY DATE_TRUNC('day', sent_at), sender_member_id ), rolling_counts AS ( SELECT message_date, sender_member_id, SUM(daily_count) OVER ( PARTITION BY sender_member_id ORDER BY message_date RANGE BETWEEN INTERVAL '6 days' PRECEDING AND CURRENT ROW ) AS rolling_7d_count FROM daily_member_messages ), daily_leaders AS ( SELECT DISTINCT ON (message_date) message_date::date AS message_date, sender_member_id, rolling_7d_count FROM rolling_counts ORDER BY message_date, rolling_7d_count DESC, sender_member_id ASC ) SELECT message_date, sender_member_id, rolling_7d_count FROM daily_leaders ORDER BY message_date ASC;",
         explanation:
-          "## Approach\n\nFirst aggregate messages per member per day, then use a 7-day window range to compute trailing totals, and finally pick the leader for each date.\n\n## Query\n\n```sql\nWITH daily_member_messages AS (\n  SELECT DATE_TRUNC('day', sent_at) AS message_date,\n         sender_member_id,\n         COUNT(*) AS daily_count\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY DATE_TRUNC('day', sent_at), sender_member_id\n), rolling_counts AS (\n  SELECT message_date,\n         sender_member_id,\n         SUM(daily_count) OVER (\n           PARTITION BY sender_member_id\n           ORDER BY message_date\n           RANGE BETWEEN INTERVAL '6 days' PRECEDING AND CURRENT ROW\n         ) AS rolling_7d_count\n  FROM daily_member_messages\n), daily_leaders AS (\n  SELECT DISTINCT ON (message_date)\n         message_date::date AS message_date,\n         sender_member_id,\n         rolling_7d_count\n  FROM rolling_counts\n  ORDER BY message_date, rolling_7d_count DESC, sender_member_id ASC\n)\nSELECT message_date, sender_member_id, rolling_7d_count\nFROM daily_leaders\nORDER BY message_date ASC;\n```\n\n## Explanation\n\n- The first CTE reduces the raw table into daily message totals per member.\n- The second CTE computes the trailing 7 calendar day total for each member using a window `RANGE`.\n- `RANGE BETWEEN INTERVAL '6 days' PRECEDING AND CURRENT ROW` matches the trailing 7-day requirement.\n- `DISTINCT ON (message_date)` keeps the top member for each date.\n- Ties are broken by smaller `sender_member_id`.\n\n## Why this is optimal\n\nIt avoids the expensive self-join and is much more efficient on large datasets.",
+          "## Approach\n\nAggregate messages per member per day, compute trailing 7-day totals, then choose the daily leader.\n\n## Explanation\n\n- `daily_member_messages` reduces raw messages into daily counts.\n- The window `RANGE BETWEEN INTERVAL '6 days' PRECEDING AND CURRENT ROW` calculates a rolling 7-day total.\n- `DISTINCT ON (message_date)` keeps one leader per date.\n- The internal `ORDER BY` is required to choose the correct leader and tie-break by `sender_member_id`.\n- Final ordering by `message_date ASC` is required by the fixed config.",
       },
       {
         approach_title: "Row number leader",
@@ -7355,7 +6960,7 @@ export const solutions = [
         query:
           "WITH daily_member_messages AS ( SELECT DATE_TRUNC('day', sent_at) AS message_date, sender_member_id, COUNT(*) AS daily_count FROM messages WHERE is_deleted = false GROUP BY DATE_TRUNC('day', sent_at), sender_member_id ), rolling_counts AS ( SELECT message_date, sender_member_id, SUM(daily_count) OVER ( PARTITION BY sender_member_id ORDER BY message_date RANGE BETWEEN INTERVAL '6 days' PRECEDING AND CURRENT ROW ) AS rolling_7d_count FROM daily_member_messages ), ranked_members AS ( SELECT message_date::date AS message_date, sender_member_id, rolling_7d_count, ROW_NUMBER() OVER (PARTITION BY message_date ORDER BY rolling_7d_count DESC, sender_member_id ASC) AS rn FROM rolling_counts ) SELECT message_date, sender_member_id, rolling_7d_count FROM ranked_members WHERE rn = 1 ORDER BY message_date ASC;",
         explanation:
-          "## Approach\n\nUse the same rolling 7-day range window, then rank members within each date and keep rank 1.\n\n## Query\n\n```sql\nWITH daily_member_messages AS (\n  SELECT DATE_TRUNC('day', sent_at) AS message_date,\n         sender_member_id,\n         COUNT(*) AS daily_count\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY DATE_TRUNC('day', sent_at), sender_member_id\n), rolling_counts AS (\n  SELECT message_date,\n         sender_member_id,\n         SUM(daily_count) OVER (\n           PARTITION BY sender_member_id\n           ORDER BY message_date\n           RANGE BETWEEN INTERVAL '6 days' PRECEDING AND CURRENT ROW\n         ) AS rolling_7d_count\n  FROM daily_member_messages\n), ranked_members AS (\n  SELECT message_date::date AS message_date,\n         sender_member_id,\n         rolling_7d_count,\n         ROW_NUMBER() OVER (\n           PARTITION BY message_date\n           ORDER BY rolling_7d_count DESC, sender_member_id ASC\n         ) AS rn\n  FROM rolling_counts\n)\nSELECT message_date, sender_member_id, rolling_7d_count\nFROM ranked_members\nWHERE rn = 1\nORDER BY message_date ASC;\n```\n\n## Explanation\n\n- The daily aggregation and rolling range logic are the same as the optimal solution.\n- `ROW_NUMBER()` ranks members for each date.\n- `rn = 1` keeps the daily leader.\n\n## Difference from the optimal approach\n\nAlso valid, but `DISTINCT ON` is usually a bit shorter and often faster in PostgreSQL for top-1-per-group.",
+          "## Approach\n\nUse the same rolling calculation, then rank members within each date.\n\n## Explanation\n\n- `ROW_NUMBER()` ranks members by rolling 7-day count for each date.\n- `rn = 1` selects the daily leader.\n- The ranking order is necessary for correctness.\n- The final result order follows the question config.",
       },
       {
         approach_title: "Nested leader CTE",
@@ -7365,7 +6970,7 @@ export const solutions = [
         query:
           "WITH daily_member_messages AS ( SELECT DATE_TRUNC('day', sent_at) AS message_date, sender_member_id, COUNT(*) AS daily_count FROM messages WHERE is_deleted = false GROUP BY DATE_TRUNC('day', sent_at), sender_member_id ), rolling_counts AS ( SELECT message_date, sender_member_id, SUM(daily_count) OVER ( PARTITION BY sender_member_id ORDER BY message_date RANGE BETWEEN INTERVAL '6 days' PRECEDING AND CURRENT ROW ) AS rolling_7d_count FROM daily_member_messages ), daily_leaders AS ( SELECT DISTINCT ON (message_date) message_date::date AS message_date, sender_member_id, rolling_7d_count FROM rolling_counts ORDER BY message_date, rolling_7d_count DESC, sender_member_id ASC ) SELECT message_date, sender_member_id, rolling_7d_count FROM daily_leaders ORDER BY message_date ASC;",
         explanation:
-          "## Approach\n\nCompute daily totals, compute rolling 7-day totals, isolate one leader per date in a final CTE, then return the result.\n\n## Query\n\n```sql\nWITH daily_member_messages AS (\n  SELECT DATE_TRUNC('day', sent_at) AS message_date,\n         sender_member_id,\n         COUNT(*) AS daily_count\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY DATE_TRUNC('day', sent_at), sender_member_id\n), rolling_counts AS (\n  SELECT message_date,\n         sender_member_id,\n         SUM(daily_count) OVER (\n           PARTITION BY sender_member_id\n           ORDER BY message_date\n           RANGE BETWEEN INTERVAL '6 days' PRECEDING AND CURRENT ROW\n         ) AS rolling_7d_count\n  FROM daily_member_messages\n), daily_leaders AS (\n  SELECT DISTINCT ON (message_date)\n         message_date::date AS message_date,\n         sender_member_id,\n         rolling_7d_count\n  FROM rolling_counts\n  ORDER BY message_date, rolling_7d_count DESC, sender_member_id ASC\n)\nSELECT message_date, sender_member_id, rolling_7d_count\nFROM daily_leaders\nORDER BY message_date ASC;\n```\n\n## Explanation\n\n- The first CTE builds daily member totals.\n- The second CTE builds rolling 7-day totals.\n- The third CTE isolates the top member per date.\n- The final query only applies the required output order.\n\n## Difference from the optimal approach\n\nSame logic, just expressed in a slightly more modular way.",
+          "## Approach\n\nSeparate daily aggregation, rolling totals, and daily leader selection into named CTEs.\n\n## Explanation\n\n- This is the same logic as the optimal version.\n- The final `daily_leaders` CTE isolates the top member per date.\n- Output ordering is kept because the question requires date order.",
       },
     ],
   },
@@ -7378,19 +6983,19 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH weekly_channel_messages AS ( SELECT channel_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS weekly_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id, DATE_TRUNC('week', sent_at)::date ), weekly_growth AS ( SELECT channel_id, week_start, weekly_count, LAG(weekly_count) OVER (PARTITION BY channel_id ORDER BY week_start) AS prev_week_count FROM weekly_channel_messages ), growth_flags AS ( SELECT channel_id, week_start, CASE WHEN prev_week_count IS NOT NULL AND weekly_count > prev_week_count THEN 1 ELSE 0 END AS is_growth_week FROM weekly_growth ), grouped_growth AS ( SELECT channel_id, week_start, is_growth_week, ROW_NUMBER() OVER (PARTITION BY channel_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY channel_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT channel_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY channel_id, grp HAVING COUNT(*) >= 3 ORDER BY consecutive_growth_weeks DESC, channel_id ASC;",
+          "WITH weekly_channel_messages AS ( SELECT channel_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS weekly_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id, DATE_TRUNC('week', sent_at)::date ), weekly_growth AS ( SELECT channel_id, week_start, weekly_count, LAG(weekly_count) OVER (PARTITION BY channel_id ORDER BY week_start) AS prev_week_count FROM weekly_channel_messages ), growth_flags AS ( SELECT channel_id, week_start, CASE WHEN prev_week_count IS NOT NULL AND weekly_count > prev_week_count THEN 1 ELSE 0 END AS is_growth_week FROM weekly_growth ), grouped_flags AS ( SELECT channel_id, week_start, is_growth_week, ROW_NUMBER() OVER (PARTITION BY channel_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY channel_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags ), grouped_growth AS ( SELECT channel_id, week_start, grp FROM grouped_flags WHERE is_growth_week = 1 ) SELECT channel_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY channel_id, grp HAVING COUNT(*) >= 3;",
         explanation:
-          "## Approach\n\nCompute weekly channel totals, mark weeks with growth over the previous week, then group consecutive growth weeks into streaks.\n\n## Query\n\n```sql\nWITH weekly_channel_messages AS (\n  SELECT channel_id,\n         DATE_TRUNC('week', sent_at)::date AS week_start,\n         COUNT(*) AS weekly_count\n  FROM messages\n  WHERE channel_id IS NOT NULL\n    AND is_deleted = false\n  GROUP BY channel_id, DATE_TRUNC('week', sent_at)::date\n), weekly_growth AS (\n  SELECT channel_id,\n         week_start,\n         weekly_count,\n         LAG(weekly_count) OVER (\n           PARTITION BY channel_id\n           ORDER BY week_start\n         ) AS prev_week_count\n  FROM weekly_channel_messages\n), growth_flags AS (\n  SELECT channel_id,\n         week_start,\n         CASE\n           WHEN prev_week_count IS NOT NULL AND weekly_count > prev_week_count THEN 1\n           ELSE 0\n         END AS is_growth_week\n  FROM weekly_growth\n), grouped_growth AS (\n  SELECT channel_id,\n         week_start,\n         is_growth_week,\n         ROW_NUMBER() OVER (PARTITION BY channel_id ORDER BY week_start)\n         - ROW_NUMBER() OVER (PARTITION BY channel_id, is_growth_week ORDER BY week_start) AS grp\n  FROM growth_flags\n  WHERE is_growth_week = 1\n)\nSELECT channel_id, COUNT(*) AS consecutive_growth_weeks\nFROM grouped_growth\nGROUP BY channel_id, grp\nHAVING COUNT(*) >= 3\nORDER BY consecutive_growth_weeks DESC, channel_id ASC;\n```\n\n## Explanation\n\n- The first CTE gets weekly message counts per channel.\n- `LAG()` compares each week to the previous week.\n- `is_growth_week = 1` marks weeks with positive growth.\n- The row-number difference groups consecutive growth weeks into streaks.\n- `HAVING COUNT(*) >= 3` keeps channels with at least 3 consecutive growth weeks.\n\n## Why this is optimal\n\nIt uses the standard SQL pattern for consecutive true-flag streaks after time-based comparisons.",
+          "## Approach\n\nCompute weekly message totals per channel, mark whether each week grew compared to the previous week, then group consecutive growth weeks into streaks.\n\n## Explanation\n\n- `weekly_channel_messages` calculates one message count per channel per week.\n- `LAG(weekly_count)` compares each week with the previous week for the same channel.\n- `growth_flags` marks true week-over-week growth as `1`.\n- `grouped_flags` assigns streak groups before filtering out non-growth weeks. This is important because non-growth weeks must break the streak.\n- `grouped_growth` then keeps only growth weeks.\n- The final query counts each growth streak and keeps streaks with at least 3 consecutive growth weeks.\n- The `ORDER BY` clauses inside window functions are required because they define chronological comparison.\n- No final `ORDER BY` is used because this question has `comparison_config: {}` and output order is not part of the requirement.\n\n## Why this is optimal\n\nIt correctly detects uninterrupted consecutive growth streaks by grouping all weeks first, then filtering only the growth weeks after streak groups are assigned.",
       },
       {
         approach_title: "Nested growth CTE",
         approach_type: "cte",
         is_optimal: false,
-        display_order: 3,
+        display_order: 2,
         query:
-          "WITH weekly_channel_messages AS ( SELECT channel_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS weekly_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id, DATE_TRUNC('week', sent_at)::date ), weekly_growth AS ( SELECT channel_id, week_start, weekly_count, LAG(weekly_count) OVER (PARTITION BY channel_id ORDER BY week_start) AS prev_week_count FROM weekly_channel_messages ), growth_flags AS ( SELECT channel_id, week_start, CASE WHEN prev_week_count IS NOT NULL AND weekly_count > prev_week_count THEN 1 ELSE 0 END AS is_growth_week FROM weekly_growth ), grouped_growth AS ( SELECT channel_id, week_start, ROW_NUMBER() OVER (PARTITION BY channel_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY channel_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ), streaks AS ( SELECT channel_id, grp, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY channel_id, grp ) SELECT channel_id, consecutive_growth_weeks FROM streaks WHERE consecutive_growth_weeks >= 3 ORDER BY consecutive_growth_weeks DESC, channel_id ASC;",
+          "WITH weekly_channel_messages AS ( SELECT channel_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS weekly_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY channel_id, DATE_TRUNC('week', sent_at)::date ), weekly_growth AS ( SELECT channel_id, week_start, weekly_count, LAG(weekly_count) OVER (PARTITION BY channel_id ORDER BY week_start) AS prev_week_count FROM weekly_channel_messages ), growth_flags AS ( SELECT channel_id, week_start, CASE WHEN prev_week_count IS NOT NULL AND weekly_count > prev_week_count THEN 1 ELSE 0 END AS is_growth_week FROM weekly_growth ), grouped_flags AS ( SELECT channel_id, week_start, is_growth_week, ROW_NUMBER() OVER (PARTITION BY channel_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY channel_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags ), streaks AS ( SELECT channel_id, grp, COUNT(*) AS consecutive_growth_weeks FROM grouped_flags WHERE is_growth_week = 1 GROUP BY channel_id, grp ) SELECT channel_id, consecutive_growth_weeks FROM streaks WHERE consecutive_growth_weeks >= 3;",
         explanation:
-          "## Approach\n\nBuild growth weeks first, then count each growth streak in a final CTE.\n\n## Query\n\n```sql\nWITH weekly_channel_messages AS (\n  SELECT channel_id,\n         DATE_TRUNC('week', sent_at)::date AS week_start,\n         COUNT(*) AS weekly_count\n  FROM messages\n  WHERE channel_id IS NOT NULL\n    AND is_deleted = false\n  GROUP BY channel_id, DATE_TRUNC('week', sent_at)::date\n), weekly_growth AS (\n  SELECT channel_id,\n         week_start,\n         weekly_count,\n         LAG(weekly_count) OVER (\n           PARTITION BY channel_id\n           ORDER BY week_start\n         ) AS prev_week_count\n  FROM weekly_channel_messages\n), growth_flags AS (\n  SELECT channel_id,\n         week_start,\n         CASE\n           WHEN prev_week_count IS NOT NULL AND weekly_count > prev_week_count THEN 1\n           ELSE 0\n         END AS is_growth_week\n  FROM weekly_growth\n), grouped_growth AS (\n  SELECT channel_id,\n         week_start,\n         ROW_NUMBER() OVER (PARTITION BY channel_id ORDER BY week_start)\n         - ROW_NUMBER() OVER (PARTITION BY channel_id, is_growth_week ORDER BY week_start) AS grp\n  FROM growth_flags\n  WHERE is_growth_week = 1\n), streaks AS (\n  SELECT channel_id, grp, COUNT(*) AS consecutive_growth_weeks\n  FROM grouped_growth\n  GROUP BY channel_id, grp\n)\nSELECT channel_id, consecutive_growth_weeks\nFROM streaks\nWHERE consecutive_growth_weeks >= 3\nORDER BY consecutive_growth_weeks DESC, channel_id ASC;\n```\n\n## Explanation\n\n- The first CTEs identify which weeks showed growth.\n- `grouped_growth` creates the streak groups.\n- `streaks` counts how long each streak lasts.\n- The final query keeps streaks of length 3 or more.\n\n## Difference from the optimal approach\n\nVery clear, but more verbose.",
+          "## Approach\n\nUse an extra `streaks` CTE to make the streak-counting step explicit.\n\n## Explanation\n\n- Weekly message counts are calculated first.\n- `LAG()` compares each channel's weekly count with the previous week.\n- `growth_flags` marks whether each week is a growth week.\n- `grouped_flags` creates the streak group before filtering. This ensures a non-growth week breaks the streak.\n- `streaks` counts only growth weeks within each streak group.\n- The final query keeps streaks with at least 3 consecutive growth weeks.\n- No final `ORDER BY` is included because ordering is not required for this question.\n\n## Difference from optimal approach\n\nThis version is slightly more verbose, but it makes the streak-counting phase easier to read.",
       },
     ],
   },
@@ -7438,19 +7043,19 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH public_channels AS ( SELECT workspace_id, COUNT(*) AS public_channel_count FROM channels WHERE visibility = 'public' GROUP BY workspace_id ), public_memberships AS ( SELECT c.workspace_id, cm.workspace_member_id, COUNT(DISTINCT cm.channel_id) AS joined_public_channels FROM channel_members cm JOIN channels c ON cm.channel_id = c.id WHERE c.visibility = 'public' GROUP BY c.workspace_id, cm.workspace_member_id ) SELECT pm.workspace_id, pm.workspace_member_id FROM public_memberships pm JOIN public_channels pc ON pm.workspace_id = pc.workspace_id WHERE pm.joined_public_channels = pc.public_channel_count ORDER BY pm.workspace_id ASC, pm.workspace_member_id ASC;",
+          "WITH public_channels AS ( SELECT workspace_id, COUNT(*) AS public_channel_count FROM channels WHERE visibility = 'public' GROUP BY workspace_id ), public_memberships AS ( SELECT c.workspace_id, cm.workspace_member_id, COUNT(DISTINCT cm.channel_id) AS joined_public_channels FROM channel_members cm JOIN channels c ON cm.channel_id = c.id WHERE c.visibility = 'public' GROUP BY c.workspace_id, cm.workspace_member_id ) SELECT pm.workspace_id, pm.workspace_member_id FROM public_memberships pm JOIN public_channels pc ON pm.workspace_id = pc.workspace_id WHERE pm.joined_public_channels = pc.public_channel_count;",
         explanation:
-          "## Approach\n\nCount public channels per workspace, count how many public channels each workspace member belongs to, then keep exact matches.\n\n## Query\n\n```sql\nWITH public_channels AS (\n  SELECT workspace_id, COUNT(*) AS public_channel_count\n  FROM channels\n  WHERE visibility = 'public'\n  GROUP BY workspace_id\n), public_memberships AS (\n  SELECT c.workspace_id,\n         cm.workspace_member_id,\n         COUNT(DISTINCT cm.channel_id) AS joined_public_channels\n  FROM channel_members cm\n  JOIN channels c\n    ON cm.channel_id = c.id\n  WHERE c.visibility = 'public'\n  GROUP BY c.workspace_id, cm.workspace_member_id\n)\nSELECT pm.workspace_id, pm.workspace_member_id\nFROM public_memberships pm\nJOIN public_channels pc\n  ON pm.workspace_id = pc.workspace_id\nWHERE pm.joined_public_channels = pc.public_channel_count\nORDER BY pm.workspace_id ASC, pm.workspace_member_id ASC;\n```\n\n## Explanation\n\n- `channel_members` uses `workspace_member_id`, not `member_id`.\n- It also does not have `membership_status`, so that filter must be removed.\n- Matching the joined-public count to the workspace public-channel total finds members present in every public channel.\n\n## Why this is optimal\n\nIt uses the real channel membership schema and directly compares coverage to the workspace total.",
+          "## Approach\n\nCount public channels per workspace, count how many public channels each workspace member belongs to, then keep members whose count matches the workspace total.\n\n## Explanation\n\n- `public_channels` gives the number of public channels in each workspace.\n- `public_memberships` counts distinct public channels joined by each workspace member.\n- If both counts are equal, the member belongs to every public channel in that workspace.\n- `COUNT(DISTINCT cm.channel_id)` avoids duplicate membership rows affecting the result.\n- No final `ORDER BY` is needed because the question does not require ordered output.",
       },
       {
         approach_title: "Nested coverage CTE",
         approach_type: "cte",
         is_optimal: false,
-        display_order: 3,
+        display_order: 2,
         query:
-          "WITH public_channels AS ( SELECT workspace_id, COUNT(*) AS public_channel_count FROM channels WHERE visibility = 'public' GROUP BY workspace_id ), public_memberships AS ( SELECT c.workspace_id, cm.workspace_member_id, COUNT(DISTINCT cm.channel_id) AS joined_public_channels FROM channel_members cm JOIN channels c ON cm.channel_id = c.id WHERE c.visibility = 'public' GROUP BY c.workspace_id, cm.workspace_member_id ), fully_covered_members AS ( SELECT pm.workspace_id, pm.workspace_member_id FROM public_memberships pm JOIN public_channels pc ON pm.workspace_id = pc.workspace_id WHERE pm.joined_public_channels = pc.public_channel_count ) SELECT workspace_id, workspace_member_id FROM fully_covered_members ORDER BY workspace_id ASC, workspace_member_id ASC;",
+          "WITH public_channels AS ( SELECT workspace_id, COUNT(*) AS public_channel_count FROM channels WHERE visibility = 'public' GROUP BY workspace_id ), public_memberships AS ( SELECT c.workspace_id, cm.workspace_member_id, COUNT(DISTINCT cm.channel_id) AS joined_public_channels FROM channel_members cm JOIN channels c ON cm.channel_id = c.id WHERE c.visibility = 'public' GROUP BY c.workspace_id, cm.workspace_member_id ), fully_covered_members AS ( SELECT pm.workspace_id, pm.workspace_member_id FROM public_memberships pm JOIN public_channels pc ON pm.workspace_id = pc.workspace_id WHERE pm.joined_public_channels = pc.public_channel_count ) SELECT workspace_id, workspace_member_id FROM fully_covered_members;",
         explanation:
-          "## Approach\n\nCompute public channel coverage first, then isolate fully covered members in a separate CTE.\n\n## Query\n\n```sql\nWITH public_channels AS (\n  SELECT workspace_id, COUNT(*) AS public_channel_count\n  FROM channels\n  WHERE visibility = 'public'\n  GROUP BY workspace_id\n), public_memberships AS (\n  SELECT c.workspace_id,\n         cm.workspace_member_id,\n         COUNT(DISTINCT cm.channel_id) AS joined_public_channels\n  FROM channel_members cm\n  JOIN channels c\n    ON cm.channel_id = c.id\n  WHERE c.visibility = 'public'\n  GROUP BY c.workspace_id, cm.workspace_member_id\n), fully_covered_members AS (\n  SELECT pm.workspace_id, pm.workspace_member_id\n  FROM public_memberships pm\n  JOIN public_channels pc\n    ON pm.workspace_id = pc.workspace_id\n  WHERE pm.joined_public_channels = pc.public_channel_count\n)\nSELECT workspace_id, workspace_member_id\nFROM fully_covered_members\nORDER BY workspace_id ASC, workspace_member_id ASC;\n```\n\n## Difference from the optimal approach\n\nClear, but more verbose.",
+          "## Approach\n\nSeparate the final qualifying members into their own CTE for readability.\n\n## Explanation\n\n- The first two CTEs calculate workspace public-channel totals and member public-channel coverage.\n- `fully_covered_members` keeps only members whose joined public-channel count equals the workspace public-channel count.\n- The final query returns those members.\n- Since ordering is not part of the requirement, the query does not include a final `ORDER BY`.",
       },
     ],
   },
@@ -7463,9 +7068,9 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH message_counts AS ( SELECT workspace_id, channel_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, channel_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, m.channel_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.workspace_id, m.channel_id, mr.workspace_member_id ), combined AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id) AS workspace_id, COALESCE(mc.channel_id, rc.channel_id) AS channel_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.channel_id = rc.channel_id AND mc.workspace_member_id = rc.workspace_member_id ) SELECT workspace_id, workspace_member_id FROM combined GROUP BY workspace_id, workspace_member_id HAVING COUNT(*) FILTER (WHERE reaction_count > message_count) > COUNT(*) FILTER (WHERE message_count > reaction_count) ORDER BY workspace_id ASC, workspace_member_id ASC;",
+          "WITH message_counts AS ( SELECT workspace_id, channel_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, channel_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, m.channel_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.workspace_id, m.channel_id, mr.workspace_member_id ), combined AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id) AS workspace_id, COALESCE(mc.channel_id, rc.channel_id) AS channel_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.channel_id = rc.channel_id AND mc.workspace_member_id = rc.workspace_member_id ) SELECT workspace_id, workspace_member_id FROM combined GROUP BY workspace_id, workspace_member_id HAVING COUNT(*) FILTER (WHERE reaction_count > message_count) > COUNT(*) FILTER (WHERE message_count > reaction_count);",
         explanation:
-          "## Approach\n\nCompute per-member per-channel message counts and reaction counts, combine them, then compare how many channels favor reactions versus messages.\n\n## Query\n\n```sql\nWITH message_counts AS (\n  SELECT workspace_id,\n         channel_id,\n         sender_member_id AS workspace_member_id,\n         COUNT(*) AS message_count\n  FROM messages\n  WHERE channel_id IS NOT NULL\n    AND is_deleted = false\n  GROUP BY workspace_id, channel_id, sender_member_id\n), reaction_counts AS (\n  SELECT m.workspace_id,\n         m.channel_id,\n         mr.workspace_member_id,\n         COUNT(*) AS reaction_count\n  FROM message_reactions mr\n  JOIN messages m\n    ON mr.message_id = m.id\n  WHERE m.channel_id IS NOT NULL\n  GROUP BY m.workspace_id, m.channel_id, mr.workspace_member_id\n), combined AS (\n  SELECT COALESCE(mc.workspace_id, rc.workspace_id) AS workspace_id,\n         COALESCE(mc.channel_id, rc.channel_id) AS channel_id,\n         COALESCE(mc.workspace_member_id, rc.workspace_member_id) AS workspace_member_id,\n         COALESCE(mc.message_count, 0) AS message_count,\n         COALESCE(rc.reaction_count, 0) AS reaction_count\n  FROM message_counts mc\n  FULL OUTER JOIN reaction_counts rc\n    ON mc.workspace_id = rc.workspace_id\n   AND mc.channel_id = rc.channel_id\n   AND mc.workspace_member_id = rc.workspace_member_id\n)\nSELECT workspace_id, workspace_member_id\nFROM combined\nGROUP BY workspace_id, workspace_member_id\nHAVING COUNT(*) FILTER (WHERE reaction_count > message_count)\n     > COUNT(*) FILTER (WHERE message_count > reaction_count)\nORDER BY workspace_id ASC, workspace_member_id ASC;\n```\n\n## Explanation\n\n- `message_reactions` does not store `workspace_id`; that comes from joining `messages` on `message_id`.\n- The reacting member column is `workspace_member_id`.\n- The full outer join keeps member-channel combinations that exist on only one side too.\n- The final grouped comparison checks whether reaction-heavy channels outnumber message-heavy channels.\n\n## Why this is optimal\n\nIt handles sparse activity on either side correctly and uses the actual reaction schema.",
+          "## Approach\n\nCompute message activity and reaction activity per workspace member per channel, merge both sides, then keep members whose reaction-heavy channels outnumber message-heavy channels.\n\n## Explanation\n\n- `message_counts` counts non-deleted messages sent by each member in each channel.\n- `reaction_counts` counts reactions given by each member in each channel. Since `message_reactions` does not directly store `workspace_id` or `channel_id`, it joins through `messages`.\n- The `FULL OUTER JOIN` is important because a member may have only messages, only reactions, or both in a channel.\n- `COALESCE(..., 0)` treats missing activity as zero, making the comparison fair.\n- The `HAVING` clause compares how many channels are reaction-heavy versus message-heavy for each member.\n- No final `ORDER BY` is used because the question does not require ordered output and the comparator should ignore row order by default.",
       },
       {
         approach_title: "Case compare",
@@ -7473,9 +7078,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 2,
         query:
-          "WITH message_counts AS ( SELECT workspace_id, channel_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, channel_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, m.channel_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.workspace_id, m.channel_id, mr.workspace_member_id ), combined AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id) AS workspace_id, COALESCE(mc.channel_id, rc.channel_id) AS channel_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.channel_id = rc.channel_id AND mc.workspace_member_id = rc.workspace_member_id ) SELECT workspace_id, workspace_member_id FROM combined GROUP BY workspace_id, workspace_member_id HAVING SUM(CASE WHEN reaction_count > message_count THEN 1 ELSE 0 END) > SUM(CASE WHEN message_count > reaction_count THEN 1 ELSE 0 END) ORDER BY workspace_id ASC, workspace_member_id ASC;",
+          "WITH message_counts AS ( SELECT workspace_id, channel_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, channel_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, m.channel_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.workspace_id, m.channel_id, mr.workspace_member_id ), combined AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id) AS workspace_id, COALESCE(mc.channel_id, rc.channel_id) AS channel_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.channel_id = rc.channel_id AND mc.workspace_member_id = rc.workspace_member_id ) SELECT workspace_id, workspace_member_id FROM combined GROUP BY workspace_id, workspace_member_id HAVING SUM(CASE WHEN reaction_count > message_count THEN 1 ELSE 0 END) > SUM(CASE WHEN message_count > reaction_count THEN 1 ELSE 0 END);",
         explanation:
-          "## Approach\n\nUse `CASE` expressions instead of `FILTER` to count reaction-heavy and message-heavy channels.\n\n## Query\n\n```sql\nWITH message_counts AS (\n  SELECT workspace_id,\n         channel_id,\n         sender_member_id AS workspace_member_id,\n         COUNT(*) AS message_count\n  FROM messages\n  WHERE channel_id IS NOT NULL\n    AND is_deleted = false\n  GROUP BY workspace_id, channel_id, sender_member_id\n), reaction_counts AS (\n  SELECT m.workspace_id,\n         m.channel_id,\n         mr.workspace_member_id,\n         COUNT(*) AS reaction_count\n  FROM message_reactions mr\n  JOIN messages m\n    ON mr.message_id = m.id\n  WHERE m.channel_id IS NOT NULL\n  GROUP BY m.workspace_id, m.channel_id, mr.workspace_member_id\n), combined AS (\n  SELECT COALESCE(mc.workspace_id, rc.workspace_id) AS workspace_id,\n         COALESCE(mc.channel_id, rc.channel_id) AS channel_id,\n         COALESCE(mc.workspace_member_id, rc.workspace_member_id) AS workspace_member_id,\n         COALESCE(mc.message_count, 0) AS message_count,\n         COALESCE(rc.reaction_count, 0) AS reaction_count\n  FROM message_counts mc\n  FULL OUTER JOIN reaction_counts rc\n    ON mc.workspace_id = rc.workspace_id\n   AND mc.channel_id = rc.channel_id\n   AND mc.workspace_member_id = rc.workspace_member_id\n)\nSELECT workspace_id, workspace_member_id\nFROM combined\nGROUP BY workspace_id, workspace_member_id\nHAVING SUM(CASE WHEN reaction_count > message_count THEN 1 ELSE 0 END)\n     > SUM(CASE WHEN message_count > reaction_count THEN 1 ELSE 0 END)\nORDER BY workspace_id ASC, workspace_member_id ASC;\n```\n\n## Difference from the optimal approach\n\nCorrect, but `FILTER` is cleaner in PostgreSQL.",
+          "## Approach\n\nUse `CASE` expressions instead of aggregate `FILTER` clauses to count reaction-heavy and message-heavy channels.\n\n## Explanation\n\n- The same per-channel message and reaction counts are built first.\n- `CASE WHEN reaction_count > message_count THEN 1 ELSE 0 END` marks reaction-heavy channels.\n- `CASE WHEN message_count > reaction_count THEN 1 ELSE 0 END` marks message-heavy channels.\n- The member qualifies only when the reaction-heavy channel count is greater.\n- This is logically correct, but the `FILTER` version is cleaner in PostgreSQL.\n- No final ordering is included because the fixed question config does not require sorting.",
       },
       {
         approach_title: "Nested combined CTE",
@@ -7483,9 +7088,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 3,
         query:
-          "WITH message_counts AS ( SELECT workspace_id, channel_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, channel_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, m.channel_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.workspace_id, m.channel_id, mr.workspace_member_id ), combined AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id) AS workspace_id, COALESCE(mc.channel_id, rc.channel_id) AS channel_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.channel_id = rc.channel_id AND mc.workspace_member_id = rc.workspace_member_id ), member_channel_balance AS ( SELECT workspace_id, workspace_member_id, COUNT(*) FILTER (WHERE reaction_count > message_count) AS reaction_heavy_channels, COUNT(*) FILTER (WHERE message_count > reaction_count) AS message_heavy_channels FROM combined GROUP BY workspace_id, workspace_member_id ) SELECT workspace_id, workspace_member_id FROM member_channel_balance WHERE reaction_heavy_channels > message_heavy_channels ORDER BY workspace_id ASC, workspace_member_id ASC;",
+          "WITH message_counts AS ( SELECT workspace_id, channel_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, channel_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, m.channel_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id WHERE m.channel_id IS NOT NULL GROUP BY m.workspace_id, m.channel_id, mr.workspace_member_id ), combined AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id) AS workspace_id, COALESCE(mc.channel_id, rc.channel_id) AS channel_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.channel_id = rc.channel_id AND mc.workspace_member_id = rc.workspace_member_id ), member_channel_balance AS ( SELECT workspace_id, workspace_member_id, COUNT(*) FILTER (WHERE reaction_count > message_count) AS reaction_heavy_channels, COUNT(*) FILTER (WHERE message_count > reaction_count) AS message_heavy_channels FROM combined GROUP BY workspace_id, workspace_member_id ) SELECT workspace_id, workspace_member_id FROM member_channel_balance WHERE reaction_heavy_channels > message_heavy_channels;",
         explanation:
-          "## Approach\n\nSplit the per-member channel balance into its own CTE before filtering.\n\n## Query\n\n```sql\nWITH message_counts AS (\n  SELECT workspace_id,\n         channel_id,\n         sender_member_id AS workspace_member_id,\n         COUNT(*) AS message_count\n  FROM messages\n  WHERE channel_id IS NOT NULL\n    AND is_deleted = false\n  GROUP BY workspace_id, channel_id, sender_member_id\n), reaction_counts AS (\n  SELECT m.workspace_id,\n         m.channel_id,\n         mr.workspace_member_id,\n         COUNT(*) AS reaction_count\n  FROM message_reactions mr\n  JOIN messages m\n    ON mr.message_id = m.id\n  WHERE m.channel_id IS NOT NULL\n  GROUP BY m.workspace_id, m.channel_id, mr.workspace_member_id\n), combined AS (\n  SELECT COALESCE(mc.workspace_id, rc.workspace_id) AS workspace_id,\n         COALESCE(mc.channel_id, rc.channel_id) AS channel_id,\n         COALESCE(mc.workspace_member_id, rc.workspace_member_id) AS workspace_member_id,\n         COALESCE(mc.message_count, 0) AS message_count,\n         COALESCE(rc.reaction_count, 0) AS reaction_count\n  FROM message_counts mc\n  FULL OUTER JOIN reaction_counts rc\n    ON mc.workspace_id = rc.workspace_id\n   AND mc.channel_id = rc.channel_id\n   AND mc.workspace_member_id = rc.workspace_member_id\n), member_channel_balance AS (\n  SELECT workspace_id,\n         workspace_member_id,\n         COUNT(*) FILTER (WHERE reaction_count > message_count) AS reaction_heavy_channels,\n         COUNT(*) FILTER (WHERE message_count > reaction_count) AS message_heavy_channels\n  FROM combined\n  GROUP BY workspace_id, workspace_member_id\n)\nSELECT workspace_id, workspace_member_id\nFROM member_channel_balance\nWHERE reaction_heavy_channels > message_heavy_channels\nORDER BY workspace_id ASC, workspace_member_id ASC;\n```\n\n## Difference from the optimal approach\n\nVery clear, but more verbose.",
+          "## Approach\n\nSeparate the final member-level channel balance into its own CTE.\n\n## Explanation\n\n- `member_channel_balance` makes the final comparison easier to read.\n- It stores both reaction-heavy and message-heavy channel counts per member.\n- The final query simply filters members whose reaction-heavy channel count is greater.\n- This version is more verbose than the optimal query, but easier to debug.\n- No final `ORDER BY` is needed because ordering is not part of the question requirement.",
       },
     ],
   },
@@ -7498,9 +7103,9 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH RECURSIVE reply_tree AS ( SELECT m.workspace_id, m.id AS root_message_id, m.id, m.parent_message_id FROM messages m WHERE m.parent_message_id IS NULL UNION ALL SELECT rt.workspace_id, rt.root_message_id, m.id, m.parent_message_id FROM messages m JOIN reply_tree rt ON m.parent_message_id = rt.id ), reply_totals AS ( SELECT workspace_id, root_message_id, COUNT(*) - 1 AS total_descendant_replies FROM reply_tree GROUP BY workspace_id, root_message_id ), ranked_roots AS ( SELECT workspace_id, root_message_id, total_descendant_replies, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY total_descendant_replies DESC, root_message_id ASC) AS rn FROM reply_totals ) SELECT workspace_id, root_message_id, total_descendant_replies FROM ranked_roots WHERE rn = 1 ORDER BY workspace_id ASC;",
+          "WITH RECURSIVE reply_tree AS ( SELECT m.workspace_id, m.id AS root_message_id, m.id, m.parent_message_id FROM messages m WHERE m.parent_message_id IS NULL UNION ALL SELECT rt.workspace_id, rt.root_message_id, m.id, m.parent_message_id FROM messages m JOIN reply_tree rt ON m.parent_message_id = rt.id ), reply_totals AS ( SELECT workspace_id, root_message_id, COUNT(*) - 1 AS total_descendant_replies FROM reply_tree GROUP BY workspace_id, root_message_id ), ranked_roots AS ( SELECT workspace_id, root_message_id, total_descendant_replies, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY total_descendant_replies DESC, root_message_id ASC) AS rn FROM reply_totals ) SELECT workspace_id, root_message_id, total_descendant_replies FROM ranked_roots WHERE rn = 1;",
         explanation:
-          "## Approach\n\nTraverse every reply tree recursively, count all descendants per root, then keep the top root per workspace.\n\n## Query\n\n```sql\nWITH RECURSIVE reply_tree AS (\n  SELECT m.workspace_id,\n         m.id AS root_message_id,\n         m.id,\n         m.parent_message_id\n  FROM messages m\n  WHERE m.parent_message_id IS NULL\n\n  UNION ALL\n\n  SELECT rt.workspace_id,\n         rt.root_message_id,\n         m.id,\n         m.parent_message_id\n  FROM messages m\n  JOIN reply_tree rt\n    ON m.parent_message_id = rt.id\n), reply_totals AS (\n  SELECT workspace_id,\n         root_message_id,\n         COUNT(*) - 1 AS total_descendant_replies\n  FROM reply_tree\n  GROUP BY workspace_id, root_message_id\n), ranked_roots AS (\n  SELECT workspace_id,\n         root_message_id,\n         total_descendant_replies,\n         ROW_NUMBER() OVER (\n           PARTITION BY workspace_id\n           ORDER BY total_descendant_replies DESC, root_message_id ASC\n         ) AS rn\n  FROM reply_totals\n)\nSELECT workspace_id, root_message_id, total_descendant_replies\nFROM ranked_roots\nWHERE rn = 1\nORDER BY workspace_id ASC;\n```\n\n## Explanation\n\n- The recursive CTE builds every descendant under each root message.\n- `COUNT(*) - 1` removes the root itself and leaves only descendants.\n- `ROW_NUMBER()` picks the root with the highest descendant count per workspace.\n- Ties are broken by smaller `root_message_id`.\n\n## Why this is optimal\n\nA recursive CTE is required for full descendant counting, and the ranking step cleanly selects one winner per workspace.",
+          "## Approach\n\nUse a recursive CTE to count all descendant replies for every root message, then rank roots inside each workspace.\n\n## Explanation\n\n- The recursive CTE starts from root messages where `parent_message_id IS NULL`.\n- Each recursive step walks from a message to its replies.\n- `COUNT(*) - 1` removes the root message itself, leaving only descendant replies.\n- `ROW_NUMBER()` selects exactly one root per workspace.\n- The window `ORDER BY total_descendant_replies DESC, root_message_id ASC` is required because it decides the winner inside each workspace.\n- No final `ORDER BY` is used because the output order itself is not part of the requirement.",
       },
       {
         approach_title: "Recursive join max",
@@ -7508,9 +7113,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 2,
         query:
-          "WITH RECURSIVE reply_tree AS ( SELECT m.workspace_id, m.id AS root_message_id, m.id, m.parent_message_id FROM messages m WHERE m.parent_message_id IS NULL UNION ALL SELECT rt.workspace_id, rt.root_message_id, m.id, m.parent_message_id FROM messages m JOIN reply_tree rt ON m.parent_message_id = rt.id ), reply_totals AS ( SELECT workspace_id, root_message_id, COUNT(*) - 1 AS total_descendant_replies FROM reply_tree GROUP BY workspace_id, root_message_id ), workspace_max AS ( SELECT workspace_id, MAX(total_descendant_replies) AS max_descendant_replies FROM reply_totals GROUP BY workspace_id ) SELECT rt.workspace_id, MIN(rt.root_message_id) AS root_message_id, wm.max_descendant_replies AS total_descendant_replies FROM reply_totals rt JOIN workspace_max wm ON rt.workspace_id = wm.workspace_id AND rt.total_descendant_replies = wm.max_descendant_replies GROUP BY rt.workspace_id, wm.max_descendant_replies ORDER BY rt.workspace_id ASC;",
+          "WITH RECURSIVE reply_tree AS ( SELECT m.workspace_id, m.id AS root_message_id, m.id, m.parent_message_id FROM messages m WHERE m.parent_message_id IS NULL UNION ALL SELECT rt.workspace_id, rt.root_message_id, m.id, m.parent_message_id FROM messages m JOIN reply_tree rt ON m.parent_message_id = rt.id ), reply_totals AS ( SELECT workspace_id, root_message_id, COUNT(*) - 1 AS total_descendant_replies FROM reply_tree GROUP BY workspace_id, root_message_id ), workspace_max AS ( SELECT workspace_id, MAX(total_descendant_replies) AS max_descendant_replies FROM reply_totals GROUP BY workspace_id ) SELECT rt.workspace_id, MIN(rt.root_message_id) AS root_message_id, wm.max_descendant_replies AS total_descendant_replies FROM reply_totals rt JOIN workspace_max wm ON rt.workspace_id = wm.workspace_id AND rt.total_descendant_replies = wm.max_descendant_replies GROUP BY rt.workspace_id, wm.max_descendant_replies;",
         explanation:
-          "## Approach\n\nBuild descendant totals per root, find the maximum total per workspace, then join back and break ties with `MIN(root_message_id)`.\n\n## Query\n\n```sql\nWITH RECURSIVE reply_tree AS (\n  SELECT m.workspace_id,\n         m.id AS root_message_id,\n         m.id,\n         m.parent_message_id\n  FROM messages m\n  WHERE m.parent_message_id IS NULL\n\n  UNION ALL\n\n  SELECT rt.workspace_id,\n         rt.root_message_id,\n         m.id,\n         m.parent_message_id\n  FROM messages m\n  JOIN reply_tree rt\n    ON m.parent_message_id = rt.id\n), reply_totals AS (\n  SELECT workspace_id,\n         root_message_id,\n         COUNT(*) - 1 AS total_descendant_replies\n  FROM reply_tree\n  GROUP BY workspace_id, root_message_id\n), workspace_max AS (\n  SELECT workspace_id,\n         MAX(total_descendant_replies) AS max_descendant_replies\n  FROM reply_totals\n  GROUP BY workspace_id\n)\nSELECT rt.workspace_id,\n       MIN(rt.root_message_id) AS root_message_id,\n       wm.max_descendant_replies AS total_descendant_replies\nFROM reply_totals rt\nJOIN workspace_max wm\n  ON rt.workspace_id = wm.workspace_id\n AND rt.total_descendant_replies = wm.max_descendant_replies\nGROUP BY rt.workspace_id, wm.max_descendant_replies\nORDER BY rt.workspace_id ASC;\n```\n\n## Explanation\n\n- The recursive logic is the same as the optimal approach.\n- The grouped totals are compared to the workspace maximum.\n- `MIN(root_message_id)` reproduces the same tie-breaker.\n\n## Difference from the optimal approach\n\nCorrect, but more steps than the window-based ranking solution.",
+          "## Approach\n\nFind descendant totals, calculate the maximum total per workspace, then join back to pick the matching root.\n\n## Explanation\n\n- `reply_totals` calculates reply-tree size per root message.\n- `workspace_max` finds the highest descendant count in each workspace.\n- Joining back keeps only roots matching the workspace maximum.\n- `MIN(root_message_id)` handles ties in the same way as the window solution.\n- This is correct, but more verbose than using `ROW_NUMBER()`.\n- No final ordering is included because the comparator does not enforce order for this question.",
       },
       {
         approach_title: "Nested recursive rank",
@@ -7518,9 +7123,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 3,
         query:
-          "WITH RECURSIVE reply_tree AS ( SELECT m.workspace_id, m.id AS root_message_id, m.id, m.parent_message_id FROM messages m WHERE m.parent_message_id IS NULL UNION ALL SELECT rt.workspace_id, rt.root_message_id, m.id, m.parent_message_id FROM messages m JOIN reply_tree rt ON m.parent_message_id = rt.id ), reply_totals AS ( SELECT workspace_id, root_message_id, COUNT(*) - 1 AS total_descendant_replies FROM reply_tree GROUP BY workspace_id, root_message_id ), ranked_roots AS ( SELECT workspace_id, root_message_id, total_descendant_replies, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY total_descendant_replies DESC, root_message_id ASC) AS rn FROM reply_totals ), top_roots AS ( SELECT workspace_id, root_message_id, total_descendant_replies FROM ranked_roots WHERE rn = 1 ) SELECT workspace_id, root_message_id, total_descendant_replies FROM top_roots ORDER BY workspace_id ASC;",
+          "WITH RECURSIVE reply_tree AS ( SELECT m.workspace_id, m.id AS root_message_id, m.id, m.parent_message_id FROM messages m WHERE m.parent_message_id IS NULL UNION ALL SELECT rt.workspace_id, rt.root_message_id, m.id, m.parent_message_id FROM messages m JOIN reply_tree rt ON m.parent_message_id = rt.id ), reply_totals AS ( SELECT workspace_id, root_message_id, COUNT(*) - 1 AS total_descendant_replies FROM reply_tree GROUP BY workspace_id, root_message_id ), ranked_roots AS ( SELECT workspace_id, root_message_id, total_descendant_replies, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY total_descendant_replies DESC, root_message_id ASC) AS rn FROM reply_totals ), top_roots AS ( SELECT workspace_id, root_message_id, total_descendant_replies FROM ranked_roots WHERE rn = 1 ) SELECT workspace_id, root_message_id, total_descendant_replies FROM top_roots;",
         explanation:
-          "## Approach\n\nUse the same recursive total logic, then isolate the top-ranked roots in a final CTE.\n\n## Query\n\n```sql\nWITH RECURSIVE reply_tree AS (\n  SELECT m.workspace_id,\n         m.id AS root_message_id,\n         m.id,\n         m.parent_message_id\n  FROM messages m\n  WHERE m.parent_message_id IS NULL\n\n  UNION ALL\n\n  SELECT rt.workspace_id,\n         rt.root_message_id,\n         m.id,\n         m.parent_message_id\n  FROM messages m\n  JOIN reply_tree rt\n    ON m.parent_message_id = rt.id\n), reply_totals AS (\n  SELECT workspace_id,\n         root_message_id,\n         COUNT(*) - 1 AS total_descendant_replies\n  FROM reply_tree\n  GROUP BY workspace_id, root_message_id\n), ranked_roots AS (\n  SELECT workspace_id,\n         root_message_id,\n         total_descendant_replies,\n         ROW_NUMBER() OVER (\n           PARTITION BY workspace_id\n           ORDER BY total_descendant_replies DESC, root_message_id ASC\n         ) AS rn\n  FROM reply_totals\n), top_roots AS (\n  SELECT workspace_id, root_message_id, total_descendant_replies\n  FROM ranked_roots\n  WHERE rn = 1\n)\nSELECT workspace_id, root_message_id, total_descendant_replies\nFROM top_roots\nORDER BY workspace_id ASC;\n```\n\n## Explanation\n\n- The recursive tree and per-root totals are the same as the optimal approach.\n- The last CTE isolates only the winning roots.\n- The final query simply sorts them.\n\n## Difference from the optimal approach\n\nMore verbose, but very readable.",
+          "## Approach\n\nUse the same recursive ranking logic, but isolate the winning root rows in a final CTE.\n\n## Explanation\n\n- The recursive tree counts all descendants for each root.\n- The ranking step picks the root with the most replies per workspace.\n- The extra `top_roots` CTE makes the final selection explicit.\n- This improves readability but adds one more CTE than necessary.\n- Final output ordering is omitted because the question only asks for the top root per workspace, not a sorted result set.",
       },
     ],
   },
@@ -7533,9 +7138,9 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH message_counts AS ( SELECT workspace_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), mention_counts AS ( SELECT m.workspace_id, m.sender_member_id AS workspace_member_id, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY m.workspace_id, m.sender_member_id ), member_metrics AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id, mic.workspace_id) AS workspace_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id, mic.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count, COALESCE(mic.mention_count, 0) AS mention_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.workspace_member_id = rc.workspace_member_id FULL OUTER JOIN mention_counts mic ON COALESCE(mc.workspace_id, rc.workspace_id) = mic.workspace_id AND COALESCE(mc.workspace_member_id, rc.workspace_member_id) = mic.workspace_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(message_count) AS avg_message_count, AVG(reaction_count) AS avg_reaction_count, AVG(mention_count) AS avg_mention_count FROM member_metrics GROUP BY workspace_id ) SELECT mm.workspace_id, mm.workspace_member_id, mm.message_count, mm.reaction_count, mm.mention_count FROM member_metrics mm JOIN workspace_avg wa ON mm.workspace_id = wa.workspace_id WHERE mm.message_count > wa.avg_message_count AND mm.reaction_count > wa.avg_reaction_count AND mm.mention_count > wa.avg_mention_count ORDER BY mm.workspace_id ASC, mm.workspace_member_id ASC;",
+          "WITH message_counts AS ( SELECT workspace_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), mention_counts AS ( SELECT m.workspace_id, m.sender_member_id AS workspace_member_id, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY m.workspace_id, m.sender_member_id ), member_metrics AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id, mic.workspace_id) AS workspace_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id, mic.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count, COALESCE(mic.mention_count, 0) AS mention_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.workspace_member_id = rc.workspace_member_id FULL OUTER JOIN mention_counts mic ON COALESCE(mc.workspace_id, rc.workspace_id) = mic.workspace_id AND COALESCE(mc.workspace_member_id, rc.workspace_member_id) = mic.workspace_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(message_count) AS avg_message_count, AVG(reaction_count) AS avg_reaction_count, AVG(mention_count) AS avg_mention_count FROM member_metrics GROUP BY workspace_id ) SELECT mm.workspace_id, mm.workspace_member_id, mm.message_count, mm.reaction_count, mm.mention_count FROM member_metrics mm JOIN workspace_avg wa ON mm.workspace_id = wa.workspace_id WHERE mm.message_count > wa.avg_message_count AND mm.reaction_count > wa.avg_reaction_count AND mm.mention_count > wa.avg_mention_count;",
         explanation:
-          "## Approach\n\nBuild three member-level metrics per workspace, combine them into one row per workspace member, compute workspace averages for all three, then keep members above average in every metric.\n\n## Query\n\n```sql\nWITH message_counts AS (\n  SELECT workspace_id,\n         sender_member_id AS workspace_member_id,\n         COUNT(*) AS message_count\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY workspace_id, sender_member_id\n), reaction_counts AS (\n  SELECT m.workspace_id,\n         mr.workspace_member_id,\n         COUNT(*) AS reaction_count\n  FROM message_reactions mr\n  JOIN messages m\n    ON mr.message_id = m.id\n  GROUP BY m.workspace_id, mr.workspace_member_id\n), mention_counts AS (\n  SELECT m.workspace_id,\n         m.sender_member_id AS workspace_member_id,\n         COUNT(*) AS mention_count\n  FROM message_mentions mm\n  JOIN messages m\n    ON mm.message_id = m.id\n  GROUP BY m.workspace_id, m.sender_member_id\n), member_metrics AS (\n  SELECT COALESCE(mc.workspace_id, rc.workspace_id, mic.workspace_id) AS workspace_id,\n         COALESCE(mc.workspace_member_id, rc.workspace_member_id, mic.workspace_member_id) AS workspace_member_id,\n         COALESCE(mc.message_count, 0) AS message_count,\n         COALESCE(rc.reaction_count, 0) AS reaction_count,\n         COALESCE(mic.mention_count, 0) AS mention_count\n  FROM message_counts mc\n  FULL OUTER JOIN reaction_counts rc\n    ON mc.workspace_id = rc.workspace_id\n   AND mc.workspace_member_id = rc.workspace_member_id\n  FULL OUTER JOIN mention_counts mic\n    ON COALESCE(mc.workspace_id, rc.workspace_id) = mic.workspace_id\n   AND COALESCE(mc.workspace_member_id, rc.workspace_member_id) = mic.workspace_member_id\n), workspace_avg AS (\n  SELECT workspace_id,\n         AVG(message_count) AS avg_message_count,\n         AVG(reaction_count) AS avg_reaction_count,\n         AVG(mention_count) AS avg_mention_count\n  FROM member_metrics\n  GROUP BY workspace_id\n)\nSELECT mm.workspace_id,\n       mm.workspace_member_id,\n       mm.message_count,\n       mm.reaction_count,\n       mm.mention_count\nFROM member_metrics mm\nJOIN workspace_avg wa\n  ON mm.workspace_id = wa.workspace_id\nWHERE mm.message_count > wa.avg_message_count\n  AND mm.reaction_count > wa.avg_reaction_count\n  AND mm.mention_count > wa.avg_mention_count\nORDER BY mm.workspace_id ASC, mm.workspace_member_id ASC;\n```\n\n## Explanation\n\n- `message_reactions` needs a join to `messages` to get `workspace_id`.\n- The reaction member column is `workspace_member_id`.\n- Mention activity here is counted as mentions made by a sender, so it uses `messages.sender_member_id`.\n- Missing metrics are set to zero with `COALESCE` before averaging and comparison.\n\n## Why this is optimal\n\nIt fixes the missing workspace column issue and keeps the three-metric comparison clear.",
+          "## Approach\n\nBuild three member-level activity metrics per workspace: messages sent, reactions added, and mentions made. Then compare each member against the average values for their workspace.\n\n## Explanation\n\n- `message_counts` counts non-deleted messages sent by each workspace member.\n- `reaction_counts` joins `message_reactions` to `messages` because reactions need the message row to derive `workspace_id`.\n- `mention_counts` counts mentions made by each sender using `messages.sender_member_id`.\n- `FULL OUTER JOIN` keeps members who may appear in only one or two metric sources.\n- `COALESCE(..., 0)` converts missing metrics into zero before calculating averages.\n- `workspace_avg` calculates the average message, reaction, and mention counts per workspace.\n- The final `WHERE` clause keeps only members above their workspace average in all three metrics.\n- No final `ORDER BY` is used because the question does not require sorted output and the comparator ignores order by default.",
       },
       {
         approach_title: "Nested metrics CTE",
@@ -7543,19 +7148,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 2,
         query:
-          "WITH message_counts AS ( SELECT workspace_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), mention_counts AS ( SELECT m.workspace_id, m.sender_member_id AS workspace_member_id, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY m.workspace_id, m.sender_member_id ), member_metrics AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id, mic.workspace_id) AS workspace_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id, mic.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count, COALESCE(mic.mention_count, 0) AS mention_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.workspace_member_id = rc.workspace_member_id FULL OUTER JOIN mention_counts mic ON COALESCE(mc.workspace_id, rc.workspace_id) = mic.workspace_id AND COALESCE(mc.workspace_member_id, rc.workspace_member_id) = mic.workspace_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(message_count) AS avg_message_count, AVG(reaction_count) AS avg_reaction_count, AVG(mention_count) AS avg_mention_count FROM member_metrics GROUP BY workspace_id ), power_members AS ( SELECT mm.workspace_id, mm.workspace_member_id, mm.message_count, mm.reaction_count, mm.mention_count FROM member_metrics mm JOIN workspace_avg wa ON mm.workspace_id = wa.workspace_id WHERE mm.message_count > wa.avg_message_count AND mm.reaction_count > wa.avg_reaction_count AND mm.mention_count > wa.avg_mention_count ) SELECT workspace_id, workspace_member_id, message_count, reaction_count, mention_count FROM power_members ORDER BY workspace_id ASC, workspace_member_id ASC;",
+          "WITH message_counts AS ( SELECT workspace_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), mention_counts AS ( SELECT m.workspace_id, m.sender_member_id AS workspace_member_id, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY m.workspace_id, m.sender_member_id ), member_metrics AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id, mic.workspace_id) AS workspace_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id, mic.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count, COALESCE(mic.mention_count, 0) AS mention_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.workspace_member_id = rc.workspace_member_id FULL OUTER JOIN mention_counts mic ON COALESCE(mc.workspace_id, rc.workspace_id) = mic.workspace_id AND COALESCE(mc.workspace_member_id, rc.workspace_member_id) = mic.workspace_member_id ), workspace_avg AS ( SELECT workspace_id, AVG(message_count) AS avg_message_count, AVG(reaction_count) AS avg_reaction_count, AVG(mention_count) AS avg_mention_count FROM member_metrics GROUP BY workspace_id ), power_members AS ( SELECT mm.workspace_id, mm.workspace_member_id, mm.message_count, mm.reaction_count, mm.mention_count FROM member_metrics mm JOIN workspace_avg wa ON mm.workspace_id = wa.workspace_id WHERE mm.message_count > wa.avg_message_count AND mm.reaction_count > wa.avg_reaction_count AND mm.mention_count > wa.avg_mention_count ) SELECT workspace_id, workspace_member_id, message_count, reaction_count, mention_count FROM power_members;",
         explanation:
-          "## Approach\n\nUse an extra CTE to isolate the final power users after building metrics and averages.\n\n## Difference from the optimal approach\n\nMore verbose, but very readable.",
-      },
-      {
-        approach_title: "Window avg metrics",
-        approach_type: "window",
-        is_optimal: false,
-        display_order: 3,
-        query:
-          "WITH message_counts AS ( SELECT workspace_id, sender_member_id AS workspace_member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, sender_member_id ), reaction_counts AS ( SELECT m.workspace_id, mr.workspace_member_id, COUNT(*) AS reaction_count FROM message_reactions mr JOIN messages m ON mr.message_id = m.id GROUP BY m.workspace_id, mr.workspace_member_id ), mention_counts AS ( SELECT m.workspace_id, m.sender_member_id AS workspace_member_id, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY m.workspace_id, m.sender_member_id ), member_metrics AS ( SELECT COALESCE(mc.workspace_id, rc.workspace_id, mic.workspace_id) AS workspace_id, COALESCE(mc.workspace_member_id, rc.workspace_member_id, mic.workspace_member_id) AS workspace_member_id, COALESCE(mc.message_count, 0) AS message_count, COALESCE(rc.reaction_count, 0) AS reaction_count, COALESCE(mic.mention_count, 0) AS mention_count FROM message_counts mc FULL OUTER JOIN reaction_counts rc ON mc.workspace_id = rc.workspace_id AND mc.workspace_member_id = rc.workspace_member_id FULL OUTER JOIN mention_counts mic ON COALESCE(mc.workspace_id, rc.workspace_id) = mic.workspace_id AND COALESCE(mc.workspace_member_id, rc.workspace_member_id) = mic.workspace_member_id ) SELECT workspace_id, workspace_member_id, message_count, reaction_count, mention_count FROM ( SELECT workspace_id, workspace_member_id, message_count, reaction_count, mention_count, AVG(message_count) OVER (PARTITION BY workspace_id) AS avg_message_count, AVG(reaction_count) OVER (PARTITION BY workspace_id) AS avg_reaction_count, AVG(mention_count) OVER (PARTITION BY workspace_id) AS avg_mention_count FROM member_metrics ) mm WHERE message_count > avg_message_count AND reaction_count > avg_reaction_count AND mention_count > avg_mention_count ORDER BY workspace_id ASC, workspace_member_id ASC;",
-        explanation:
-          "## Approach\n\nBuild the combined member metrics once, then attach workspace averages for each metric using window functions.\n\n## Difference from the optimal approach\n\nElegant, but slightly less explicit than separate average CTEs.",
+          "## Approach\n\nUse an extra `power_members` CTE to separate the filtering step from the final projection.\n\n## Explanation\n\n- The first CTEs build message, reaction, and mention counts.\n- `member_metrics` merges all metrics into one row per workspace member.\n- `workspace_avg` calculates workspace-level averages.\n- `power_members` keeps only members above all three averages.\n- The final query returns the required columns from that CTE.\n- No final ordering is required because the question only asks to find qualifying members.",
       },
     ],
   },
@@ -7603,9 +7198,9 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH direct_replies AS ( SELECT LEAST(p.sender_member_id, r.sender_member_id) AS member_1, GREATEST(p.sender_member_id, r.sender_member_id) AS member_2, p.sender_member_id AS original_sender, r.sender_member_id AS replier_sender, COUNT(*) AS reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id WHERE p.conversation_id IS NOT NULL AND r.conversation_id = p.conversation_id GROUP BY LEAST(p.sender_member_id, r.sender_member_id), GREATEST(p.sender_member_id, r.sender_member_id), p.sender_member_id, r.sender_member_id ), pair_summary AS ( SELECT member_1, member_2, COUNT(*) FILTER (WHERE original_sender = member_1 AND replier_sender = member_2 AND reply_count >= 3) AS member_2_replies_to_member_1, COUNT(*) FILTER (WHERE original_sender = member_2 AND replier_sender = member_1 AND reply_count >= 3) AS member_1_replies_to_member_2 FROM direct_replies GROUP BY member_1, member_2 ) SELECT member_1, member_2 FROM pair_summary WHERE member_2_replies_to_member_1 > 0 AND member_1_replies_to_member_2 > 0 ORDER BY member_1 ASC, member_2 ASC;",
+          "WITH direct_replies AS ( SELECT LEAST(p.sender_member_id, r.sender_member_id) AS member_1, GREATEST(p.sender_member_id, r.sender_member_id) AS member_2, p.sender_member_id AS original_sender, r.sender_member_id AS replier_sender, COUNT(*) AS reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id WHERE p.conversation_id IS NOT NULL AND r.conversation_id = p.conversation_id GROUP BY LEAST(p.sender_member_id, r.sender_member_id), GREATEST(p.sender_member_id, r.sender_member_id), p.sender_member_id, r.sender_member_id ), pair_summary AS ( SELECT member_1, member_2, COUNT(*) FILTER (WHERE original_sender = member_1 AND replier_sender = member_2 AND reply_count >= 3) AS member_2_replies_to_member_1, COUNT(*) FILTER (WHERE original_sender = member_2 AND replier_sender = member_1 AND reply_count >= 3) AS member_1_replies_to_member_2 FROM direct_replies GROUP BY member_1, member_2 ) SELECT member_1, member_2 FROM pair_summary WHERE member_2_replies_to_member_1 > 0 AND member_1_replies_to_member_2 > 0;",
         explanation:
-          "## Approach\n\nCount directional reply activity for each direct-conversation pair, then keep only pairs where both directions have at least 3 replies.\n\n## Query\n\n```sql\nWITH direct_replies AS (\n  SELECT LEAST(p.sender_member_id, r.sender_member_id) AS member_1,\n         GREATEST(p.sender_member_id, r.sender_member_id) AS member_2,\n         p.sender_member_id AS original_sender,\n         r.sender_member_id AS replier_sender,\n         COUNT(*) AS reply_count\n  FROM messages r\n  JOIN messages p\n    ON r.parent_message_id = p.id\n  WHERE p.conversation_id IS NOT NULL\n    AND r.conversation_id = p.conversation_id\n  GROUP BY LEAST(p.sender_member_id, r.sender_member_id),\n           GREATEST(p.sender_member_id, r.sender_member_id),\n           p.sender_member_id,\n           r.sender_member_id\n), pair_summary AS (\n  SELECT member_1,\n         member_2,\n         COUNT(*) FILTER (\n           WHERE original_sender = member_1\n             AND replier_sender = member_2\n             AND reply_count >= 3\n         ) AS member_2_replies_to_member_1,\n         COUNT(*) FILTER (\n           WHERE original_sender = member_2\n             AND replier_sender = member_1\n             AND reply_count >= 3\n         ) AS member_1_replies_to_member_2\n  FROM direct_replies\n  GROUP BY member_1, member_2\n)\nSELECT member_1, member_2\nFROM pair_summary\nWHERE member_2_replies_to_member_1 > 0\n  AND member_1_replies_to_member_2 > 0\nORDER BY member_1 ASC, member_2 ASC;\n```\n\n## Explanation\n\n- The first CTE counts replies in each direction for each unordered member pair in direct conversations.\n- `LEAST` and `GREATEST` normalize the pair ordering.\n- The second CTE checks whether each direction meets the threshold of 3 replies.\n- The final query keeps only mutually qualifying pairs.\n\n## Why this is optimal\n\nIt preserves direction while still normalizing the pair, which is essential for mutual reply checks.",
+          "## Approach\n\nCount directional reply activity between each pair of members, then keep only pairs where both directions meet the minimum reply threshold.\n\n## Explanation\n\n- `messages r` represents replies.\n- `messages p` represents the parent/original messages.\n- `r.parent_message_id = p.id` connects each reply to the message it replied to.\n- `LEAST` and `GREATEST` normalize each pair so the same two members appear as one pair regardless of direction.\n- `original_sender` and `replier_sender` preserve direction so we can check both sides independently.\n- The final filter requires at least one qualifying direction from member 1 to member 2 and one qualifying direction from member 2 to member 1.\n- No final `ORDER BY` is used because the fixed question config does not require sorted output.",
       },
       {
         approach_title: "Case mutual counts",
@@ -7613,19 +7208,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 2,
         query:
-          "WITH direct_replies AS ( SELECT LEAST(p.sender_member_id, r.sender_member_id) AS member_1, GREATEST(p.sender_member_id, r.sender_member_id) AS member_2, p.sender_member_id AS original_sender, r.sender_member_id AS replier_sender, COUNT(*) AS reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id WHERE p.conversation_id IS NOT NULL AND r.conversation_id = p.conversation_id GROUP BY LEAST(p.sender_member_id, r.sender_member_id), GREATEST(p.sender_member_id, r.sender_member_id), p.sender_member_id, r.sender_member_id ) SELECT member_1, member_2 FROM direct_replies GROUP BY member_1, member_2 HAVING SUM(CASE WHEN original_sender = member_1 AND replier_sender = member_2 AND reply_count >= 3 THEN 1 ELSE 0 END) > 0 AND SUM(CASE WHEN original_sender = member_2 AND replier_sender = member_1 AND reply_count >= 3 THEN 1 ELSE 0 END) > 0 ORDER BY member_1 ASC, member_2 ASC;",
+          "WITH direct_replies AS ( SELECT LEAST(p.sender_member_id, r.sender_member_id) AS member_1, GREATEST(p.sender_member_id, r.sender_member_id) AS member_2, p.sender_member_id AS original_sender, r.sender_member_id AS replier_sender, COUNT(*) AS reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id WHERE p.conversation_id IS NOT NULL AND r.conversation_id = p.conversation_id GROUP BY LEAST(p.sender_member_id, r.sender_member_id), GREATEST(p.sender_member_id, r.sender_member_id), p.sender_member_id, r.sender_member_id ) SELECT member_1, member_2 FROM direct_replies GROUP BY member_1, member_2 HAVING SUM(CASE WHEN original_sender = member_1 AND replier_sender = member_2 AND reply_count >= 3 THEN 1 ELSE 0 END) > 0 AND SUM(CASE WHEN original_sender = member_2 AND replier_sender = member_1 AND reply_count >= 3 THEN 1 ELSE 0 END) > 0;",
         explanation:
-          "## Approach\n\nUse `CASE` expressions instead of `FILTER` to test whether both reply directions meet the threshold.\n\n## Query\n\n```sql\nWITH direct_replies AS (\n  SELECT LEAST(p.sender_member_id, r.sender_member_id) AS member_1,\n         GREATEST(p.sender_member_id, r.sender_member_id) AS member_2,\n         p.sender_member_id AS original_sender,\n         r.sender_member_id AS replier_sender,\n         COUNT(*) AS reply_count\n  FROM messages r\n  JOIN messages p\n    ON r.parent_message_id = p.id\n  WHERE p.conversation_id IS NOT NULL\n    AND r.conversation_id = p.conversation_id\n  GROUP BY LEAST(p.sender_member_id, r.sender_member_id),\n           GREATEST(p.sender_member_id, r.sender_member_id),\n           p.sender_member_id,\n           r.sender_member_id\n)\nSELECT member_1, member_2\nFROM direct_replies\nGROUP BY member_1, member_2\nHAVING SUM(CASE WHEN original_sender = member_1 AND replier_sender = member_2 AND reply_count >= 3 THEN 1 ELSE 0 END) > 0\n   AND SUM(CASE WHEN original_sender = member_2 AND replier_sender = member_1 AND reply_count >= 3 THEN 1 ELSE 0 END) > 0\nORDER BY member_1 ASC, member_2 ASC;\n```\n\n## Explanation\n\n- The directional counts are built the same way as the optimal approach.\n- The grouped `HAVING` uses `CASE` to check each direction.\n- Both directions must satisfy the threshold.\n\n## Difference from the optimal approach\n\nCorrect, but `FILTER` is cleaner for this kind of conditional counting.",
-      },
-      {
-        approach_title: "Nested pair summary",
-        approach_type: "cte",
-        is_optimal: false,
-        display_order: 3,
-        query:
-          "WITH direct_replies AS ( SELECT LEAST(p.sender_member_id, r.sender_member_id) AS member_1, GREATEST(p.sender_member_id, r.sender_member_id) AS member_2, p.sender_member_id AS original_sender, r.sender_member_id AS replier_sender, COUNT(*) AS reply_count FROM messages r JOIN messages p ON r.parent_message_id = p.id WHERE p.conversation_id IS NOT NULL AND r.conversation_id = p.conversation_id GROUP BY LEAST(p.sender_member_id, r.sender_member_id), GREATEST(p.sender_member_id, r.sender_member_id), p.sender_member_id, r.sender_member_id ), pair_summary AS ( SELECT member_1, member_2, COUNT(*) FILTER (WHERE original_sender = member_1 AND replier_sender = member_2 AND reply_count >= 3) AS member_2_replies_to_member_1, COUNT(*) FILTER (WHERE original_sender = member_2 AND replier_sender = member_1 AND reply_count >= 3) AS member_1_replies_to_member_2 FROM direct_replies GROUP BY member_1, member_2 ), qualifying_pairs AS ( SELECT member_1, member_2 FROM pair_summary WHERE member_2_replies_to_member_1 > 0 AND member_1_replies_to_member_2 > 0 ) SELECT member_1, member_2 FROM qualifying_pairs ORDER BY member_1 ASC, member_2 ASC;",
-        explanation:
-          "## Approach\n\nBuild the pair summary first, then isolate qualifying pairs in a final CTE.\n\n## Query\n\n```sql\nWITH direct_replies AS (\n  SELECT LEAST(p.sender_member_id, r.sender_member_id) AS member_1,\n         GREATEST(p.sender_member_id, r.sender_member_id) AS member_2,\n         p.sender_member_id AS original_sender,\n         r.sender_member_id AS replier_sender,\n         COUNT(*) AS reply_count\n  FROM messages r\n  JOIN messages p\n    ON r.parent_message_id = p.id\n  WHERE p.conversation_id IS NOT NULL\n    AND r.conversation_id = p.conversation_id\n  GROUP BY LEAST(p.sender_member_id, r.sender_member_id),\n           GREATEST(p.sender_member_id, r.sender_member_id),\n           p.sender_member_id,\n           r.sender_member_id\n), pair_summary AS (\n  SELECT member_1,\n         member_2,\n         COUNT(*) FILTER (\n           WHERE original_sender = member_1\n             AND replier_sender = member_2\n             AND reply_count >= 3\n         ) AS member_2_replies_to_member_1,\n         COUNT(*) FILTER (\n           WHERE original_sender = member_2\n             AND replier_sender = member_1\n             AND reply_count >= 3\n         ) AS member_1_replies_to_member_2\n  FROM direct_replies\n  GROUP BY member_1, member_2\n), qualifying_pairs AS (\n  SELECT member_1, member_2\n  FROM pair_summary\n  WHERE member_2_replies_to_member_1 > 0\n    AND member_1_replies_to_member_2 > 0\n)\nSELECT member_1, member_2\nFROM qualifying_pairs\nORDER BY member_1 ASC, member_2 ASC;\n```\n\n## Explanation\n\n- The first CTE builds directional reply counts.\n- The second CTE summarizes those counts at the pair level.\n- The third CTE isolates qualifying pairs.\n- The final query only sorts the output.\n\n## Difference from the optimal approach\n\nMore verbose, but nicely structured.",
+          "## Approach\n\nUse conditional `CASE` aggregation instead of `FILTER` to verify both reply directions.\n\n## Explanation\n\n- The `direct_replies` CTE still calculates directional reply counts per normalized pair.\n- The final `HAVING` clause uses two conditional sums.\n- The first conditional sum checks replies from member 2 to member 1.\n- The second conditional sum checks replies from member 1 to member 2.\n- Both must be greater than zero for the pair to qualify.\n- This is equivalent to the `FILTER` solution, but slightly more verbose.\n- No final ordering is needed because output order is not part of the requirement.",
       },
     ],
   },
@@ -7673,19 +7258,9 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH weekly_workspace_messages AS ( SELECT workspace_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS weekly_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date ), growth_flags AS ( SELECT workspace_id, week_start, CASE WHEN weekly_count > LAG(weekly_count) OVER (PARTITION BY workspace_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_workspace_messages ), grouped_growth AS ( SELECT workspace_id, week_start, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT workspace_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_id, grp HAVING COUNT(*) >= 4 ORDER BY consecutive_growth_weeks DESC, workspace_id ASC;",
+          "WITH weekly_workspace_messages AS ( SELECT workspace_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS weekly_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date ), growth_flags AS ( SELECT workspace_id, week_start, CASE WHEN weekly_count > LAG(weekly_count) OVER (PARTITION BY workspace_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_workspace_messages ), grouped_growth AS ( SELECT workspace_id, week_start, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT workspace_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_id, grp HAVING COUNT(*) >= 4;",
         explanation:
-          "## Approach\n\nCompute weekly workspace message totals, mark weeks with growth over the previous week, then group consecutive growth weeks into streaks.\n\n## Query\n\n```sql\nWITH weekly_workspace_messages AS (\n  SELECT workspace_id,\n         DATE_TRUNC('week', sent_at)::date AS week_start,\n         COUNT(*) AS weekly_count\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date\n), growth_flags AS (\n  SELECT workspace_id,\n         week_start,\n         CASE\n           WHEN weekly_count > LAG(weekly_count) OVER (\n             PARTITION BY workspace_id\n             ORDER BY week_start\n           ) THEN 1\n           ELSE 0\n         END AS is_growth_week\n  FROM weekly_workspace_messages\n), grouped_growth AS (\n  SELECT workspace_id,\n         week_start,\n         ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start)\n         - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp\n  FROM growth_flags\n  WHERE is_growth_week = 1\n)\nSELECT workspace_id, COUNT(*) AS consecutive_growth_weeks\nFROM grouped_growth\nGROUP BY workspace_id, grp\nHAVING COUNT(*) >= 4\nORDER BY consecutive_growth_weeks DESC, workspace_id ASC;\n```\n\n## Explanation\n\n- The first CTE creates weekly message counts per workspace.\n- `LAG()` compares each week against the previous week.\n- Growth weeks are marked with `1`.\n- The row-number difference groups consecutive growth weeks into streaks.\n- `HAVING COUNT(*) >= 4` keeps workspaces with at least 4 consecutive growth weeks.\n\n## Why this is optimal\n\nIt uses the standard and efficient SQL streak-detection pattern after time-based comparisons.",
-      },
-      {
-        approach_title: "Nested workspace streaks",
-        approach_type: "cte",
-        is_optimal: false,
-        display_order: 3,
-        query:
-          "WITH weekly_workspace_messages AS ( SELECT workspace_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS weekly_count FROM messages WHERE is_deleted = false GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date ), growth_flags AS ( SELECT workspace_id, week_start, CASE WHEN weekly_count > LAG(weekly_count) OVER (PARTITION BY workspace_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_workspace_messages ), grouped_growth AS ( SELECT workspace_id, week_start, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ), streaks AS ( SELECT workspace_id, grp, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_id, grp ) SELECT workspace_id, consecutive_growth_weeks FROM streaks WHERE consecutive_growth_weeks >= 4 ORDER BY consecutive_growth_weeks DESC, workspace_id ASC;",
-        explanation:
-          "## Approach\n\nBuild the growth weeks first, then count each workspace streak in an additional CTE.\n\n## Query\n\n```sql\nWITH weekly_workspace_messages AS (\n  SELECT workspace_id,\n         DATE_TRUNC('week', sent_at)::date AS week_start,\n         COUNT(*) AS weekly_count\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date\n), growth_flags AS (\n  SELECT workspace_id,\n         week_start,\n         CASE\n           WHEN weekly_count > LAG(weekly_count) OVER (\n             PARTITION BY workspace_id\n             ORDER BY week_start\n           ) THEN 1\n           ELSE 0\n         END AS is_growth_week\n  FROM weekly_workspace_messages\n), grouped_growth AS (\n  SELECT workspace_id,\n         week_start,\n         ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start)\n         - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp\n  FROM growth_flags\n  WHERE is_growth_week = 1\n), streaks AS (\n  SELECT workspace_id, grp, COUNT(*) AS consecutive_growth_weeks\n  FROM grouped_growth\n  GROUP BY workspace_id, grp\n)\nSELECT workspace_id, consecutive_growth_weeks\nFROM streaks\nWHERE consecutive_growth_weeks >= 4\nORDER BY consecutive_growth_weeks DESC, workspace_id ASC;\n```\n\n## Explanation\n\n- The first CTEs build weekly totals and growth flags.\n- `grouped_growth` identifies consecutive growth streaks.\n- `streaks` counts the length of each streak.\n- The final query keeps only streaks of at least 4 weeks.\n\n## Difference from the optimal approach\n\nVery readable, but more verbose.",
+          "## Approach\n\nCalculate weekly message counts per workspace, mark weeks where activity grew compared to the previous week, then group consecutive growth weeks into streaks.\n\n## Explanation\n\n- `weekly_workspace_messages` counts non-deleted messages per workspace per week.\n- `LAG(weekly_count)` compares each week with the previous week in the same workspace.\n- `is_growth_week = 1` means the workspace grew compared to the previous week.\n- The two `ROW_NUMBER()` expressions create a stable group id for consecutive growth weeks.\n- The final `GROUP BY workspace_id, grp` counts each consecutive growth streak.\n- `HAVING COUNT(*) >= 4` keeps only streaks of at least 4 consecutive growth weeks.\n- The `ORDER BY` inside window functions is required because it defines chronological comparison.\n- No final `ORDER BY` is used because the question does not require the result set itself to be sorted.",
       },
     ],
   },
@@ -7700,7 +7275,7 @@ export const solutions = [
         query:
           "WITH member_reply_times AS ( SELECT r.workspace_id, r.sender_member_id AS workspace_member_id, EXTRACT(EPOCH FROM (r.sent_at - p.sent_at)) / 60.0 AS reply_minutes FROM messages r JOIN messages p ON r.parent_message_id = p.id ), member_medians AS ( SELECT workspace_id, workspace_member_id, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reply_minutes) AS member_median_reply_minutes FROM member_reply_times GROUP BY workspace_id, workspace_member_id ), workspace_reply_times AS ( SELECT workspace_id, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reply_minutes) AS workspace_median_reply_minutes FROM member_reply_times GROUP BY workspace_id ) SELECT mm.workspace_id, mm.workspace_member_id, ROUND(mm.member_median_reply_minutes::numeric, 2) AS member_median_reply_minutes FROM member_medians mm JOIN workspace_reply_times wrt ON mm.workspace_id = wrt.workspace_id WHERE mm.member_median_reply_minutes < wrt.workspace_median_reply_minutes ORDER BY mm.workspace_id ASC, member_median_reply_minutes ASC, mm.workspace_member_id ASC;",
         explanation:
-          "## Approach\n\nCompute reply delay minutes, calculate each member's median reply time, calculate the workspace median reply time, then compare them.\n\n## Query\n\n```sql\nWITH member_reply_times AS (\n  SELECT r.workspace_id,\n         r.sender_member_id AS workspace_member_id,\n         EXTRACT(EPOCH FROM (r.sent_at - p.sent_at)) / 60.0 AS reply_minutes\n  FROM messages r\n  JOIN messages p\n    ON r.parent_message_id = p.id\n), member_medians AS (\n  SELECT workspace_id,\n         workspace_member_id,\n         PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reply_minutes) AS member_median_reply_minutes\n  FROM member_reply_times\n  GROUP BY workspace_id, workspace_member_id\n), workspace_reply_times AS (\n  SELECT workspace_id,\n         PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reply_minutes) AS workspace_median_reply_minutes\n  FROM member_reply_times\n  GROUP BY workspace_id\n)\nSELECT mm.workspace_id,\n       mm.workspace_member_id,\n       ROUND(mm.member_median_reply_minutes::numeric, 2) AS member_median_reply_minutes\nFROM member_medians mm\nJOIN workspace_reply_times wrt\n  ON mm.workspace_id = wrt.workspace_id\nWHERE mm.member_median_reply_minutes < wrt.workspace_median_reply_minutes\nORDER BY mm.workspace_id ASC, member_median_reply_minutes ASC, mm.workspace_member_id ASC;\n```\n\n## Explanation\n\n- The reply delay is computed in minutes for each reply message.\n- `PERCENTILE_CONT(0.5)` gives the median reply time per member and per workspace.\n- PostgreSQL needs `::numeric` before `ROUND(..., 2)` in this case.\n- The final query keeps members faster than their workspace median.\n\n## Why this is optimal\n\nIt keeps the intended logic and fixes the exact type error causing the failure.",
+          "## Approach\n\nCompute each member's median reply time, compute the workspace median reply time, then return members whose median is below their workspace median.\n\n## Explanation\n\n- `member_reply_times` joins reply messages to their parent messages and converts the reply delay into minutes.\n- `member_medians` calculates each member's median reply time using `PERCENTILE_CONT(0.5)`.\n- `workspace_reply_times` calculates the overall median reply time per workspace.\n- The final `WHERE` clause keeps members whose median reply time is lower than the workspace median, meaning they reply faster than the workspace baseline.\n- `ROUND(...::numeric, 2)` is used because PostgreSQL requires a numeric value for rounding to a fixed number of decimal places.\n- Final ordering is required because the question has `sort_by_columns`: workspace ascending, member median reply time ascending, and workspace member id ascending.",
       },
       {
         approach_title: "Nested median CTE",
@@ -7710,7 +7285,7 @@ export const solutions = [
         query:
           "WITH member_reply_times AS ( SELECT r.workspace_id, r.sender_member_id AS workspace_member_id, EXTRACT(EPOCH FROM (r.sent_at - p.sent_at)) / 60.0 AS reply_minutes FROM messages r JOIN messages p ON r.parent_message_id = p.id ), member_medians AS ( SELECT workspace_id, workspace_member_id, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reply_minutes) AS member_median_reply_minutes FROM member_reply_times GROUP BY workspace_id, workspace_member_id ), workspace_reply_times AS ( SELECT workspace_id, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reply_minutes) AS workspace_median_reply_minutes FROM member_reply_times GROUP BY workspace_id ), faster_members AS ( SELECT mm.workspace_id, mm.workspace_member_id, ROUND(mm.member_median_reply_minutes::numeric, 2) AS member_median_reply_minutes FROM member_medians mm JOIN workspace_reply_times wrt ON mm.workspace_id = wrt.workspace_id WHERE mm.member_median_reply_minutes < wrt.workspace_median_reply_minutes ) SELECT workspace_id, workspace_member_id, member_median_reply_minutes FROM faster_members ORDER BY workspace_id ASC, member_median_reply_minutes ASC, workspace_member_id ASC;",
         explanation:
-          "## Approach\n\nCompute member and workspace medians first, then isolate faster members in a final CTE.\n\n## Query\n\n```sql\nWITH member_reply_times AS (\n  SELECT r.workspace_id,\n         r.sender_member_id AS workspace_member_id,\n         EXTRACT(EPOCH FROM (r.sent_at - p.sent_at)) / 60.0 AS reply_minutes\n  FROM messages r\n  JOIN messages p\n    ON r.parent_message_id = p.id\n), member_medians AS (\n  SELECT workspace_id,\n         workspace_member_id,\n         PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reply_minutes) AS member_median_reply_minutes\n  FROM member_reply_times\n  GROUP BY workspace_id, workspace_member_id\n), workspace_reply_times AS (\n  SELECT workspace_id,\n         PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reply_minutes) AS workspace_median_reply_minutes\n  FROM member_reply_times\n  GROUP BY workspace_id\n), faster_members AS (\n  SELECT mm.workspace_id,\n         mm.workspace_member_id,\n         ROUND(mm.member_median_reply_minutes::numeric, 2) AS member_median_reply_minutes\n  FROM member_medians mm\n  JOIN workspace_reply_times wrt\n    ON mm.workspace_id = wrt.workspace_id\n  WHERE mm.member_median_reply_minutes < wrt.workspace_median_reply_minutes\n)\nSELECT workspace_id, workspace_member_id, member_median_reply_minutes\nFROM faster_members\nORDER BY workspace_id ASC, member_median_reply_minutes ASC, workspace_member_id ASC;\n```\n\n## Difference from the optimal approach\n\nMore verbose, but very readable.",
+          "## Approach\n\nUse the same median-comparison logic as the optimal approach, but place the qualifying rows in a `faster_members` CTE before the final select.\n\n## Explanation\n\n- `member_reply_times` calculates reply delays in minutes.\n- `member_medians` computes median reply time per workspace member.\n- `workspace_reply_times` computes the median reply time per workspace.\n- `faster_members` keeps only members whose median reply time is below their workspace median.\n- The final query returns the required columns from the CTE.\n- Final ordering is required to match the question comparator: `workspace_id ASC`, `member_median_reply_minutes ASC`, and `workspace_member_id ASC`.",
       },
       {
         approach_title: "Subquery median compare",
@@ -7720,7 +7295,7 @@ export const solutions = [
         query:
           "WITH member_reply_times AS ( SELECT r.workspace_id, r.sender_member_id AS workspace_member_id, EXTRACT(EPOCH FROM (r.sent_at - p.sent_at)) / 60.0 AS reply_minutes FROM messages r JOIN messages p ON r.parent_message_id = p.id ), member_medians AS ( SELECT workspace_id, workspace_member_id, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reply_minutes) AS member_median_reply_minutes FROM member_reply_times GROUP BY workspace_id, workspace_member_id ) SELECT mm.workspace_id, mm.workspace_member_id, ROUND(mm.member_median_reply_minutes::numeric, 2) AS member_median_reply_minutes FROM member_medians mm WHERE mm.member_median_reply_minutes < ( SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY mrt.reply_minutes) FROM member_reply_times mrt WHERE mrt.workspace_id = mm.workspace_id ) ORDER BY mm.workspace_id ASC, member_median_reply_minutes ASC, mm.workspace_member_id ASC;",
         explanation:
-          "## Approach\n\nCompute member medians first, then compare each one to a correlated subquery that calculates the workspace median.\n\n## Query\n\n```sql\nWITH member_reply_times AS (\n  SELECT r.workspace_id,\n         r.sender_member_id AS workspace_member_id,\n         EXTRACT(EPOCH FROM (r.sent_at - p.sent_at)) / 60.0 AS reply_minutes\n  FROM messages r\n  JOIN messages p\n    ON r.parent_message_id = p.id\n), member_medians AS (\n  SELECT workspace_id,\n         workspace_member_id,\n         PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reply_minutes) AS member_median_reply_minutes\n  FROM member_reply_times\n  GROUP BY workspace_id, workspace_member_id\n)\nSELECT mm.workspace_id,\n       mm.workspace_member_id,\n       ROUND(mm.member_median_reply_minutes::numeric, 2) AS member_median_reply_minutes\nFROM member_medians mm\nWHERE mm.member_median_reply_minutes < (\n  SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY mrt.reply_minutes)\n  FROM member_reply_times mrt\n  WHERE mrt.workspace_id = mm.workspace_id\n)\nORDER BY mm.workspace_id ASC, member_median_reply_minutes ASC, mm.workspace_member_id ASC;\n```\n\n## Difference from the optimal approach\n\nCorrect, but usually less efficient and less straightforward than precomputing workspace medians once.",
+          "## Approach\n\nCompute member medians first, then compare each member against a correlated subquery that calculates the workspace median.\n\n## Explanation\n\n- `member_reply_times` calculates reply delay in minutes for every reply.\n- `member_medians` computes each member's median reply delay.\n- The correlated subquery computes the workspace median for the current member's workspace.\n- The outer query keeps members whose median reply time is below that workspace median.\n- This is correct, but usually less efficient than precomputing workspace medians once.\n- Final ordering is required because this question explicitly enforces sorting through `sort_by_columns`.",
       },
     ],
   },
@@ -7768,9 +7343,9 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH RECURSIVE thread_tree AS ( SELECT channel_id, id AS root_message_id, id, parent_message_id, 0 AS depth FROM messages WHERE parent_message_id IS NULL AND channel_id IS NOT NULL UNION ALL SELECT tt.channel_id, tt.root_message_id, m.id, m.parent_message_id, tt.depth + 1 FROM messages m JOIN thread_tree tt ON m.parent_message_id = tt.id ), thread_stats AS ( SELECT channel_id, root_message_id, MAX(depth) AS max_depth, COUNT(*) - 1 AS total_replies FROM thread_tree GROUP BY channel_id, root_message_id ) SELECT DISTINCT channel_id FROM thread_stats WHERE max_depth > 5 AND total_replies > 20 ORDER BY channel_id ASC;",
+          "WITH RECURSIVE thread_tree AS ( SELECT channel_id, id AS root_message_id, id, parent_message_id, 0 AS depth FROM messages WHERE parent_message_id IS NULL AND channel_id IS NOT NULL UNION ALL SELECT tt.channel_id, tt.root_message_id, m.id, m.parent_message_id, tt.depth + 1 FROM messages m JOIN thread_tree tt ON m.parent_message_id = tt.id ), thread_stats AS ( SELECT channel_id, root_message_id, MAX(depth) AS max_depth, COUNT(*) - 1 AS total_replies FROM thread_tree GROUP BY channel_id, root_message_id ) SELECT DISTINCT channel_id FROM thread_stats WHERE max_depth > 5 AND total_replies > 20;",
         explanation:
-          "## Approach\n\nTraverse each thread recursively from its root message, then compute depth and total replies for each root.\n\n## Query\n\n```sql\nWITH RECURSIVE thread_tree AS (\n  SELECT channel_id,\n         id AS root_message_id,\n         id,\n         parent_message_id,\n         0 AS depth\n  FROM messages\n  WHERE parent_message_id IS NULL\n    AND channel_id IS NOT NULL\n\n  UNION ALL\n\n  SELECT tt.channel_id,\n         tt.root_message_id,\n         m.id,\n         m.parent_message_id,\n         tt.depth + 1\n  FROM messages m\n  JOIN thread_tree tt\n    ON m.parent_message_id = tt.id\n), thread_stats AS (\n  SELECT channel_id,\n         root_message_id,\n         MAX(depth) AS max_depth,\n         COUNT(*) - 1 AS total_replies\n  FROM thread_tree\n  GROUP BY channel_id, root_message_id\n)\nSELECT DISTINCT channel_id\nFROM thread_stats\nWHERE max_depth > 5\n  AND total_replies > 20\nORDER BY channel_id ASC;\n```\n\n## Explanation\n\n- The recursive CTE walks every descendant in each thread.\n- `MAX(depth)` gives the deepest level reached.\n- `COUNT(*) - 1` gives total replies under the root.\n- The final filter keeps channels containing at least one deep and wide thread.\n\n## Why this is optimal\n\nA recursive CTE is the right tool for measuring thread depth across arbitrary reply chains.",
+          "## 🧠 Approach\n\nTraverse each message thread recursively and compute depth and reply count per root.\n\n---\n\n## 🔍 Explanation\n\n- The recursive CTE builds the full reply tree for each root message.\n- `depth` tracks how deep a thread goes.\n- `MAX(depth)` gives the deepest level in the thread.\n- `COUNT(*) - 1` counts total replies (excluding root).\n- The final filter keeps threads that are both:\n  - deep (`depth > 5`)\n  - large (`replies > 20`)\n\n---\n\n## 🚨 Ordering Rule\n\n- No `ORDER BY` is used\n\nBecause:\n\n> ❗ The question does NOT require ordered output\n\nComparator:\n\n```js\ncomparison_config: {}\n→ IGNORE ORDER\n```\n\n---\n\n## ✅ Why this is correct\n\n- Fully matches expected_query\n- Uses recursive traversal correctly\n- Avoids unnecessary ordering",
       },
       {
         approach_title: "Nested thread CTE",
@@ -7778,9 +7353,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 2,
         query:
-          "WITH RECURSIVE thread_tree AS ( SELECT channel_id, id AS root_message_id, id, parent_message_id, 0 AS depth FROM messages WHERE parent_message_id IS NULL AND channel_id IS NOT NULL UNION ALL SELECT tt.channel_id, tt.root_message_id, m.id, m.parent_message_id, tt.depth + 1 FROM messages m JOIN thread_tree tt ON m.parent_message_id = tt.id ), thread_stats AS ( SELECT channel_id, root_message_id, MAX(depth) AS max_depth, COUNT(*) - 1 AS total_replies FROM thread_tree GROUP BY channel_id, root_message_id ), qualifying_threads AS ( SELECT channel_id, root_message_id FROM thread_stats WHERE max_depth > 5 AND total_replies > 20 ) SELECT DISTINCT channel_id FROM qualifying_threads ORDER BY channel_id ASC;",
+          "WITH RECURSIVE thread_tree AS ( SELECT channel_id, id AS root_message_id, id, parent_message_id, 0 AS depth FROM messages WHERE parent_message_id IS NULL AND channel_id IS NOT NULL UNION ALL SELECT tt.channel_id, tt.root_message_id, m.id, m.parent_message_id, tt.depth + 1 FROM messages m JOIN thread_tree tt ON m.parent_message_id = tt.id ), thread_stats AS ( SELECT channel_id, root_message_id, MAX(depth) AS max_depth, COUNT(*) - 1 AS total_replies FROM thread_tree GROUP BY channel_id, root_message_id ), qualifying_threads AS ( SELECT channel_id, root_message_id FROM thread_stats WHERE max_depth > 5 AND total_replies > 20 ) SELECT DISTINCT channel_id FROM qualifying_threads;",
         explanation:
-          "## Approach\n\nBuild thread stats first, then isolate qualifying roots in an extra CTE.\n\n## Query\n\n```sql\nWITH RECURSIVE thread_tree AS (\n  SELECT channel_id,\n         id AS root_message_id,\n         id,\n         parent_message_id,\n         0 AS depth\n  FROM messages\n  WHERE parent_message_id IS NULL\n    AND channel_id IS NOT NULL\n\n  UNION ALL\n\n  SELECT tt.channel_id,\n         tt.root_message_id,\n         m.id,\n         m.parent_message_id,\n         tt.depth + 1\n  FROM messages m\n  JOIN thread_tree tt\n    ON m.parent_message_id = tt.id\n), thread_stats AS (\n  SELECT channel_id,\n         root_message_id,\n         MAX(depth) AS max_depth,\n         COUNT(*) - 1 AS total_replies\n  FROM thread_tree\n  GROUP BY channel_id, root_message_id\n), qualifying_threads AS (\n  SELECT channel_id, root_message_id\n  FROM thread_stats\n  WHERE max_depth > 5\n    AND total_replies > 20\n)\nSELECT DISTINCT channel_id\nFROM qualifying_threads\nORDER BY channel_id ASC;\n```\n\n## Explanation\n\n- The first two CTEs build the recursive tree and per-root stats.\n- The third CTE isolates threads meeting both thresholds.\n- The final query returns the channel ids.\n\n## Difference from the optimal approach\n\nVery readable, but a bit more verbose.",
+          "## 🧠 Approach\n\nSame logic as optimal, but isolates qualifying threads in an extra CTE.\n\n---\n\n## Explanation\n\n- First build full thread tree\n- Then compute stats\n- Then filter qualifying threads separately\n\n---\n\n## Ordering Rule\n\n- No `ORDER BY`\n- Ordering is not required\n\n---\n\n## Tradeoff\n\n- Slightly more verbose\n- Same correctness",
       },
       {
         approach_title: "Recursive grouped stats",
@@ -7788,9 +7363,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 3,
         query:
-          "WITH RECURSIVE thread_tree AS ( SELECT channel_id, id AS root_message_id, id, parent_message_id, 0 AS depth FROM messages WHERE parent_message_id IS NULL AND channel_id IS NOT NULL UNION ALL SELECT tt.channel_id, tt.root_message_id, m.id, m.parent_message_id, tt.depth + 1 FROM messages m JOIN thread_tree tt ON m.parent_message_id = tt.id ) SELECT DISTINCT channel_id FROM ( SELECT channel_id, root_message_id, MAX(depth) AS max_depth, COUNT(*) - 1 AS total_replies FROM thread_tree GROUP BY channel_id, root_message_id ) ts WHERE max_depth > 5 AND total_replies > 20 ORDER BY channel_id ASC;",
+          "WITH RECURSIVE thread_tree AS ( SELECT channel_id, id AS root_message_id, id, parent_message_id, 0 AS depth FROM messages WHERE parent_message_id IS NULL AND channel_id IS NOT NULL UNION ALL SELECT tt.channel_id, tt.root_message_id, m.id, m.parent_message_id, tt.depth + 1 FROM messages m JOIN thread_tree tt ON m.parent_message_id = tt.id ) SELECT DISTINCT channel_id FROM ( SELECT channel_id, root_message_id, MAX(depth) AS max_depth, COUNT(*) - 1 AS total_replies FROM thread_tree GROUP BY channel_id, root_message_id ) ts WHERE max_depth > 5 AND total_replies > 20;",
         explanation:
-          "## Approach\n\nUse a recursive CTE to build the tree, then summarize roots inside a derived table.\n\n## Query\n\n```sql\nWITH RECURSIVE thread_tree AS (\n  SELECT channel_id,\n         id AS root_message_id,\n         id,\n         parent_message_id,\n         0 AS depth\n  FROM messages\n  WHERE parent_message_id IS NULL\n    AND channel_id IS NOT NULL\n\n  UNION ALL\n\n  SELECT tt.channel_id,\n         tt.root_message_id,\n         m.id,\n         m.parent_message_id,\n         tt.depth + 1\n  FROM messages m\n  JOIN thread_tree tt\n    ON m.parent_message_id = tt.id\n)\nSELECT DISTINCT channel_id\nFROM (\n  SELECT channel_id,\n         root_message_id,\n         MAX(depth) AS max_depth,\n         COUNT(*) - 1 AS total_replies\n  FROM thread_tree\n  GROUP BY channel_id, root_message_id\n) ts\nWHERE max_depth > 5\n  AND total_replies > 20\nORDER BY channel_id ASC;\n```\n\n## Explanation\n\n- The recursive part is the same as the optimal solution.\n- The derived table computes depth and reply totals per root.\n- The outer query filters and returns matching channels.\n\n## Difference from the optimal approach\n\nEquivalent, but the named CTE for `thread_stats` is easier to follow.",
+          "## 🧠 Approach\n\nUse a derived table instead of a named CTE for thread stats.\n\n---\n\n## Explanation\n\n- Recursive tree logic remains the same\n- Stats are computed inside subquery\n- Outer query filters results\n\n---\n\n## Ordering Rule\n\n- No `ORDER BY`\n- Because output ordering is irrelevant\n\n---\n\n## Verdict\n\nEquivalent logic, slightly less readable",
       },
     ],
   },
@@ -7838,9 +7413,9 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH workspace_channels AS ( SELECT workspace_id, COUNT(*) AS total_channels FROM channels GROUP BY workspace_id ), member_channel_activity AS ( SELECT workspace_id, sender_member_id AS member_id, COUNT(DISTINCT channel_id) AS active_channels FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, sender_member_id ) SELECT mca.workspace_id, mca.member_id FROM member_channel_activity mca JOIN workspace_channels wc ON mca.workspace_id = wc.workspace_id WHERE mca.active_channels = wc.total_channels ORDER BY mca.workspace_id ASC, mca.member_id ASC;",
+          "WITH workspace_channels AS ( SELECT workspace_id, COUNT(*) AS total_channels FROM channels GROUP BY workspace_id ), member_channel_activity AS ( SELECT workspace_id, sender_member_id AS member_id, COUNT(DISTINCT channel_id) AS active_channels FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, sender_member_id ) SELECT mca.workspace_id, mca.member_id FROM member_channel_activity mca JOIN workspace_channels wc ON mca.workspace_id = wc.workspace_id WHERE mca.active_channels = wc.total_channels;",
         explanation:
-          "## Approach\n\nCount total channels per workspace, count distinct channels where each member sent at least one message, then keep exact matches.\n\n## Query\n\n```sql\nWITH workspace_channels AS (\n  SELECT workspace_id, COUNT(*) AS total_channels\n  FROM channels\n  GROUP BY workspace_id\n), member_channel_activity AS (\n  SELECT workspace_id,\n         sender_member_id AS member_id,\n         COUNT(DISTINCT channel_id) AS active_channels\n  FROM messages\n  WHERE channel_id IS NOT NULL\n    AND is_deleted = false\n  GROUP BY workspace_id, sender_member_id\n)\nSELECT mca.workspace_id, mca.member_id\nFROM member_channel_activity mca\nJOIN workspace_channels wc\n  ON mca.workspace_id = wc.workspace_id\nWHERE mca.active_channels = wc.total_channels\nORDER BY mca.workspace_id ASC, mca.member_id ASC;\n```\n\n## Explanation\n\n- The first CTE gets the total number of channels in each workspace.\n- The second CTE counts how many distinct channels each member posted in.\n- Matching those counts means the member sent at least one message in every channel.\n\n## Why this is optimal\n\nIt directly compares per-member channel coverage to the workspace total.",
+          "## 🧠 Approach\n\nCompare how many channels a member posted in vs total channels in workspace.\n\n---\n\n## 🔍 Explanation\n\n- `workspace_channels` → total channels per workspace\n- `member_channel_activity` → distinct channels each member posted in\n- If both match → member is active in ALL channels\n\n---\n\n## ⚠️ Important Detail\n\n- Uses `COUNT(DISTINCT channel_id)` to avoid duplicate messages inflating counts\n\n---\n\n## 🚨 Ordering Rule\n\n- No `ORDER BY`\n\nBecause:\n\n> ❗ Question does NOT require ordering\n\n---\n\n## ✅ Why this is optimal\n\n- Direct comparison\n- Efficient\n- Clean logic",
       },
       {
         approach_title: "Not exists missing channel",
@@ -7848,9 +7423,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 2,
         query:
-          "SELECT wm.workspace_id, wm.id AS member_id FROM workspace_members wm WHERE NOT EXISTS ( SELECT 1 FROM channels c WHERE c.workspace_id = wm.workspace_id AND NOT EXISTS ( SELECT 1 FROM messages m WHERE m.workspace_id = wm.workspace_id AND m.channel_id = c.id AND m.sender_member_id = wm.id AND m.is_deleted = false ) ) ORDER BY wm.workspace_id ASC, member_id ASC;",
+          "SELECT wm.workspace_id, wm.id AS member_id FROM workspace_members wm WHERE NOT EXISTS ( SELECT 1 FROM channels c WHERE c.workspace_id = wm.workspace_id AND NOT EXISTS ( SELECT 1 FROM messages m WHERE m.workspace_id = wm.workspace_id AND m.channel_id = c.id AND m.sender_member_id = wm.id AND m.is_deleted = false ) );",
         explanation:
-          "## Approach\n\nStart from workspace members and make sure there is no channel where they failed to send a message.\n\n## Query\n\n```sql\nSELECT wm.workspace_id, wm.id AS member_id\nFROM workspace_members wm\nWHERE NOT EXISTS (\n  SELECT 1\n  FROM channels c\n  WHERE c.workspace_id = wm.workspace_id\n    AND NOT EXISTS (\n      SELECT 1\n      FROM messages m\n      WHERE m.workspace_id = wm.workspace_id\n        AND m.channel_id = c.id\n        AND m.sender_member_id = wm.id\n        AND m.is_deleted = false\n    )\n)\nORDER BY wm.workspace_id ASC, member_id ASC;\n```\n\n## Explanation\n\n- The outer query considers each workspace member.\n- The nested `NOT EXISTS` checks whether any workspace channel is missing a qualifying message by that member.\n- If none are missing, the member is active in every channel.\n\n## Difference from the optimal approach\n\nElegant, but more complex than comparing grouped counts.",
+          '## 🧠 Approach\n\nEnsure there is NO channel where the member has NOT posted.\n\n---\n\n## 🔍 Explanation\n\n- Outer query → iterates members\n- Inner NOT EXISTS → checks missing channels\n- Double NOT EXISTS → ensures full coverage\n\n---\n\n## Key Insight\n\nThis is a classic:\n\n> "for all" condition using NOT EXISTS\n\n---\n\n## Ordering Rule\n\n- No `ORDER BY`\n- Ordering not required\n\n---\n\n## Tradeoff\n\n- Elegant\n- Harder to understand',
       },
       {
         approach_title: "Nested coverage CTE",
@@ -7858,9 +7433,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 3,
         query:
-          "WITH workspace_channels AS ( SELECT workspace_id, COUNT(*) AS total_channels FROM channels GROUP BY workspace_id ), member_channel_activity AS ( SELECT workspace_id, sender_member_id AS member_id, COUNT(DISTINCT channel_id) AS active_channels FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, sender_member_id ), power_members AS ( SELECT mca.workspace_id, mca.member_id FROM member_channel_activity mca JOIN workspace_channels wc ON mca.workspace_id = wc.workspace_id WHERE mca.active_channels = wc.total_channels ) SELECT workspace_id, member_id FROM power_members ORDER BY workspace_id ASC, member_id ASC;",
+          "WITH workspace_channels AS ( SELECT workspace_id, COUNT(*) AS total_channels FROM channels GROUP BY workspace_id ), member_channel_activity AS ( SELECT workspace_id, sender_member_id AS member_id, COUNT(DISTINCT channel_id) AS active_channels FROM messages WHERE channel_id IS NOT NULL AND is_deleted = false GROUP BY workspace_id, sender_member_id ), power_members AS ( SELECT mca.workspace_id, mca.member_id FROM member_channel_activity mca JOIN workspace_channels wc ON mca.workspace_id = wc.workspace_id WHERE mca.active_channels = wc.total_channels ) SELECT workspace_id, member_id FROM power_members;",
         explanation:
-          "## Approach\n\nBuild workspace channel totals and member channel coverage first, then isolate fully covered members in a final CTE.\n\n## Query\n\n```sql\nWITH workspace_channels AS (\n  SELECT workspace_id, COUNT(*) AS total_channels\n  FROM channels\n  GROUP BY workspace_id\n), member_channel_activity AS (\n  SELECT workspace_id,\n         sender_member_id AS member_id,\n         COUNT(DISTINCT channel_id) AS active_channels\n  FROM messages\n  WHERE channel_id IS NOT NULL\n    AND is_deleted = false\n  GROUP BY workspace_id, sender_member_id\n), power_members AS (\n  SELECT mca.workspace_id, mca.member_id\n  FROM member_channel_activity mca\n  JOIN workspace_channels wc\n    ON mca.workspace_id = wc.workspace_id\n  WHERE mca.active_channels = wc.total_channels\n)\nSELECT workspace_id, member_id\nFROM power_members\nORDER BY workspace_id ASC, member_id ASC;\n```\n\n## Explanation\n\n- The first two CTEs compute the totals and member coverage.\n- The third CTE isolates members active in every channel.\n- The final query only sorts the result.\n\n## Difference from the optimal approach\n\nVery readable, but more verbose.",
+          "## 🧠 Approach\n\nBreak solution into stages using CTEs.\n\n---\n\n## Explanation\n\n- First compute totals\n- Then compute per-member coverage\n- Then isolate matching members\n\n---\n\n## Ordering Rule\n\n- No `ORDER BY`\n- Comparator ignores order\n\n---\n\n## Tradeoff\n\n- More readable\n- Slightly verbose",
       },
     ],
   },
@@ -7908,9 +7483,9 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH weekly_mentions AS ( SELECT mm.mentioned_member_id AS workspace_member_id, DATE_TRUNC('week', m.sent_at)::date AS week_start, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY mm.mentioned_member_id, DATE_TRUNC('week', m.sent_at)::date ), growth_flags AS ( SELECT workspace_member_id, week_start, CASE WHEN mention_count > LAG(mention_count) OVER (PARTITION BY workspace_member_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_mentions ), grouped_growth AS ( SELECT workspace_member_id, week_start, ROW_NUMBER() OVER (PARTITION BY workspace_member_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_member_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT workspace_member_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_member_id, grp HAVING COUNT(*) >= 3 ORDER BY consecutive_growth_weeks DESC, workspace_member_id ASC;",
+          "WITH weekly_mentions AS ( SELECT mm.mentioned_member_id AS workspace_member_id, DATE_TRUNC('week', m.sent_at)::date AS week_start, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY mm.mentioned_member_id, DATE_TRUNC('week', m.sent_at)::date ), growth_flags AS ( SELECT workspace_member_id, week_start, CASE WHEN mention_count > LAG(mention_count) OVER (PARTITION BY workspace_member_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_mentions ), grouped_growth AS ( SELECT workspace_member_id, week_start, ROW_NUMBER() OVER (PARTITION BY workspace_member_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_member_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT workspace_member_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_member_id, grp HAVING COUNT(*) >= 3;",
         explanation:
-          "## Approach\n\nCount weekly received mentions for each workspace member, mark weeks with positive growth, then group consecutive growth weeks into streaks.\n\n## Query\n\n```sql\nWITH weekly_mentions AS (\n  SELECT mm.mentioned_member_id AS workspace_member_id,\n         DATE_TRUNC('week', m.sent_at)::date AS week_start,\n         COUNT(*) AS mention_count\n  FROM message_mentions mm\n  JOIN messages m\n    ON mm.message_id = m.id\n  GROUP BY mm.mentioned_member_id, DATE_TRUNC('week', m.sent_at)::date\n), growth_flags AS (\n  SELECT workspace_member_id,\n         week_start,\n         CASE\n           WHEN mention_count > LAG(mention_count) OVER (\n             PARTITION BY workspace_member_id\n             ORDER BY week_start\n           ) THEN 1\n           ELSE 0\n         END AS is_growth_week\n  FROM weekly_mentions\n), grouped_growth AS (\n  SELECT workspace_member_id,\n         week_start,\n         ROW_NUMBER() OVER (PARTITION BY workspace_member_id ORDER BY week_start)\n         - ROW_NUMBER() OVER (PARTITION BY workspace_member_id, is_growth_week ORDER BY week_start) AS grp\n  FROM growth_flags\n  WHERE is_growth_week = 1\n)\nSELECT workspace_member_id, COUNT(*) AS consecutive_growth_weeks\nFROM grouped_growth\nGROUP BY workspace_member_id, grp\nHAVING COUNT(*) >= 3\nORDER BY consecutive_growth_weeks DESC, workspace_member_id ASC;\n```\n\n## Explanation\n\n- `message_mentions` stores the mentioned member in `mentioned_member_id`.\n- The joined `messages` row provides the week of the mention.\n- `LAG()` compares each week to the previous one for the same member.\n- The row-number difference groups consecutive growth weeks into streaks.\n\n## Why this is optimal\n\nIt uses the correct mention column and the standard SQL streak-detection pattern.",
+          "## Approach\n\nCount weekly mentions received by each workspace member, mark weeks where mentions increased compared to the previous week, then detect consecutive growth streaks.\n\n## Explanation\n\n- `weekly_mentions` groups mentions by mentioned member and week.\n- `message_mentions.mentioned_member_id` is the member receiving the mention.\n- The join to `messages` is needed because the mention timestamp comes from `messages.sent_at`.\n- `LAG(mention_count)` compares each week with the previous week for the same member.\n- `ROW_NUMBER()` is used to group consecutive growth weeks into streaks.\n- `HAVING COUNT(*) >= 3` keeps only members with at least 3 consecutive growth weeks.\n- The `ORDER BY` inside window functions is required because it defines chronological comparison.\n- No final `ORDER BY` is used because the question does not require sorted output and `comparison_config` is empty.",
       },
       {
         approach_title: "Nested mention streaks",
@@ -7918,9 +7493,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 3,
         query:
-          "WITH weekly_mentions AS ( SELECT mm.mentioned_member_id AS workspace_member_id, DATE_TRUNC('week', m.sent_at)::date AS week_start, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY mm.mentioned_member_id, DATE_TRUNC('week', m.sent_at)::date ), growth_flags AS ( SELECT workspace_member_id, week_start, CASE WHEN mention_count > LAG(mention_count) OVER (PARTITION BY workspace_member_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_mentions ), grouped_growth AS ( SELECT workspace_member_id, week_start, ROW_NUMBER() OVER (PARTITION BY workspace_member_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_member_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ), streaks AS ( SELECT workspace_member_id, grp, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_member_id, grp ) SELECT workspace_member_id, consecutive_growth_weeks FROM streaks WHERE consecutive_growth_weeks >= 3 ORDER BY consecutive_growth_weeks DESC, workspace_member_id ASC;",
+          "WITH weekly_mentions AS ( SELECT mm.mentioned_member_id AS workspace_member_id, DATE_TRUNC('week', m.sent_at)::date AS week_start, COUNT(*) AS mention_count FROM message_mentions mm JOIN messages m ON mm.message_id = m.id GROUP BY mm.mentioned_member_id, DATE_TRUNC('week', m.sent_at)::date ), growth_flags AS ( SELECT workspace_member_id, week_start, CASE WHEN mention_count > LAG(mention_count) OVER (PARTITION BY workspace_member_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_mentions ), grouped_growth AS ( SELECT workspace_member_id, week_start, ROW_NUMBER() OVER (PARTITION BY workspace_member_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_member_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ), streaks AS ( SELECT workspace_member_id, grp, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_member_id, grp ) SELECT workspace_member_id, consecutive_growth_weeks FROM streaks WHERE consecutive_growth_weeks >= 3;",
         explanation:
-          "## Approach\n\nBuild growth weeks first, then count each mention-growth streak in an extra CTE.\n\n## Difference from the optimal approach\n\nVery readable, but more verbose.",
+          "## Approach\n\nUse an extra `streaks` CTE to make the streak-counting step explicit.\n\n## Explanation\n\n- The first CTE builds weekly mention counts.\n- The second CTE flags weeks where mention count increased.\n- The third CTE groups consecutive growth weeks.\n- `streaks` counts each growth streak per member.\n- The final query keeps streaks of at least 3 weeks.\n- This is more verbose than the optimal version, but easier to read.\n- No final ordering is included because ordering is not required for this question.",
       },
     ],
   },
@@ -7958,9 +7533,9 @@ export const solutions = [
         is_optimal: true,
         display_order: 1,
         query:
-          "WITH weekly_scores AS ( SELECT workspace_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS message_score FROM messages WHERE is_deleted = false GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date ), growth_flags AS ( SELECT workspace_id, week_start, CASE WHEN message_score > LAG(message_score) OVER (PARTITION BY workspace_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_scores ), grouped_growth AS ( SELECT workspace_id, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT workspace_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_id, grp HAVING COUNT(*) >= 4 ORDER BY consecutive_growth_weeks DESC, workspace_id ASC;",
+          "WITH weekly_scores AS ( SELECT workspace_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS message_score FROM messages WHERE is_deleted = false GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date ), growth_flags AS ( SELECT workspace_id, week_start, CASE WHEN message_score > LAG(message_score) OVER (PARTITION BY workspace_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_scores ), grouped_growth AS ( SELECT workspace_id, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ) SELECT workspace_id, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_id, grp HAVING COUNT(*) >= 4;",
         explanation:
-          "## Approach\n\nBuild weekly engagement scores, mark weeks with positive growth, then detect streaks of consecutive growth weeks.\n\n## Query\n\n```sql\nWITH weekly_scores AS (\n  SELECT workspace_id,\n         DATE_TRUNC('week', sent_at)::date AS week_start,\n         COUNT(*) AS message_score\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date\n), growth_flags AS (\n  SELECT workspace_id,\n         week_start,\n         CASE\n           WHEN message_score > LAG(message_score) OVER (\n             PARTITION BY workspace_id\n             ORDER BY week_start\n           ) THEN 1\n           ELSE 0\n         END AS is_growth_week\n  FROM weekly_scores\n), grouped_growth AS (\n  SELECT workspace_id,\n         ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start)\n         - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp\n  FROM growth_flags\n  WHERE is_growth_week = 1\n)\nSELECT workspace_id, COUNT(*) AS consecutive_growth_weeks\nFROM grouped_growth\nGROUP BY workspace_id, grp\nHAVING COUNT(*) >= 4\nORDER BY consecutive_growth_weeks DESC, workspace_id ASC;\n```\n\n## Explanation\n\n- The first CTE builds one weekly score per workspace.\n- `LAG()` compares each week to the prior week.\n- Growth weeks are flagged where the score increases.\n- The row-number difference groups consecutive growth weeks into streaks.\n- The final filter keeps streaks of at least 4 weeks.\n\n## Why this is optimal\n\nIt uses the standard SQL pattern for week-over-week growth streak detection.",
+          "## Approach\n\nCalculate weekly message counts per workspace, flag growth weeks, then group consecutive growth weeks into streaks.\n\n## Explanation\n\n- `weekly_scores` counts non-deleted messages per workspace per week.\n- `LAG(message_score)` compares each workspace week with its previous week.\n- `is_growth_week = 1` means engagement increased from the previous week.\n- The `ROW_NUMBER()` difference pattern groups consecutive growth weeks into the same streak.\n- `HAVING COUNT(*) >= 4` keeps only workspaces with at least 4 consecutive growth weeks.\n- The window-function ordering is required for time-based comparison.\n- No final `ORDER BY` is used because the result set itself does not need enforced ordering.",
       },
       {
         approach_title: "Nested growth CTE",
@@ -7968,9 +7543,9 @@ export const solutions = [
         is_optimal: false,
         display_order: 3,
         query:
-          "WITH weekly_scores AS ( SELECT workspace_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS message_score FROM messages WHERE is_deleted = false GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date ), growth_flags AS ( SELECT workspace_id, week_start, CASE WHEN message_score > LAG(message_score) OVER (PARTITION BY workspace_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_scores ), grouped_growth AS ( SELECT workspace_id, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ), workspace_streaks AS ( SELECT workspace_id, grp, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_id, grp ) SELECT workspace_id, consecutive_growth_weeks FROM workspace_streaks WHERE consecutive_growth_weeks >= 4 ORDER BY consecutive_growth_weeks DESC, workspace_id ASC;",
+          "WITH weekly_scores AS ( SELECT workspace_id, DATE_TRUNC('week', sent_at)::date AS week_start, COUNT(*) AS message_score FROM messages WHERE is_deleted = false GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date ), growth_flags AS ( SELECT workspace_id, week_start, CASE WHEN message_score > LAG(message_score) OVER (PARTITION BY workspace_id ORDER BY week_start) THEN 1 ELSE 0 END AS is_growth_week FROM weekly_scores ), grouped_growth AS ( SELECT workspace_id, ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start) - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp FROM growth_flags WHERE is_growth_week = 1 ), workspace_streaks AS ( SELECT workspace_id, grp, COUNT(*) AS consecutive_growth_weeks FROM grouped_growth GROUP BY workspace_id, grp ) SELECT workspace_id, consecutive_growth_weeks FROM workspace_streaks WHERE consecutive_growth_weeks >= 4;",
         explanation:
-          "## Approach\n\nBuild the weekly growth weeks first, then count each workspace streak in a final CTE.\n\n## Query\n\n```sql\nWITH weekly_scores AS (\n  SELECT workspace_id,\n         DATE_TRUNC('week', sent_at)::date AS week_start,\n         COUNT(*) AS message_score\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY workspace_id, DATE_TRUNC('week', sent_at)::date\n), growth_flags AS (\n  SELECT workspace_id,\n         week_start,\n         CASE\n           WHEN message_score > LAG(message_score) OVER (\n             PARTITION BY workspace_id\n             ORDER BY week_start\n           ) THEN 1\n           ELSE 0\n         END AS is_growth_week\n  FROM weekly_scores\n), grouped_growth AS (\n  SELECT workspace_id,\n         ROW_NUMBER() OVER (PARTITION BY workspace_id ORDER BY week_start)\n         - ROW_NUMBER() OVER (PARTITION BY workspace_id, is_growth_week ORDER BY week_start) AS grp\n  FROM growth_flags\n  WHERE is_growth_week = 1\n), workspace_streaks AS (\n  SELECT workspace_id, grp, COUNT(*) AS consecutive_growth_weeks\n  FROM grouped_growth\n  GROUP BY workspace_id, grp\n)\nSELECT workspace_id, consecutive_growth_weeks\nFROM workspace_streaks\nWHERE consecutive_growth_weeks >= 4\nORDER BY consecutive_growth_weeks DESC, workspace_id ASC;\n```\n\n## Explanation\n\n- The first CTEs compute weekly scores and growth flags.\n- `grouped_growth` identifies streak ids.\n- `workspace_streaks` counts the streak length.\n- The final query keeps only long streaks.\n\n## Difference from the optimal approach\n\nVery readable, but more verbose.",
+          "## Approach\n\nBuild weekly scores and growth flags first, then count each workspace streak in a separate CTE.\n\n## Explanation\n\n- `weekly_scores` builds one row per workspace per week.\n- `growth_flags` decides whether each week grew compared with the previous week.\n- `grouped_growth` assigns streak groups.\n- `workspace_streaks` counts each streak length.\n- The final query returns only streaks with at least 4 consecutive growth weeks.\n- This approach is slightly more verbose but very readable.\n- No final sorting is used because the question does not require ordered output.",
       },
     ],
   },
@@ -7985,7 +7560,7 @@ export const solutions = [
         query:
           "WITH member_counts AS ( SELECT sender_member_id AS member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY sender_member_id ), percentile_value AS ( SELECT PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY message_count) AS p90 FROM member_counts ) SELECT mc.member_id, mc.message_count FROM member_counts mc CROSS JOIN percentile_value pv WHERE mc.message_count > pv.p90 ORDER BY mc.message_count DESC, mc.member_id ASC;",
         explanation:
-          "## Approach\n\nCount messages per member, compute the 90th percentile of those counts, then keep members above that threshold.\n\n## Query\n\n```sql\nWITH member_counts AS (\n  SELECT sender_member_id AS member_id,\n         COUNT(*) AS message_count\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY sender_member_id\n), percentile_value AS (\n  SELECT PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY message_count) AS p90\n  FROM member_counts\n)\nSELECT mc.member_id, mc.message_count\nFROM member_counts mc\nCROSS JOIN percentile_value pv\nWHERE mc.message_count > pv.p90\nORDER BY mc.message_count DESC, mc.member_id ASC;\n```\n\n## Explanation\n\n- The first CTE computes total message count per member.\n- The second CTE computes the 90th percentile across those counts.\n- `CROSS JOIN` applies the same percentile threshold to every member row.\n- The final filter keeps only members above that threshold.\n\n## Why this is optimal\n\nIt clearly separates metric building from percentile calculation and comparison.",
+          "## Approach\n\nCount non-deleted messages per member, compute the 90th percentile of those message counts, then return members whose count is above that threshold.\n\n## Explanation\n\n- `member_counts` calculates each member's total non-deleted message count.\n- `PERCENTILE_CONT(0.9)` computes the 90th percentile threshold across all member message counts.\n- `CROSS JOIN` attaches the single percentile value to every member row.\n- The `WHERE` clause keeps only members with `message_count > p90`.\n- The `ORDER BY` inside `PERCENTILE_CONT` is required for percentile calculation.\n- The final `ORDER BY message_count DESC, member_id ASC` is also required because the question has `sort_by_columns` and the comparator enforces this output order.",
       },
       {
         approach_title: "Subquery p90",
@@ -7995,7 +7570,7 @@ export const solutions = [
         query:
           "WITH member_counts AS ( SELECT sender_member_id AS member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY sender_member_id ) SELECT member_id, message_count FROM member_counts WHERE message_count > ( SELECT PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY message_count) FROM member_counts ) ORDER BY message_count DESC, member_id ASC;",
         explanation:
-          "## Approach\n\nCompute message counts once, then compare each row against a percentile subquery from the same CTE.\n\n## Query\n\n```sql\nWITH member_counts AS (\n  SELECT sender_member_id AS member_id,\n         COUNT(*) AS message_count\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY sender_member_id\n)\nSELECT member_id, message_count\nFROM member_counts\nWHERE message_count > (\n  SELECT PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY message_count)\n  FROM member_counts\n)\nORDER BY message_count DESC, member_id ASC;\n```\n\n## Explanation\n\n- The CTE computes one count per member.\n- The subquery computes the p90 threshold from that same result set.\n- The outer query keeps counts above it.\n\n## Difference from the optimal approach\n\nAlso correct, but the explicit percentile CTE is easier to explain.",
+          "## Approach\n\nCompute member message counts first, then compare each row against a percentile subquery.\n\n## Explanation\n\n- The CTE creates one message count per member.\n- The subquery calculates the p90 threshold from that same CTE.\n- The outer query returns only members whose message count is above p90.\n- This is correct, but the explicit `percentile_value` CTE is easier to explain and reuse.\n- Final ordering is required to match the question comparator: highest `message_count` first, then `member_id` ascending for ties.",
       },
       {
         approach_title: "Nested percentile CTE",
@@ -8005,7 +7580,7 @@ export const solutions = [
         query:
           "WITH member_counts AS ( SELECT sender_member_id AS member_id, COUNT(*) AS message_count FROM messages WHERE is_deleted = false GROUP BY sender_member_id ), percentile_value AS ( SELECT PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY message_count) AS p90 FROM member_counts ), top_members AS ( SELECT mc.member_id, mc.message_count FROM member_counts mc CROSS JOIN percentile_value pv WHERE mc.message_count > pv.p90 ) SELECT member_id, message_count FROM top_members ORDER BY message_count DESC, member_id ASC;",
         explanation:
-          "## Approach\n\nCompute member counts and the percentile first, then isolate qualifying members in a final CTE.\n\n## Query\n\n```sql\nWITH member_counts AS (\n  SELECT sender_member_id AS member_id,\n         COUNT(*) AS message_count\n  FROM messages\n  WHERE is_deleted = false\n  GROUP BY sender_member_id\n), percentile_value AS (\n  SELECT PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY message_count) AS p90\n  FROM member_counts\n), top_members AS (\n  SELECT mc.member_id, mc.message_count\n  FROM member_counts mc\n  CROSS JOIN percentile_value pv\n  WHERE mc.message_count > pv.p90\n)\nSELECT member_id, message_count\nFROM top_members\nORDER BY message_count DESC, member_id ASC;\n```\n\n## Explanation\n\n- The first CTE builds member message totals.\n- The second CTE computes the p90 threshold.\n- The third CTE isolates members above that threshold.\n- The final query sorts the result.\n\n## Difference from the optimal approach\n\nVery readable, but slightly more verbose.",
+          "## Approach\n\nCompute member counts, compute the percentile threshold, then isolate qualifying members in a final CTE.\n\n## Explanation\n\n- `member_counts` builds the base per-member message count.\n- `percentile_value` computes the p90 threshold once.\n- `top_members` filters members above that threshold.\n- The final query returns those qualifying members.\n- This version is more verbose than the optimal approach, but very readable.\n- Final ordering is required because this question explicitly enforces `message_count DESC, member_id ASC`.",
       },
     ],
   },

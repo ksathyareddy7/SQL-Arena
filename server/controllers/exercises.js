@@ -188,6 +188,8 @@ export const getExerciseById = async (req, res) => {
 	        q.description,
 	        q.difficulty,
 	        q.solution_columns,
+	        q.expected_preview_fields,
+	        q.expected_preview_rows,
 	        q.tables,
 	        q.app_id,
 	        COALESCE(up.status, 'not started') AS status,
