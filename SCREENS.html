@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQL Arena — Screens</title>
+    <style>
+      :root {
+        --bg: #0b1220;
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.66);
+        --border: rgba(255, 255, 255, 0.12);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial;
+        background: var(--bg);
+        color: var(--text);
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .container {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 42px 20px 64px;
+      }
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 900;
+      }
+      .brand img {
+        width: 32px;
+        height: 32px;
+      }
+      .back {
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        color: var(--muted);
+        font-weight: 800;
+        font-size: 13px;
+      }
+      .grid {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .card img {
+        width: 100%;
+        display: block;
+      }
+      .meta {
+        padding: 14px 16px;
+      }
+      .title {
+        font-weight: 900;
+        margin: 0;
+        letter-spacing: -0.02em;
+      }
+      .desc {
+        margin: 8px 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+        font-weight: 600;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="top">
+        <div class="brand">
+          <img src="./assets/sql-arena.svg" alt="SQL Arena" />
+          <span>SQL Arena — Screens</span>
+        </div>
+        <a class="back" href="./index.html">Back</a>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <img src="./assets/exercise-list.png" alt="Exercise list" />
+          <div class="meta">
+            <p class="title">Exercises — List</p>
+            <p class="desc">
+              Search + filters (status/difficulty/apps/concepts) and paginated
+              challenge list.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="./assets/exercise-question.png" alt="Exercise question" />
+          <div class="meta">
+            <p class="title">Exercise — Question</p>
+            <p class="desc">
+              Editor + format/run/submit, results + explain tabs, and a
+              server-backed timer.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="./assets/exercise-schema.png" alt="Exercise schema" />
+          <div class="meta">
+            <p class="title">Exercise — Schema</p>
+            <p class="desc">
+              Schema explorer with visual view, Mermaid ER, and relationships.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="./assets/exercise-solutions.png" alt="Exercise solutions" />
+          <div class="meta">
+            <p class="title">Exercise — Solutions</p>
+            <p class="desc">
+              Unlock / multi-approach tabs, highlighted SQL + copy, and
+              explanation markdown.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="./assets/learning-tracks.png" alt="Learning tracks" />
+          <div class="meta">
+            <p class="title">Learn — Tracks</p>
+            <p class="desc">
+              Track catalog with progress and navigation into modules.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="./assets/learning-lesson.png" alt="Lesson viewer" />
+          <div class="meta">
+            <p class="title">Learn — Lesson Viewer</p>
+            <p class="desc">
+              Sidebar navigation + lesson content rendered with the V2 markdown
+              system.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="./assets/mock-interviews.png" alt="Mock interviews" />
+          <div class="meta">
+            <p class="title">Mock Interviews</p>
+            <p class="desc">
+              Template sessions + custom interviews, strict mode options, and
+              session history.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="./assets/dashboard.png" alt="Dashboard" />
+          <div class="meta">
+            <p class="title">Dashboard</p>
+            <p class="desc">
+              Progress overview, heatmap activity, accomplishments, badges, and
+              reset progress.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
