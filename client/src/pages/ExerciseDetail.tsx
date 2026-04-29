@@ -37,6 +37,7 @@ import AiPromptMenu from "@/components/exercise-detail/AiPromptMenu";
 import ExerciseTimerControls from "@/components/exercise/ExerciseTimerControls";
 import OutputCard from "@/components/exercise/OutputCard";
 import QueryRunSubmitButtons from "@/components/exercise/QueryRunSubmitButtons";
+import ResultTable from "@/components/exercise-detail/ResultTable";
 
 type View = "question" | "schema" | "hints" | "solutions";
 
@@ -93,6 +94,7 @@ export default function ExerciseDetailPage() {
   const [columnWarning, setColumnWarning] = useState<string | null>(null);
   const userEditedQueryRef = useRef(false);
   const [activeSolutionId, setActiveSolutionId] = useState<any>(null);
+  const [showAllPreviewRows, setShowAllPreviewRows] = useState(false);
 
   const timer = useExerciseTimerServer({
     userId,
@@ -134,6 +136,7 @@ export default function ExerciseDetailPage() {
     setHasSuccessfulRun(false);
     setColumnWarning(null);
     setActiveSolutionId(null);
+    setShowAllPreviewRows(false);
   }, [id]);
 
   useEffect(() => {
@@ -397,22 +400,60 @@ export default function ExerciseDetailPage() {
                 </p>
 
                 <div>
-                  <h3 className="text-[11px] font-black uppercase tracking-widest mb-4 text-[var(--arena-label)]">
-                    Expected result columns
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {(Array.isArray(exercise?.solution_columns)
-                      ? exercise.solution_columns
-                      : []
-                    ).map((c: string) => (
-                      <span
-                        key={c}
-                        className="px-4 py-2 bg-[var(--arena-surface-container-high)] text-[color:rgb(66_71_84/0.9)] dark:text-slate-200 text-[12px] font-bold rounded-full border border-[color:rgb(194_198_214/0.10)] dark:border-[color:rgb(42_51_66/0.6)]"
+                  <div className="flex items-center justify-between gap-4 mb-4">
+                    <h3 className="text-[11px] font-black uppercase tracking-widest text-[var(--arena-label)]">
+                      Expected output (sample)
+                    </h3>
+                    {Array.isArray(exercise?.expected_preview_rows) &&
+                    exercise.expected_preview_rows.length > 5 ? (
+                      <button
+                        type="button"
+                        className={cn(
+                          "text-[11px] font-black uppercase tracking-widest",
+                          "text-[var(--arena-primary)] hover:opacity-90 transition-opacity",
+                        )}
+                        onClick={() => setShowAllPreviewRows((v) => !v)}
                       >
-                        {c}
-                      </span>
-                    ))}
+                        {showAllPreviewRows ? "Show 5" : "Show 10"}
+                      </button>
+                    ) : null}
                   </div>
+
+                  {Array.isArray(exercise?.expected_preview_rows) &&
+                  exercise.expected_preview_rows.length ? (
+                    <ResultTable
+                      rows={(showAllPreviewRows
+                        ? exercise.expected_preview_rows
+                        : exercise.expected_preview_rows.slice(0, 5)) as any}
+                      fields={
+                        (Array.isArray(exercise?.expected_preview_fields)
+                          ? exercise.expected_preview_fields
+                          : exercise?.solution_columns) as any
+                      }
+                      error={null}
+                      expectedResultFormat
+                      variant="v2"
+                    />
+                  ) : (
+                    <>
+                      <h3 className="text-[11px] font-black uppercase tracking-widest mb-4 text-[var(--arena-label)]">
+                        Expected result columns
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {(Array.isArray(exercise?.solution_columns)
+                          ? exercise.solution_columns
+                          : []
+                        ).map((c: string) => (
+                          <span
+                            key={c}
+                            className="px-4 py-2 bg-[var(--arena-surface-container-high)] text-[color:rgb(66_71_84/0.9)] dark:text-slate-200 text-[12px] font-bold rounded-full border border-[color:rgb(194_198_214/0.10)] dark:border-[color:rgb(42_51_66/0.6)]"
+                          >
+                            {c}
+                          </span>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </section>

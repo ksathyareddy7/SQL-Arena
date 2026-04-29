@@ -113,6 +113,10 @@ CREATE TABLE questions (
   expected_query TEXT NOT NULL,
   -- Expected solution columns
   solution_columns JSONB,
+  -- Optional: persisted sample of expected output to reduce ambiguity in the UI.
+  -- Stored as simple `{ fields: string[], rows: object[] }` split into two columns for convenience.
+  expected_preview_fields JSONB,
+  expected_preview_rows JSONB,
   -- e.g. ["count"], ["id","name","age"]
   tables JSONB,
   comparison_config JSONB DEFAULT '{}'::jsonb,

@@ -60,9 +60,15 @@ export default function ChallengeRow({
       String(exercise.app_type).slice(1)
     : "";
 
+  const searchString = String(search || "").trim();
+  const to = {
+    pathname: `/exercises/${exercise.id}`,
+    search: searchString ? `?${searchString}` : "",
+  };
+
   return (
     <Link
-      to={`/exercises/${exercise.id}`}
+      to={to}
       state={{ search }}
       className="group flex items-center justify-between p-5 arena-bg-lowest rounded-xl ring-1 ring-[color:rgb(194_198_214/0.10)] dark:ring-[color:rgb(42_51_66/0.55)] hover:ring-[color:rgb(0_88_190/0.30)] transition-all"
     >
